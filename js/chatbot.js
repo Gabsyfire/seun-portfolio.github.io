@@ -6,7 +6,7 @@
   // Replace this URL after deploying your Cloudflare Worker
   // See cloudflare-worker/README.md for setup instructions
   // ============================================
-  var WORKER_URL = 'https://YOUR-WORKER.your-subdomain.workers.dev';
+  var WORKER_URL = 'https://seun-portfolio-chatbot.gabsyfy.workers.dev';
 
   // ============================================
   // STATE
