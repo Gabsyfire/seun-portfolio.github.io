@@ -59,6 +59,27 @@
 }
 
 /* ==========================================
+   SKIP LINK
+   ========================================== */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--color-primary);
+  color: var(--color-background);
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  z-index: 10000;
+  transition: top var(--transition-fast);
+}
+
+.skip-link:focus {
+  top: var(--spacing-sm);
+}
+
+/* ==========================================
    RESET & BASE STYLES
    ========================================== */
 *, *::before, *::after {
@@ -593,6 +614,12 @@ input, textarea {
 .blog-link:hover {
   color: var(--color-accent);
   transform: translateX(5px);
+}
+
+.blog-link.disabled {
+  opacity: 0.5;
+  cursor: default;
+  pointer-events: none;
 }
 
 /* ==========================================

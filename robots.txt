@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://gabsyfy.co.uk/sitemap.xml

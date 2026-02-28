@@ -27,6 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (navMenu.classList.contains('active')) {
           navMenu.classList.remove('active');
           navToggle.classList.remove('active');
+          navToggle.setAttribute('aria-expanded', 'false');
           document.body.style.overflow = '';
         }
       }
@@ -113,8 +114,11 @@ document.addEventListener('DOMContentLoaded', () => {
     navMenu.classList.toggle('active');
     navToggle.classList.toggle('active');
 
+    const isOpen = navMenu.classList.contains('active');
+    navToggle.setAttribute('aria-expanded', isOpen);
+
     // Prevent body scroll when menu is open
-    if (navMenu.classList.contains('active')) {
+    if (isOpen) {
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = '';
@@ -128,7 +132,19 @@ document.addEventListener('DOMContentLoaded', () => {
         !navToggle.contains(e.target)) {
       navMenu.classList.remove('active');
       navToggle.classList.remove('active');
+      navToggle.setAttribute('aria-expanded', 'false');
       document.body.style.overflow = '';
+    }
+  });
+
+  // Close menu with ESC key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && navMenu.classList.contains('active')) {
+      navMenu.classList.remove('active');
+      navToggle.classList.remove('active');
+      navToggle.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+      navToggle.focus();
     }
   });
 
@@ -143,6 +159,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Email validation regex
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  let isSubmitting = false;
 
   // Validation functions
   const validateName = () => {
@@ -232,6 +249,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Form submission
   contactForm.addEventListener('submit', (e) => {
     e.preventDefault();
+    if (isSubmitting) return;
 
     // Validate all fields
     const isNameValid = validateName();
@@ -240,12 +258,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (isNameValid && isEmailValid && isMessageValid) {
       // Disable button while submitting
+      isSubmitting = true;
       const submitBtn = contactForm.querySelector('button[type="submit"]');
       submitBtn.disabled = true;
       submitBtn.textContent = 'Sending...';
 
       // Send form data via Formspree
-      // TODO: Replace YOUR_FORM_ID with your actual Formspree form ID
       fetch('https://formspree.io/f/mgolqbdz', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
@@ -274,6 +292,7 @@ document.addEventListener('DOMContentLoaded', () => {
         formMessage.className = 'form-message error';
         formMessage.textContent = 'An error occurred. Please try again.';
       }).finally(() => {
+        isSubmitting = false;
         submitBtn.disabled = false;
         submitBtn.textContent = 'Send Message';
       });
@@ -294,34 +313,9 @@ document.addEventListener('DOMContentLoaded', () => {
   if (window.pageYOffset < 100) {
     navLinks[0].classList.add('active');
   }
+
+  // Dynamic copyright year
+  document.getElementById('year').textContent = new Date().getFullYear();
 });
 
-// ==========================================
-// UTILITY FUNCTIONS
-// ==========================================
 
-// Throttle function for performance optimization
-function throttle(func, wait) {
-  let timeout;
-  return function executedFunction(...args) {
-    const later = () => {
-      clearTimeout(timeout);
-      func(...args);
-    };
-    clearTimeout(timeout);
-    timeout = setTimeout(later, wait);
-  };
-}
-
-// Debounce function for input events
-function debounce(func, wait) {
-  let timeout;
-  return function executedFunction(...args) {
-    const later = () => {
-      clearTimeout(timeout);
-      func(...args);
-    };
-    clearTimeout(timeout);
-    timeout = setTimeout(later, wait);
-  };
-}
