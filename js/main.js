@@ -239,43 +239,44 @@ document.addEventListener('DOMContentLoaded', () => {
     const isMessageValid = validateMessage();
 
     if (isNameValid && isEmailValid && isMessageValid) {
-      // Show success message
-      formMessage.className = 'form-message success';
-      formMessage.textContent = 'Thank you for your message! I\'ll get back to you soon.';
+      // Disable button while submitting
+      const submitBtn = contactForm.querySelector('button[type="submit"]');
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Sending...';
 
-      // Clear form
-      contactForm.reset();
-
-      // Clear error states
-      document.querySelectorAll('.form-group').forEach(group => {
-        group.classList.remove('error');
-        group.querySelector('.error-message').textContent = '';
+      // Send form data via Formspree
+      // TODO: Replace YOUR_FORM_ID with your actual Formspree form ID
+      fetch('https://formspree.io/f/mgolqbdz', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({
+          name: nameInput.value,
+          email: emailInput.value,
+          message: messageInput.value
+        })
+      }).then(response => {
+        if (response.ok) {
+          formMessage.className = 'form-message success';
+          formMessage.textContent = 'Thank you for your message! I\'ll get back to you soon.';
+          contactForm.reset();
+          document.querySelectorAll('.form-group').forEach(group => {
+            group.classList.remove('error');
+            group.querySelector('.error-message').textContent = '';
+          });
+          setTimeout(() => {
+            formMessage.className = 'form-message';
+            formMessage.textContent = '';
+          }, 5000);
+        } else {
+          throw new Error('Form submission failed');
+        }
+      }).catch(() => {
+        formMessage.className = 'form-message error';
+        formMessage.textContent = 'An error occurred. Please try again.';
+      }).finally(() => {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Send Message';
       });
-
-      // Hide message after 5 seconds
-      setTimeout(() => {
-        formMessage.className = 'form-message';
-        formMessage.textContent = '';
-      }, 5000);
-
-      // Note: In production, you would send the form data to a backend service here
-      // Example:
-      // fetch('/api/contact', {
-      //   method: 'POST',
-      //   headers: { 'Content-Type': 'application/json' },
-      //   body: JSON.stringify({
-      //     name: nameInput.value,
-      //     email: emailInput.value,
-      //     message: messageInput.value
-      //   })
-      // }).then(response => response.json())
-      //   .then(data => {
-      //     // Handle response
-      //   })
-      //   .catch(error => {
-      //     formMessage.className = 'form-message error';
-      //     formMessage.textContent = 'An error occurred. Please try again.';
-      //   });
     } else {
       // Show error message
       formMessage.className = 'form-message error';
