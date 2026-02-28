@@ -139,13 +139,99 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Close menu with ESC key
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && navMenu.classList.contains('active')) {
-      navMenu.classList.remove('active');
-      navToggle.classList.remove('active');
-      navToggle.setAttribute('aria-expanded', 'false');
-      document.body.style.overflow = '';
-      navToggle.focus();
+    if (e.key === 'Escape') {
+      if (skillModalOverlay.classList.contains('active')) {
+        closeSkillModal();
+      } else if (navMenu.classList.contains('active')) {
+        navMenu.classList.remove('active');
+        navToggle.classList.remove('active');
+        navToggle.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+        navToggle.focus();
+      }
     }
+  });
+
+  // ==========================================
+  // SKILL MODAL
+  // ==========================================
+  const skillData = {
+    'power-apps': {
+      title: 'Power Apps',
+      items: ['Canvas and model-driven app development', 'Custom business apps', 'Responsive mobile apps', 'Data integration with Dataverse and external sources']
+    },
+    'power-automate': {
+      title: 'Power Automate',
+      items: ['Cloud flows and automated workflows', 'API integrations', 'Scheduled data sync', 'Error handling and approval processes', 'Email processing automation']
+    },
+    'dynamics-365': {
+      title: 'Dynamics 365',
+      items: ['CRM customization', 'Plugin development (C#)', 'Entity configuration and business rules', 'Custom workflows, views, dashboards, and forms']
+    },
+    'azure': {
+      title: 'Azure',
+      items: ['VM setup and management', 'Azure Maps integration', 'Azure AD and Intune device management', 'Exchange Online configuration', 'Cloud infrastructure']
+    },
+    'power-fx': {
+      title: 'Power FX',
+      items: ['Formula-based logic for canvas apps', 'Calculated fields and data manipulation', 'Conditional formatting', 'Delegation-aware queries']
+    },
+    'fetchxml': {
+      title: 'FetchXML',
+      items: ['Advanced Dataverse queries', 'Aggregate queries and linked entity joins', 'Filtered views and pagination', 'Performance-optimized data retrieval']
+    },
+    'sharepoint': {
+      title: 'SharePoint',
+      items: ['Site administration', 'Document management and list automation', 'Integration with Power Platform', 'Custom permissions and workflows']
+    },
+    'javascript': {
+      title: 'JavaScript',
+      items: ['Form validation in Dynamics 365', 'Web resource development', 'DOM manipulation and API calls', 'Async operations and custom UI logic']
+    },
+    'powershell': {
+      title: 'PowerShell',
+      items: ['Scripting for system administration', 'Bulk operations', 'Azure resource management', 'Automated deployments and data migration scripts']
+    }
+  };
+
+  const skillModalOverlay = document.getElementById('skillModal');
+  const skillModalTitle = skillModalOverlay.querySelector('.skill-modal-title');
+  const skillModalList = skillModalOverlay.querySelector('.skill-modal-list');
+  let lastFocusedSkill = null;
+
+  const openSkillModal = (skillKey) => {
+    const data = skillData[skillKey];
+    if (!data) return;
+    skillModalTitle.textContent = data.title;
+    skillModalList.innerHTML = data.items.map(item => `<li>${item}</li>`).join('');
+    skillModalOverlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+    skillModalOverlay.querySelector('.skill-modal-close').focus();
+  };
+
+  const closeSkillModal = () => {
+    skillModalOverlay.classList.remove('active');
+    document.body.style.overflow = '';
+    if (lastFocusedSkill) lastFocusedSkill.focus();
+  };
+
+  document.querySelectorAll('.skill-badge[data-skill]').forEach(badge => {
+    badge.addEventListener('click', () => {
+      lastFocusedSkill = badge;
+      openSkillModal(badge.dataset.skill);
+    });
+    badge.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        lastFocusedSkill = badge;
+        openSkillModal(badge.dataset.skill);
+      }
+    });
+  });
+
+  skillModalOverlay.querySelector('.skill-modal-close').addEventListener('click', closeSkillModal);
+  skillModalOverlay.addEventListener('click', (e) => {
+    if (e.target === skillModalOverlay) closeSkillModal();
   });
 
   // ==========================================
