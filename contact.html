@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Contact Seun Gabriel Ogunwande - Power Platform Developer & Business Solutions Architect">
+    <title>Contact | Seun Gabriel Ogunwande</title>
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/project-detail.css">
+    <style>
+        .contact-page-hero {
+            background: linear-gradient(135deg, var(--color-surface) 0%, var(--color-background) 100%);
+            padding: var(--spacing-3xl) var(--spacing-lg) var(--spacing-2xl);
+            text-align: center;
+            border-bottom: 1px solid var(--color-border);
+        }
+        .contact-page-hero h1 {
+            font-size: clamp(var(--font-size-2xl), 5vw, var(--font-size-3xl));
+            color: var(--color-text-primary);
+            margin-bottom: var(--spacing-sm);
+        }
+        .contact-page-hero p {
+            font-size: var(--font-size-lg);
+            color: var(--color-text-muted);
+        }
+        .contact-page-form {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: var(--spacing-2xl) var(--spacing-lg);
+        }
+        .contact-page-form .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing-md);
+        }
+        .contact-page-form .form-group {
+            margin-bottom: var(--spacing-md);
+        }
+        .contact-page-form label {
+            display: block;
+            color: var(--color-text-primary);
+            font-size: var(--font-size-sm);
+            font-weight: 600;
+            margin-bottom: var(--spacing-xs);
+        }
+        .contact-page-form label .required {
+            color: var(--color-error);
+        }
+        .contact-page-form input,
+        .contact-page-form select,
+        .contact-page-form textarea {
+            width: 100%;
+            padding: var(--spacing-sm);
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+            color: var(--color-text-primary);
+            font-family: var(--font-primary);
+            font-size: var(--font-size-base);
+            transition: border-color var(--transition-fast);
+        }
+        .contact-page-form input:focus,
+        .contact-page-form select:focus,
+        .contact-page-form textarea:focus {
+            outline: none;
+            border-color: var(--color-primary);
+        }
+        .contact-page-form select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%238896ab' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            padding-right: 36px;
+        }
+        body.light-theme .contact-page-form select {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23718096' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+        }
+        .phone-group {
+            display: grid;
+            grid-template-columns: 120px 1fr;
+            gap: var(--spacing-xs);
+        }
+        .form-group.error input,
+        .form-group.error select,
+        .form-group.error textarea {
+            border-color: var(--color-error);
+        }
+        .form-group .error-message {
+            display: block;
+            color: var(--color-error);
+            font-size: var(--font-size-xs);
+            margin-top: 4px;
+            min-height: 1em;
+        }
+        .contact-submit-btn {
+            width: 100%;
+            padding: var(--spacing-sm) var(--spacing-xl);
+            font-size: var(--font-size-lg);
+            margin-top: var(--spacing-sm);
+        }
+        .form-message {
+            text-align: center;
+            margin-top: var(--spacing-md);
+            padding: var(--spacing-sm);
+            border-radius: var(--radius-md);
+            font-size: var(--font-size-sm);
+        }
+        .form-message.success {
+            background: rgba(0, 217, 119, 0.1);
+            color: var(--color-success);
+        }
+        .form-message.error {
+            background: rgba(255, 71, 87, 0.1);
+            color: var(--color-error);
+        }
+        @media (max-width: 600px) {
+            .contact-page-form .form-row {
+                grid-template-columns: 1fr;
+            }
+            .contact-page-form {
+                padding: var(--spacing-xl) var(--spacing-sm);
+            }
+        }
+    </style>
+</head>
+<body>
+    <script>if(localStorage.getItem('theme')!=='dark')document.body.classList.add('light-theme')</script>
+
+    <section class="contact-page-hero">
+        <div class="project-hero-nav">
+            <a href="index.html" class="back-link">← Back to Home</a>
+            <button class="theme-toggle" aria-label="Toggle light/dark mode">
+                <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+                <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+            </button>
+        </div>
+        <h1>Get In Touch</h1>
+        <p>Tell me about your project and I'll get back to you within 24 hours.</p>
+    </section>
+
+    <div class="contact-page-form">
+        <form id="contactForm">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="firstName">First Name <span class="required">*</span></label>
+                    <input type="text" id="firstName" name="firstName" required>
+                    <span class="error-message"></span>
+                </div>
+                <div class="form-group">
+                    <label for="lastName">Last Name <span class="required">*</span></label>
+                    <input type="text" id="lastName" name="lastName" required>
+                    <span class="error-message"></span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="company">Company Name <span class="required">*</span></label>
+                <input type="text" id="company" name="company" required>
+                <span class="error-message"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email <span class="required">*</span></label>
+                <input type="email" id="email" name="email" required>
+                <span class="error-message"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="phone">Phone Number <span class="required">*</span></label>
+                <div class="phone-group">
+                    <select id="countryCode" name="countryCode">
+                        <option value="+44" selected>+44 UK</option>
+                        <option value="+1">+1 US</option>
+                        <option value="+353">+353 IE</option>
+                        <option value="+49">+49 DE</option>
+                        <option value="+33">+33 FR</option>
+                        <option value="+31">+31 NL</option>
+                        <option value="+34">+34 ES</option>
+                        <option value="+39">+39 IT</option>
+                        <option value="+61">+61 AU</option>
+                        <option value="+91">+91 IN</option>
+                        <option value="+234">+234 NG</option>
+                        <option value="+27">+27 ZA</option>
+                        <option value="+971">+971 AE</option>
+                    </select>
+                    <input type="tel" id="phone" name="phone" required>
+                </div>
+                <span class="error-message"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="service">What service are you interested in? <span class="required">*</span></label>
+                <select id="service" name="service" required>
+                    <option value="" disabled selected>Select a service</option>
+                    <option value="CRM Customization">CRM Customization</option>
+                    <option value="Power Platform Development">Power Platform Development</option>
+                    <option value="System Integration">System Integration</option>
+                    <option value="Process Automation">Process Automation</option>
+                    <option value="Consulting">Consulting</option>
+                    <option value="Other">Other</option>
+                </select>
+                <span class="error-message"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="budget">Project Budget Range</label>
+                <select id="budget" name="budget">
+                    <option value="" selected>Select a range (optional)</option>
+                    <option value="Under £5k">Under £5k</option>
+                    <option value="£5k-£15k">£5k-£15k</option>
+                    <option value="£15k-£50k">£15k-£50k</option>
+                    <option value="£50k+">£50k+</option>
+                    <option value="Not Sure">Not Sure</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="message">Additional Information</label>
+                <textarea id="message" name="message" rows="6" placeholder="Please include additional requirements and/or services needed. Adding more detail will ensure I can better support your request from first response."></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary contact-submit-btn">Submit Enquiry</button>
+            <div class="form-message"></div>
+        </form>
+    </div>
+
+    <footer class="project-footer">
+        <p>&copy; <span id="year"></span> Seun Gabriel Ogunwande. All rights reserved.</p>
+        <p><a href="index.html">Back to Portfolio</a></p>
+    </footer>
+
+    <script>
+        // Theme toggle
+        var themeBtn = document.querySelector('.theme-toggle');
+        if (themeBtn) {
+            themeBtn.addEventListener('click', function() {
+                document.body.classList.toggle('light-theme');
+                localStorage.setItem('theme', document.body.classList.contains('light-theme') ? 'light' : 'dark');
+            });
+        }
+
+        // Dynamic year
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Form validation and submission
+        var form = document.getElementById('contactForm');
+        var formMessage = document.querySelector('.form-message');
+        var isSubmitting = false;
+        var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        function showError(id, msg) {
+            var el = document.getElementById(id);
+            var group = el.closest('.form-group');
+            group.classList.add('error');
+            group.querySelector('.error-message').textContent = msg;
+        }
+
+        function clearError(id) {
+            var el = document.getElementById(id);
+            if (!el) return;
+            var group = el.closest('.form-group');
+            group.classList.remove('error');
+            group.querySelector('.error-message').textContent = '';
+        }
+
+        // Clear errors on input
+        ['firstName', 'lastName', 'company', 'email', 'phone', 'service'].forEach(function(id) {
+            var el = document.getElementById(id);
+            el.addEventListener('input', function() { clearError(id); });
+            el.addEventListener('change', function() { clearError(id); });
+        });
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            if (isSubmitting) return;
+
+            var valid = true;
+
+            // Clear all errors
+            document.querySelectorAll('.form-group').forEach(function(g) {
+                g.classList.remove('error');
+                var em = g.querySelector('.error-message');
+                if (em) em.textContent = '';
+            });
+
+            if (!document.getElementById('firstName').value.trim()) { showError('firstName', 'First name is required'); valid = false; }
+            if (!document.getElementById('lastName').value.trim()) { showError('lastName', 'Last name is required'); valid = false; }
+            if (!document.getElementById('company').value.trim()) { showError('company', 'Company name is required'); valid = false; }
+
+            var emailVal = document.getElementById('email').value.trim();
+            if (!emailVal) { showError('email', 'Email is required'); valid = false; }
+            else if (!emailRegex.test(emailVal)) { showError('email', 'Please enter a valid email'); valid = false; }
+
+            if (!document.getElementById('phone').value.trim()) { showError('phone', 'Phone number is required'); valid = false; }
+            if (!document.getElementById('service').value) { showError('service', 'Please select a service'); valid = false; }
+
+            if (!valid) {
+                formMessage.className = 'form-message error';
+                formMessage.textContent = 'Please fix the errors above and try again.';
+                return;
+            }
+
+            isSubmitting = true;
+            var btn = form.querySelector('button[type="submit"]');
+            btn.disabled = true;
+            btn.textContent = 'Sending...';
+
+            var data = {
+                firstName: document.getElementById('firstName').value,
+                lastName: document.getElementById('lastName').value,
+                company: document.getElementById('company').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('countryCode').value + ' ' + document.getElementById('phone').value,
+                service: document.getElementById('service').value,
+                budget: document.getElementById('budget').value,
+                message: document.getElementById('message').value
+            };
+
+            fetch('https://formspree.io/f/mgolqbdz', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                body: JSON.stringify(data)
+            }).then(function(response) {
+                if (response.ok) {
+                    formMessage.className = 'form-message success';
+                    formMessage.textContent = 'Thank you for your enquiry! I will get back to you within 24 hours.';
+                    form.reset();
+                    document.querySelectorAll('.form-group').forEach(function(g) {
+                        g.classList.remove('error');
+                        var em = g.querySelector('.error-message');
+                        if (em) em.textContent = '';
+                    });
+                } else {
+                    throw new Error('Failed');
+                }
+            }).catch(function() {
+                formMessage.className = 'form-message error';
+                formMessage.textContent = 'An error occurred. Please try again.';
+            }).finally(function() {
+                isSubmitting = false;
+                btn.disabled = false;
+                btn.textContent = 'Submit Enquiry';
+            });
+        });
+    </script>
+</body>
+</html>

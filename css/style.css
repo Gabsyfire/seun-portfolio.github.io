@@ -1132,6 +1132,29 @@ body.light-theme .icon-moon { display: none; }
   background-color: var(--color-background);
 }
 
+.contact-cta {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.contact-cta-tagline {
+  font-size: var(--font-size-lg);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--spacing-lg);
+  line-height: 1.8;
+}
+
+.contact-cta .social-links {
+  justify-content: center;
+  margin-bottom: var(--spacing-xl);
+}
+
+.contact-cta-btn {
+  font-size: var(--font-size-lg);
+  padding: var(--spacing-sm) var(--spacing-2xl);
+}
+
 .contact-container {
   display: grid;
   grid-template-columns: 1fr;
