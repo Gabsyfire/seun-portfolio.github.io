@@ -10,6 +10,14 @@
   border-bottom: 1px solid var(--color-border);
 }
 
+.project-hero-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: var(--container-max-width);
+  margin: 0 auto var(--spacing-lg);
+}
+
 .back-link {
   display: inline-block;
   color: var(--color-primary);
@@ -265,6 +273,13 @@
 /* Solution Architecture mockup container */
 .architecture-mockup {
   margin: var(--spacing-lg) 0;
+}
+
+/* ==========================================
+   LIGHT THEME OVERRIDES
+   ========================================== */
+body.light-theme .project-hero {
+  background: linear-gradient(135deg, var(--color-surface) 0%, var(--color-background) 100%);
 }
 
 /* ==========================================

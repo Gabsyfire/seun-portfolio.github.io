@@ -2,6 +2,17 @@
 // SMOOTH SCROLL NAVIGATION
 // ==========================================
 document.addEventListener('DOMContentLoaded', () => {
+  // ==========================================
+  // THEME TOGGLE
+  // ==========================================
+  const themeToggle = document.querySelector('.theme-toggle');
+  if (themeToggle) {
+    themeToggle.addEventListener('click', () => {
+      document.body.classList.toggle('light-theme');
+      localStorage.setItem('theme', document.body.classList.contains('light-theme') ? 'light' : 'dark');
+    });
+  }
+
   const navLinks = document.querySelectorAll('.nav-link');
   const header = document.querySelector('.header');
   const navToggle = document.querySelector('.nav-toggle');

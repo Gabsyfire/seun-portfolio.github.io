@@ -59,6 +59,53 @@
 }
 
 /* ==========================================
+   LIGHT THEME OVERRIDES
+   ========================================== */
+body.light-theme {
+  --color-background: #f5f7fa;
+  --color-surface: #ffffff;
+  --color-surface-hover: #eef1f6;
+  --color-primary: #0077cc;
+  --color-primary-dark: #005fa3;
+  --color-accent: #0099e6;
+  --color-text-primary: #1a1a2e;
+  --color-text-secondary: #4a5568;
+  --color-text-muted: #718096;
+  --color-border: #e2e8f0;
+  --color-success: #00b359;
+  --color-error: #e53e3e;
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.12);
+}
+
+body.light-theme .header.scrolled {
+  background-color: rgba(255, 255, 255, 0.95);
+}
+
+body.light-theme .hero-section {
+  background: linear-gradient(135deg, rgba(0, 119, 204, 0.05) 0%, var(--color-background) 50%);
+}
+
+body.light-theme .nav-menu {
+  background-color: rgba(255, 255, 255, 0.98);
+}
+
+body.light-theme .mockup-titlebar {
+  background: rgba(230, 235, 245, 0.9);
+}
+
+body.light-theme .skill-modal-overlay {
+  background: rgba(0, 0, 0, 0.4);
+}
+
+body.light-theme .hamburger,
+body.light-theme .hamburger::before,
+body.light-theme .hamburger::after {
+  background-color: var(--color-text-primary);
+}
+
+/* ==========================================
    SKIP LINK
    ========================================== */
 .skip-link {
@@ -98,6 +145,7 @@ body {
   line-height: 1.6;
   color: var(--color-text-secondary);
   background-color: var(--color-background);
+  transition: background-color var(--transition-base), color var(--transition-base);
   overflow-x: hidden;
 }
 
@@ -226,6 +274,36 @@ input, textarea {
 .nav-brand a:hover {
   color: var(--color-accent);
 }
+
+/* Theme Toggle */
+.theme-toggle {
+  background: none;
+  border: 1px solid var(--color-border);
+  color: var(--color-text-primary);
+  cursor: pointer;
+  border-radius: var(--radius-md);
+  padding: 6px 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color var(--transition-fast), color var(--transition-fast);
+  margin-left: auto;
+  margin-right: var(--spacing-sm);
+}
+
+.theme-toggle:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.theme-toggle svg {
+  width: 18px;
+  height: 18px;
+}
+
+.icon-sun { display: none; }
+body.light-theme .icon-sun { display: block; }
+body.light-theme .icon-moon { display: none; }
 
 .nav-toggle {
   display: none;
