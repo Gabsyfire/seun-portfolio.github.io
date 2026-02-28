@@ -226,28 +226,28 @@ document.addEventListener('DOMContentLoaded', () => {
       items: ['Custom PowerApps Component Framework controls', 'Reusable UI components for model-driven apps', 'TypeScript-based control development', 'Enhanced user experience in Dynamics 365']
     },
     'itsm': {
-      title: 'IT Service Management',
-      items: ['ITIL-aligned service delivery', 'Incident and change management', 'Service desk operations', 'SLA monitoring and reporting']
+      title: 'IT Service Management (ITSM)',
+      items: ['Incident and problem management', 'Service level agreement monitoring', 'Change management processes', 'ITIL framework implementation']
     },
     'it-governance': {
       title: 'IT Governance',
-      items: ['Policy development and compliance', 'Risk assessment frameworks', 'Technology standards and best practices', 'Stakeholder alignment']
+      items: ['Compliance and audit readiness', 'Data governance frameworks', 'Vendor management', 'IT budgeting and resource planning']
     },
     'cybersecurity': {
       title: 'Cybersecurity Culture',
-      items: ['Security awareness programmes', 'Trust-based security frameworks', 'Phishing prevention and user education', 'Organisational security posture improvement']
+      items: ['Trust-based security frameworks', 'Security awareness programs', 'Policy development and governance', 'Risk assessment and mitigation']
     },
     'ai-strategy': {
       title: 'AI Strategy',
-      items: ['AI adoption roadmaps', 'Practical AI use case identification', 'Responsible AI implementation', 'AI-driven process improvement']
+      items: ['AI adoption roadmaps', 'Business process AI integration', 'Copilot and AI tool implementation', 'ROI assessment for AI initiatives']
     },
     'digital-transformation': {
       title: 'Digital Transformation',
-      items: ['Legacy system modernisation', 'Cloud migration planning', 'Change management and adoption', 'Technology-driven business improvement']
+      items: ['Legacy system modernization', 'Cloud migration planning', 'Process re-engineering', 'Stakeholder change management']
     },
     'bpo': {
       title: 'Business Process Optimization',
-      items: ['Process mapping and analysis', 'Automation opportunity identification', 'Workflow redesign', 'Efficiency measurement and KPIs']
+      items: ['Workflow automation design', 'KPI definition and tracking', 'Cross-functional process mapping', 'Continuous improvement methodologies']
     }
   };
 
