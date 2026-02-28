@@ -611,6 +611,325 @@ input, textarea {
   border-color: var(--color-primary);
 }
 
+/* Project Mockups */
+.project-mockup {
+  margin: var(--spacing-md) 0;
+}
+
+.mockup-browser {
+  background: var(--color-background);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.mockup-titlebar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  background: rgba(30, 37, 69, 0.8);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.mockup-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.mockup-dot.red { background: #ff5f57; }
+.mockup-dot.yellow { background: #ffbd2e; }
+.mockup-dot.green { background: #28c840; }
+
+.mockup-titlebar-text {
+  margin-left: auto;
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+}
+
+.mockup-content {
+  padding: var(--spacing-sm);
+}
+
+/* Stat row */
+.mockup-stat-row {
+  display: flex;
+  gap: var(--spacing-xs);
+  margin-bottom: var(--spacing-sm);
+}
+
+.mockup-stat {
+  flex: 1;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: var(--spacing-xs);
+  text-align: center;
+}
+
+.mockup-stat-value {
+  display: block;
+  font-size: var(--font-size-base);
+  font-weight: 700;
+  color: var(--color-text-primary);
+}
+
+.mockup-stat-value.accent { color: var(--color-primary); }
+.mockup-stat-value.error { color: var(--color-error); }
+
+.mockup-stat-label {
+  display: block;
+  font-size: 0.625rem;
+  color: var(--color-text-muted);
+  margin-top: 2px;
+}
+
+/* Data flow */
+.mockup-flow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-xs);
+  margin-bottom: var(--spacing-sm);
+  flex-wrap: wrap;
+}
+
+.mockup-flow-node {
+  padding: 4px 10px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 20px;
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+  white-space: nowrap;
+}
+
+.mockup-flow-node.highlight {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+  background: rgba(0, 168, 255, 0.1);
+}
+
+.mockup-flow-arrow {
+  color: var(--color-primary);
+  font-size: var(--font-size-sm);
+}
+
+/* Status bar */
+.mockup-status-bar {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  font-size: 0.625rem;
+  color: var(--color-text-muted);
+  padding: 6px var(--spacing-xs);
+  background: var(--color-surface);
+  border-radius: var(--radius-sm);
+}
+
+.mockup-status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.mockup-status-dot.active { background: var(--color-success); }
+.mockup-status-dot.warning { background: #ffbd2e; }
+.mockup-status-dot.error { background: var(--color-error); }
+
+/* Pipeline stages */
+.mockup-pipeline {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  margin-bottom: var(--spacing-sm);
+  flex-wrap: wrap;
+}
+
+.mockup-stage {
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+}
+
+.mockup-stage.done {
+  background: rgba(0, 217, 119, 0.15);
+  color: var(--color-success);
+}
+
+.mockup-stage.active {
+  background: rgba(0, 168, 255, 0.15);
+  color: var(--color-primary);
+  border: 1px solid var(--color-primary);
+}
+
+.mockup-stage.pending {
+  background: var(--color-surface);
+  color: var(--color-text-muted);
+}
+
+.mockup-stage-arrow {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-xs);
+}
+
+/* Document list */
+.mockup-doc-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.mockup-doc-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px var(--spacing-xs);
+  background: var(--color-surface);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+}
+
+.mockup-badge {
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-size: 0.625rem;
+  font-weight: 600;
+}
+
+.mockup-badge.green {
+  background: rgba(0, 217, 119, 0.15);
+  color: var(--color-success);
+}
+
+.mockup-badge.yellow {
+  background: rgba(255, 189, 46, 0.15);
+  color: #ffbd2e;
+}
+
+.mockup-badge.gray {
+  background: var(--color-surface-hover);
+  color: var(--color-text-muted);
+}
+
+/* Split layout */
+.mockup-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-xs);
+}
+
+/* Schedule list */
+.mockup-schedule {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.mockup-schedule-item {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  padding: 6px var(--spacing-xs);
+  background: var(--color-surface);
+  border-radius: var(--radius-sm);
+}
+
+.mockup-schedule-name {
+  display: block;
+  font-size: var(--font-size-xs);
+  color: var(--color-text-primary);
+  font-weight: 600;
+}
+
+.mockup-schedule-time {
+  display: block;
+  font-size: 0.625rem;
+  color: var(--color-text-muted);
+}
+
+/* Map */
+.mockup-map {
+  background: var(--color-surface);
+  border-radius: var(--radius-sm);
+  position: relative;
+  min-height: 100px;
+  overflow: hidden;
+}
+
+.mockup-map-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(42, 53, 84, 0.5) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(42, 53, 84, 0.5) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+.mockup-map-pin {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: var(--color-primary);
+  border-radius: 50%;
+  border: 2px solid var(--color-accent);
+  z-index: 1;
+  box-shadow: 0 0 8px rgba(0, 168, 255, 0.4);
+}
+
+/* Bar chart */
+.mockup-bar-chart {
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+  height: 60px;
+  padding: var(--spacing-xs);
+  background: var(--color-surface);
+  border-radius: var(--radius-sm);
+  margin-bottom: var(--spacing-xs);
+}
+
+.mockup-bar {
+  flex: 1;
+  background: rgba(0, 168, 255, 0.3);
+  border-radius: 2px 2px 0 0;
+  min-height: 4px;
+}
+
+.mockup-bar.highlight {
+  background: var(--color-primary);
+}
+
+/* Log table */
+.mockup-log-table {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.mockup-log-row {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  padding: 4px var(--spacing-xs);
+  background: var(--color-surface);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+}
+
+.mockup-log-time {
+  margin-left: auto;
+  color: var(--color-text-muted);
+  font-size: 0.625rem;
+}
+
 .tech-tags {
   display: flex;
   flex-wrap: wrap;
