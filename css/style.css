@@ -703,6 +703,10 @@ body.light-theme .icon-moon { display: none; }
   transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base);
 }
 
+.cert-card[data-href] {
+  cursor: pointer;
+}
+
 .cert-card:hover {
   transform: translateY(-5px);
   box-shadow: var(--shadow-md);

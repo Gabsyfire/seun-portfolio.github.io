@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       if (targetSection) {
         const headerHeight = header.offsetHeight;
-        const targetPosition = targetSection.offsetTop - headerHeight;
+        const targetPosition = targetId === '#home' ? 0 : targetSection.offsetTop - headerHeight;
 
         window.scrollTo({
           top: targetPosition,
@@ -170,6 +170,13 @@ document.addEventListener('DOMContentLoaded', () => {
     card.addEventListener('click', (e) => {
       if (e.target.closest('a')) return;
       window.location.href = card.dataset.href;
+    });
+  });
+
+  document.querySelectorAll('.cert-card[data-href]').forEach(card => {
+    card.addEventListener('click', (e) => {
+      if (e.target.closest('a')) return;
+      window.open(card.dataset.href, '_blank', 'noopener,noreferrer');
     });
   });
 
