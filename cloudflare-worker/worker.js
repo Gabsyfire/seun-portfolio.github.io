@@ -48,7 +48,7 @@ export default {
           'anthropic-version': '2023-06-01'
         },
         body: JSON.stringify({
-          model: 'claude-sonnet-4-20250514',
+          model: 'claude-sonnet-4-5-20250929',
           max_tokens: 300,
           system: SYSTEM_PROMPT,
           messages: trimmedMessages
@@ -56,7 +56,8 @@ export default {
       });
 
       if (!anthropicResponse.ok) {
-        console.error('Anthropic API error:', anthropicResponse.status);
+        const errBody = await anthropicResponse.text();
+        console.error('Anthropic API error:', anthropicResponse.status, errBody);
         return jsonResponse({ error: 'AI service temporarily unavailable. Please try again later.' }, 502);
       }
 
