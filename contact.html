@@ -155,67 +155,6 @@
             </div>
 
             <div class="form-group">
-                <label for="company">Company Name <span class="required">*</span></label>
-                <input type="text" id="company" name="company" required>
-                <span class="error-message"></span>
-            </div>
-
-            <div class="form-group">
-                <label for="email">Email <span class="required">*</span></label>
-                <input type="email" id="email" name="email" required>
-                <span class="error-message"></span>
-            </div>
-
-            <div class="form-group">
-                <label for="phone">Phone Number <span class="required">*</span></label>
-                <div class="phone-group">
-                    <select id="countryCode" name="countryCode">
-                        <option value="+44" selected>+44 UK</option>
-                        <option value="+1">+1 US</option>
-                        <option value="+353">+353 IE</option>
-                        <option value="+49">+49 DE</option>
-                        <option value="+33">+33 FR</option>
-                        <option value="+31">+31 NL</option>
-                        <option value="+34">+34 ES</option>
-                        <option value="+39">+39 IT</option>
-                        <option value="+61">+61 AU</option>
-                        <option value="+91">+91 IN</option>
-                        <option value="+234">+234 NG</option>
-                        <option value="+27">+27 ZA</option>
-                        <option value="+971">+971 AE</option>
-                    </select>
-                    <input type="tel" id="phone" name="phone" required>
-                </div>
-                <span class="error-message"></span>
-            </div>
-
-            <div class="form-group">
-                <label for="service">What service are you interested in? <span class="required">*</span></label>
-                <select id="service" name="service" required>
-                    <option value="" disabled selected>Select a service</option>
-                    <option value="CRM Customization">CRM Customization</option>
-                    <option value="Power Platform Development">Power Platform Development</option>
-                    <option value="System Integration">System Integration</option>
-                    <option value="Process Automation">Process Automation</option>
-                    <option value="Consulting">Consulting</option>
-                    <option value="Other">Other</option>
-                </select>
-                <span class="error-message"></span>
-            </div>
-
-            <div class="form-group">
-                <label for="budget">Project Budget Range</label>
-                <select id="budget" name="budget">
-                    <option value="" selected>Select a range (optional)</option>
-                    <option value="Under £5k">Under £5k</option>
-                    <option value="£5k-£15k">£5k-£15k</option>
-                    <option value="£15k-£50k">£15k-£50k</option>
-                    <option value="£50k+">£50k+</option>
-                    <option value="Not Sure">Not Sure</option>
-                </select>
-            </div>
-
-            <div class="form-group">
                 <label for="message">Additional Information</label>
                 <textarea id="message" name="message" rows="6" placeholder="Please include additional requirements and/or services needed. Adding more detail will ensure I can better support your request from first response."></textarea>
             </div>
@@ -265,7 +204,7 @@
         }
 
         // Clear errors on input
-        ['firstName', 'lastName', 'company', 'email', 'phone', 'service'].forEach(function(id) {
+        ['firstName', 'lastName'].forEach(function(id) {
             var el = document.getElementById(id);
             el.addEventListener('input', function() { clearError(id); });
             el.addEventListener('change', function() { clearError(id); });
@@ -286,14 +225,6 @@
 
             if (!document.getElementById('firstName').value.trim()) { showError('firstName', 'First name is required'); valid = false; }
             if (!document.getElementById('lastName').value.trim()) { showError('lastName', 'Last name is required'); valid = false; }
-            if (!document.getElementById('company').value.trim()) { showError('company', 'Company name is required'); valid = false; }
-
-            var emailVal = document.getElementById('email').value.trim();
-            if (!emailVal) { showError('email', 'Email is required'); valid = false; }
-            else if (!emailRegex.test(emailVal)) { showError('email', 'Please enter a valid email'); valid = false; }
-
-            if (!document.getElementById('phone').value.trim()) { showError('phone', 'Phone number is required'); valid = false; }
-            if (!document.getElementById('service').value) { showError('service', 'Please select a service'); valid = false; }
 
             if (!valid) {
                 formMessage.className = 'form-message error';
@@ -309,11 +240,6 @@
             var data = {
                 firstName: document.getElementById('firstName').value,
                 lastName: document.getElementById('lastName').value,
-                company: document.getElementById('company').value,
-                email: document.getElementById('email').value,
-                phone: document.getElementById('countryCode').value + ' ' + document.getElementById('phone').value,
-                service: document.getElementById('service').value,
-                budget: document.getElementById('budget').value,
                 message: document.getElementById('message').value
             };
 
