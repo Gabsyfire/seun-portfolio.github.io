@@ -84,7 +84,11 @@ body.light-theme .header.scrolled {
 }
 
 body.light-theme .hero-section {
-  background: linear-gradient(135deg, rgba(0, 119, 204, 0.05) 0%, var(--color-background) 50%);
+  background: linear-gradient(135deg, rgba(0, 119, 204, 0.08) 0%, var(--color-background) 50%);
+}
+
+body.light-theme .header:not(.scrolled) {
+  background-color: transparent;
 }
 
 body.light-theme .hero-section::after {
@@ -253,6 +257,7 @@ input, textarea {
   right: 0;
   height: var(--header-height);
   z-index: 1000;
+  background-color: transparent;
   transition: background-color var(--transition-base), box-shadow var(--transition-base);
 }
 
