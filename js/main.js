@@ -153,6 +153,16 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // ==========================================
+  // CLICKABLE PROJECT CARDS
+  // ==========================================
+  document.querySelectorAll('.project-card[data-href]').forEach(card => {
+    card.addEventListener('click', (e) => {
+      if (e.target.closest('a')) return;
+      window.location.href = card.dataset.href;
+    });
+  });
+
+  // ==========================================
   // SKILL MODAL
   // ==========================================
   const skillData = {
