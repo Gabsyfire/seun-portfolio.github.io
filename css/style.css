@@ -1924,10 +1924,11 @@ textarea:focus-visible {
     right: 0;
     left: 0;
     width: 100%;
-    max-height: 100vh;
-    height: 100vh;
+    max-height: 100dvh;
+    height: 100dvh;
     border-radius: 0;
     transform: translateY(100%);
+    padding-bottom: env(safe-area-inset-bottom, 0);
   }
 
   .chatbot-window--open {
@@ -1937,6 +1938,11 @@ textarea:focus-visible {
   .chatbot-messages {
     max-height: none;
     flex: 1;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .chatbot-input-area {
+    padding-bottom: calc(var(--spacing-sm) + env(safe-area-inset-bottom, 0));
   }
 
   .chatbot-bubble {
