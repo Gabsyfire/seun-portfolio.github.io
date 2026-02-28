@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Engineer Appointment Validation System - Real-time qualification matching with Azure Maps routing">
+    <title>Engineer Appointment Validation System | Seun Gabriel Ogunwande</title>
+    <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/project-detail.css">
+</head>
+<body>
+
+    <!-- Hero -->
+    <section class="project-hero">
+        <a href="../index.html#projects" class="back-link">&larr; Back to Portfolio</a>
+        <h1>Engineer Appointment Validation System</h1>
+        <p class="project-tagline">Ensuring the right engineer arrives with the right skills, every time</p>
+    </section>
+
+    <!-- Layout -->
+    <div class="project-layout">
+
+        <!-- Sidebar -->
+        <aside class="project-sidebar">
+            <nav>
+                <a href="#executive-summary" class="sidebar-link">Executive Summary</a>
+                <a href="#background" class="sidebar-link">Background &amp; Context</a>
+                <a href="#objectives" class="sidebar-link">Objectives</a>
+                <a href="#methodology" class="sidebar-link">Methodology</a>
+                <a href="#architecture" class="sidebar-link">Architecture</a>
+                <a href="#features" class="sidebar-link">Key Features</a>
+                <a href="#technologies" class="sidebar-link">Technologies</a>
+                <a href="#results" class="sidebar-link">Results &amp; Impact</a>
+                <a href="#lessons" class="sidebar-link">Lessons Learned</a>
+                <a href="#value" class="sidebar-link">Client Value</a>
+                <a href="#cta" class="sidebar-link">Get in Touch</a>
+            </nav>
+        </aside>
+
+        <!-- Content -->
+        <div class="project-content">
+
+            <!-- Executive Summary -->
+            <section id="executive-summary">
+                <h2>Executive Summary</h2>
+                <p>Field service organisations live and die by their first-time fix rate. When an engineer arrives at a customer's door without the right qualifications or equipment, everybody loses: the customer is frustrated, the engineer's time is wasted, and the business absorbs the cost of a return visit. I built a real-time validation system that eliminates this problem at its root by automatically matching engineer qualifications against service requirements before any appointment is confirmed. The solution integrates Azure Maps for intelligent, location-based routing alongside a comprehensive skills matrix validated against live certification databases.</p>
+                <p>The system was designed to be both preventative and proactive. Rather than simply flagging mismatches after the fact, it intercepts scheduling decisions in real time, presenting dispatchers with only qualified and geographically optimal engineers for each job. Automated alerts notify management when certifications are approaching expiry, ensuring the workforce remains compliant without manual tracking. This combination of validation, routing, and compliance monitoring transformed how the organisation managed its field operations.</p>
+                <p>The results speak for themselves: a 95% first-time fix rate (up from 68%), a 70% reduction in failed appointments, and a 35% uplift in customer satisfaction scores. By ensuring that the right engineer with the right skills arrives at the right location every time, the business dramatically reduced operational waste, improved regulatory compliance, and delivered a consistently better customer experience.</p>
+            </section>
+
+            <!-- Background & Context -->
+            <section id="background">
+                <h2>Background &amp; Context</h2>
+                <p>The client was a mid-sized field service company managing a fleet of engineers across multiple disciplines, including gas safety, electrical, plumbing, and general maintenance. The scheduling process was almost entirely manual, relying on a small team of dispatchers who used spreadsheets and personal knowledge to assign engineers to jobs. This approach had worked when the company was smaller, but as the business grew, cracks began to appear.</p>
+                <p>Engineers were regularly being sent to jobs they were not qualified for. A plumbing engineer might arrive at a gas safety inspection, or an electrician whose certification had lapsed would be assigned to a compliance-critical job. These mismatches resulted in failed appointments that required costly return visits, and in some cases, exposed the company to regulatory violations and potential fines. The dispatchers knew the rules, but with dozens of engineers and hundreds of daily appointments, human error was inevitable.</p>
+                <p>Travel time was another major pain point. Without route optimisation, engineers were frequently criss-crossing service areas, burning fuel and losing productive hours. Customers were given vague arrival windows, and when engineers ran late due to poor routing, satisfaction scores suffered. The company was receiving an increasing volume of complaints, and repeat business was declining. Leadership recognised that a systematic, technology-driven approach was needed to restore operational discipline, ensure compliance, and rebuild customer trust.</p>
+            </section>
+
+            <!-- Objectives -->
+            <section id="objectives">
+                <h2>Objectives</h2>
+                <ul>
+                    <li>Automate qualification matching between engineer skills and job requirements</li>
+                    <li>Integrate real-time certification validation against regulatory databases</li>
+                    <li>Implement Azure Maps for optimal route planning and travel time estimation</li>
+                    <li>Achieve 95%+ first-time fix rate</li>
+                    <li>Reduce failed appointments by 70%+</li>
+                    <li>Improve customer satisfaction scores by 30%+</li>
+                </ul>
+            </section>
+
+            <!-- Methodology & Approach -->
+            <section id="methodology">
+                <h2>Methodology &amp; Approach</h2>
+                <p>The project followed a structured, stakeholder-driven methodology designed to capture domain expertise early and validate assumptions continuously throughout development.</p>
+                <p><strong>1. Requirements Gathering</strong> &mdash; I conducted in-depth workshops with dispatchers, field engineers, and the compliance team to map every qualification rule in the business. This wasn't just about documenting what existed; it was about understanding the nuances that dispatchers carried in their heads. For example, certain gas safety inspections required not only a Gas Safe registration but also a specific appliance endorsement. These subtleties were critical to building a validation engine that dispatchers would actually trust.</p>
+                <p><strong>2. Skills Matrix Design</strong> &mdash; With the rules documented, I designed a comprehensive data model in Dataverse that linked certifications, job types, and engineer profiles. Each engineer record captured their qualifications, certification expiry dates, competency levels, and geographic preferences. Each job type defined its mandatory and desirable qualifications, creating a flexible matching framework that could accommodate the full range of service scenarios.</p>
+                <p><strong>3. Validation Engine</strong> &mdash; The core matching logic was implemented in Power FX within the Power Apps canvas app, handling the majority of qualification checks with minimal latency. For more complex validation rules, such as cross-referencing multiple certifications or checking regulatory database lookups, I built Azure Functions that the app called asynchronously. This hybrid approach kept the user experience responsive while supporting sophisticated business logic.</p>
+                <p><strong>4. Map Integration</strong> &mdash; Azure Maps was integrated to provide geocoding of customer addresses, real-time route calculation between engineer locations and job sites, and travel time estimation that factored in traffic conditions. This data fed directly into the scheduling interface, enabling dispatchers to make informed decisions about which engineer could reach a customer quickest without sacrificing qualification compliance.</p>
+                <p><strong>5. UI Development</strong> &mdash; I built a Power Apps canvas application that served as the dispatchers' primary scheduling tool. The interface featured a split-screen layout with the day's appointments on the left and an interactive map view on the right. Colour-coded indicators showed each engineer's qualification status at a glance: green for fully qualified, amber for approaching certification expiry, and red for disqualified. The design was intentionally simple, because the best validation system is one that dispatchers actually use.</p>
+                <p><strong>6. Testing &amp; Validation</strong> &mdash; Before go-live, I validated the system against six months of historical scheduling data to prove its accuracy. This back-testing identified appointments that would have been flagged as non-compliant, providing the compliance team with concrete evidence of the system's value. A two-week parallel running period ensured dispatchers were confident in the new tool before the legacy process was retired.</p>
+            </section>
+
+            <!-- Solution Architecture -->
+            <section id="architecture">
+                <h2>Solution Architecture</h2>
+                <p>The solution architecture was designed for reliability, performance, and extensibility. At the front end, a Power Apps canvas application provides dispatchers with an intuitive scheduling interface featuring real-time map visualisation and qualification status indicators. Dataverse serves as the central data store, housing the skills matrix, engineer profiles, certification records, and appointment data with full relational integrity.</p>
+                <p>Azure Functions handle the heavier computational tasks: complex multi-factor validation logic, batch certification checks against external regulatory APIs, and route optimisation calculations that factor in multiple stops per engineer per day. Azure Maps provides geocoding, route planning, and real-time travel time estimation, with results cached to reduce API costs. Power Automate orchestrates the notification layer, sending automated alerts when certifications approach expiry, when a scheduling conflict is detected, or when a customer needs to be notified of their engineer's details and estimated arrival time.</p>
+
+                <div class="architecture-mockup">
+                    <div class="project-mockup">
+                        <div class="mockup-browser">
+                            <div class="mockup-titlebar">
+                                <span class="mockup-dot red"></span>
+                                <span class="mockup-dot yellow"></span>
+                                <span class="mockup-dot green"></span>
+                                <span class="mockup-titlebar-text">Scheduling Console</span>
+                            </div>
+                            <div class="mockup-content">
+                                <div class="mockup-split">
+                                    <div class="mockup-schedule">
+                                        <div class="mockup-schedule-item">
+                                            <span class="mockup-status-dot active"></span>
+                                            <div><span class="mockup-schedule-name">J. Williams</span><span class="mockup-schedule-time">09:00 &mdash; Gas Safety</span></div>
+                                        </div>
+                                        <div class="mockup-schedule-item">
+                                            <span class="mockup-status-dot warning"></span>
+                                            <div><span class="mockup-schedule-name">S. Patel</span><span class="mockup-schedule-time">10:30 &mdash; Electrical</span></div>
+                                        </div>
+                                        <div class="mockup-schedule-item">
+                                            <span class="mockup-status-dot active"></span>
+                                            <div><span class="mockup-schedule-name">M. Johnson</span><span class="mockup-schedule-time">14:00 &mdash; Plumbing</span></div>
+                                        </div>
+                                    </div>
+                                    <div class="mockup-map">
+                                        <div class="mockup-map-pin" style="top: 25%; left: 30%;"></div>
+                                        <div class="mockup-map-pin" style="top: 55%; left: 60%;"></div>
+                                        <div class="mockup-map-pin" style="top: 40%; left: 75%;"></div>
+                                        <div class="mockup-map-grid"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Key Features -->
+            <section id="features">
+                <h2>Key Features</h2>
+                <ul>
+                    <li>Real-time skills-to-job matching that validates engineer qualifications against specific job requirements before appointments are confirmed</li>
+                    <li>Automated certification expiry monitoring with configurable alert thresholds at 90, 60, and 30 days before expiry</li>
+                    <li>Azure Maps route optimisation that calculates the most efficient travel paths across multiple daily appointments</li>
+                    <li>Travel time estimation and scheduling that accounts for real-time traffic conditions and provides accurate customer arrival windows</li>
+                    <li>Colour-coded availability calendar giving dispatchers an instant visual overview of engineer qualification status and capacity</li>
+                    <li>Compliance alerts for expired or soon-to-expire certifications, escalating to management when action is not taken</li>
+                    <li>Mobile-friendly dispatcher interface that supports scheduling decisions from any device, including tablets used on the operations floor</li>
+                    <li>Automated customer notifications with engineer details, profile photo, qualifications summary, and a live ETA updated throughout the day</li>
+                </ul>
+            </section>
+
+            <!-- Technologies Used -->
+            <section id="technologies">
+                <h2>Technologies Used</h2>
+                <div class="detail-tech-tags">
+                    <span class="tag">Power Apps</span>
+                    <span class="tag">Dataverse</span>
+                    <span class="tag">Power FX</span>
+                    <span class="tag">Azure Functions</span>
+                    <span class="tag">Azure Maps</span>
+                    <span class="tag">Power Automate</span>
+                    <span class="tag">JavaScript</span>
+                    <span class="tag">REST APIs</span>
+                </div>
+            </section>
+
+            <!-- Results & Impact -->
+            <section id="results">
+                <h2>Results &amp; Impact</h2>
+                <div class="metric-grid">
+                    <div class="metric-card">
+                        <span class="value">95%</span>
+                        <span class="label">First-Time Fix Rate (up from 68%)</span>
+                    </div>
+                    <div class="metric-card">
+                        <span class="value">70%</span>
+                        <span class="label">Reduction in Failed Appointments</span>
+                    </div>
+                    <div class="metric-card">
+                        <span class="value">35%</span>
+                        <span class="label">Improvement in Customer Satisfaction</span>
+                    </div>
+                    <div class="metric-card">
+                        <span class="value">25%</span>
+                        <span class="label">Reduction in Travel Costs</span>
+                    </div>
+                </div>
+
+                <p>The transformation was measurable within the first month of go-live. The first-time fix rate jumped from 68% to 95%, meaning that for every twenty appointments, nineteen were now resolved on the first visit. Failed appointments dropped by 70%, directly eliminating the cost of return visits and freeing up engineer capacity for revenue-generating work. Customer satisfaction scores improved by 35%, driven by both the reliability of the service and the transparency of the automated notifications that kept customers informed throughout the day.</p>
+
+                <div class="before-after">
+                    <div class="before">
+                        <h3>Before</h3>
+                        <ul>
+                            <li>Manual dispatcher scheduling based on personal knowledge</li>
+                            <li>68% first-time fix rate with frequent return visits</li>
+                            <li>No systematic certification tracking or compliance validation</li>
+                            <li>Unoptimised routing leading to high fuel costs and wasted time</li>
+                            <li>Customer complaints rising with declining satisfaction scores</li>
+                        </ul>
+                    </div>
+                    <div class="after">
+                        <h3>After</h3>
+                        <ul>
+                            <li>Automated validation system with real-time qualification matching</li>
+                            <li>95% first-time fix rate with compliance guaranteed at point of scheduling</li>
+                            <li>Proactive certification expiry monitoring and management alerts</li>
+                            <li>Azure Maps route optimisation reducing travel costs by 25%</li>
+                            <li>Customer satisfaction up 35% with automated ETA notifications</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Lessons Learned -->
+            <section id="lessons">
+                <h2>Lessons Learned</h2>
+                <p><strong>What worked well:</strong> The Azure Maps API proved to be an excellent choice for route optimisation, providing reliable geocoding and travel time estimates that dispatchers quickly came to trust. Power FX handled the vast majority of the validation logic without needing to call out to Azure Functions, which kept the user experience snappy and reduced operational costs. Most importantly, working closely with dispatchers from day one ensured that the solution reflected how they actually worked, not how we assumed they worked. This collaborative approach was the single biggest factor in achieving high adoption rates from the first week.</p>
+                <p><strong>What we would improve:</strong> The system currently requires a stable internet connection, which can be a limitation for engineers working in low-signal areas who need to check their schedules or update job statuses. Building offline capability with background sync would make the solution more resilient. We would also look to implement predictive scheduling using historical data and machine learning, allowing the system to anticipate demand patterns and pre-position engineers in high-activity areas before jobs are even booked. Finally, adding a customer self-service rebooking portal would reduce the administrative burden on dispatchers when appointments need to be rescheduled, putting control back in the customer's hands while maintaining all the qualification validation rules.</p>
+            </section>
+
+            <!-- Client Value -->
+            <section id="value">
+                <h2>Client Value</h2>
+                <p>The return on investment for this project was both immediate and compounding. By eliminating costly return visits, the organisation saved an estimated several thousand pounds per month in wasted engineer time, fuel, and administrative overhead. Each failed appointment had previously cost the business not only the direct expenses of a second visit but also the opportunity cost of an engineer who could have been completing a revenue-generating job instead.</p>
+                <p>The compliance improvements were equally significant. With automated certification validation, the company moved from a reactive posture of discovering expired certifications after the fact to a proactive one where no unqualified engineer could be assigned to a regulated job. This dramatically reduced the risk of regulatory fines and audit failures, protecting both the business's licence to operate and its professional reputation.</p>
+                <p>Customer retention and referral rates improved measurably as a result of the higher first-time fix rate and the transparency of the automated notification system. Happier customers stayed longer and recommended the service more frequently, contributing to organic revenue growth. Engineers themselves reported higher job satisfaction, as they were no longer being sent to jobs they could not complete. Finally, the data captured by the system provided management with actionable insights into workforce planning, enabling targeted training investment and more informed hiring decisions based on actual skills gaps rather than guesswork.</p>
+            </section>
+
+            <!-- CTA -->
+            <section id="cta">
+                <div class="cta-box">
+                    <h2>Interested in a Similar Solution?</h2>
+                    <p>I help field service organisations optimise their scheduling and ensure compliance through intelligent automation. Let's discuss how I can improve your first-time fix rate.</p>
+                    <a href="../index.html#contact" class="btn">Get in Touch</a>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="project-footer">
+        <p>&copy; <span id="year"></span> Seun Gabriel Ogunwande. All rights reserved.</p>
+        <p><a href="../index.html">Back to Portfolio</a></p>
+    </footer>
+
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+        document.querySelectorAll('.sidebar-link').forEach(link => {
+            link.addEventListener('click', e => {
+                e.preventDefault();
+                const target = document.querySelector(link.getAttribute('href'));
+                if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
+        const sections = document.querySelectorAll('.project-content section[id]');
+        const sidebarLinks = document.querySelectorAll('.sidebar-link');
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                if (window.pageYOffset >= section.offsetTop - 100) current = section.id;
+            });
+            sidebarLinks.forEach(link => {
+                link.classList.toggle('active', link.getAttribute('href') === '#' + current);
+            });
+        });
+    </script>
+
+</body>
+</html>

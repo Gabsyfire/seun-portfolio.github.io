@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Billing API Data Sync Workflow - Large-scale data synchronization with 99.9% accuracy">
+    <title>Billing API Data Sync Workflow | Seun Gabriel Ogunwande</title>
+    <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/project-detail.css">
+</head>
+<body>
+
+    <!-- Hero Section -->
+    <section class="project-hero">
+        <a href="../index.html#projects" class="back-link">&larr; Back to Portfolio</a>
+        <h1>Billing API Data Sync Workflow</h1>
+        <p class="tagline">Achieving 99.9% billing accuracy through robust automated synchronization</p>
+    </section>
+
+    <!-- Project Layout -->
+    <div class="project-layout">
+
+        <!-- Sidebar Navigation -->
+        <aside class="project-sidebar">
+            <nav>
+                <ul>
+                    <li><a href="#executive-summary" class="sidebar-link">Executive Summary</a></li>
+                    <li><a href="#background" class="sidebar-link">Background &amp; Context</a></li>
+                    <li><a href="#objectives" class="sidebar-link">Objectives</a></li>
+                    <li><a href="#methodology" class="sidebar-link">Methodology</a></li>
+                    <li><a href="#architecture" class="sidebar-link">Solution Architecture</a></li>
+                    <li><a href="#features" class="sidebar-link">Key Features</a></li>
+                    <li><a href="#technologies" class="sidebar-link">Technologies</a></li>
+                    <li><a href="#results" class="sidebar-link">Results &amp; Impact</a></li>
+                    <li><a href="#lessons" class="sidebar-link">Lessons Learned</a></li>
+                    <li><a href="#value" class="sidebar-link">Client Value</a></li>
+                    <li><a href="#cta" class="sidebar-link">Get in Touch</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <div class="project-content">
+
+            <!-- Executive Summary -->
+            <section id="executive-summary">
+                <h2>Executive Summary</h2>
+                <p>When billing data and CRM records fall out of sync, the consequences cascade quickly: incorrect invoices erode customer trust, revenue leakage quietly drains the bottom line, and finance teams burn countless hours chasing discrepancies instead of driving strategic initiatives. This project delivered a robust, enterprise-grade data synchronization workflow that bridges the gap between a billing platform and Dynamics 365 CRM, processing over 1.2 million transactions with a 99.9% sync success rate. The solution replaced an error-prone manual reconciliation process with a fully automated pipeline that runs continuously, handles failures gracefully, and provides real-time visibility into every transaction.</p>
+                <p>At the heart of the solution is a sophisticated orchestration layer built on Power Automate and Azure Functions. Power Automate manages scheduling, sequencing, and coordination, while Azure Functions handles the computationally intensive work of data transformation, batch processing, and API communication. The workflow retrieves billing data through paginated API calls, transforms and validates each record against business rules, and writes the results into CRM with idempotent operations that prevent duplicates. When transient failures occur &mdash; network timeouts, API throttling, temporary service outages &mdash; the system responds with intelligent retry logic using exponential backoff, ensuring that no record is lost and no failure goes unaddressed.</p>
+                <p>The impact was immediate and measurable. Manual reconciliation was eliminated entirely, freeing the finance team from over 40 hours of tedious monthly work. Billing disputes dropped dramatically as data accuracy climbed to 99.9%. A real-time Power BI monitoring dashboard gave stakeholders complete visibility into sync health, transaction volumes, and exception trends &mdash; replacing the previous reality of silent failures and multi-day detection delays. The architecture was designed to scale comfortably to ten times the current transaction volume without modification, ensuring the solution grows with the business.</p>
+            </section>
+
+            <!-- Background & Context -->
+            <section id="background">
+                <h2>Background &amp; Context</h2>
+                <p>The organisation operated with a fundamental disconnect at the centre of its financial operations: billing data lived in a dedicated billing platform, while customer and account information resided in Dynamics 365 CRM. These two systems were the source of truth for different teams &mdash; finance relied on the billing platform for invoicing and revenue tracking, while sales and account management operated entirely within CRM. The absence of a reliable synchronization mechanism meant that these two versions of reality drifted apart daily, and the consequences compounded over time.</p>
+                <p>Billing discrepancies were a persistent source of operational pain. Invoices generated from the billing system frequently contained outdated customer details pulled from stale CRM records, leading to incorrect charges, missed line items, and disputed invoices. Revenue leakage &mdash; where billable services were delivered but never invoiced &mdash; went undetected for weeks because no automated process existed to cross-reference billing records against CRM accounts. The finance team spent three to five days at the end of each month manually reconciling data between the two systems, a process that was as exhausting as it was unreliable. Despite these heroic efforts, errors still slipped through, and each missed discrepancy represented real money lost.</p>
+                <p>The situation was further complicated by the billing platform's API constraints. Rate limits capped the number of requests per minute, and exceeding those limits resulted in silent failures &mdash; the API would return empty responses rather than error codes, making it nearly impossible to distinguish between a genuinely empty result set and a throttled request. Pagination was required for any query returning more than a few hundred records, and the pagination mechanism itself had quirks that caused data to be skipped if not handled precisely. Previous attempts at automation had failed because they did not account for these edge cases, and the organisation had lost confidence in automated approaches. As transaction volumes grew month over month, it became clear that the manual process was unsustainable and that a purpose-built, resilient synchronization solution was the only path forward.</p>
+            </section>
+
+            <!-- Objectives -->
+            <section id="objectives">
+                <h2>Objectives</h2>
+                <ul>
+                    <li>Achieve 99.9%+ billing data accuracy between the billing platform and CRM</li>
+                    <li>Handle 1M+ transactions reliably with robust pagination and cursor management</li>
+                    <li>Implement retry logic with exponential backoff for transient API failures</li>
+                    <li>Eliminate manual reconciliation entirely, replacing it with automated exception reporting</li>
+                    <li>Build real-time monitoring dashboards with proactive alerting for sync failures</li>
+                    <li>Process all data within API rate limits without data loss or silent failures</li>
+                </ul>
+            </section>
+
+            <!-- Methodology & Approach -->
+            <section id="methodology">
+                <h2>Methodology &amp; Approach</h2>
+
+                <h3>1. Data Audit &amp; Discrepancy Analysis</h3>
+                <p>We began by conducting a comprehensive audit of the existing billing data across both systems. This involved extracting a full snapshot from the billing platform and CRM, then running a field-by-field comparison to identify discrepancy patterns. We discovered that approximately 12% of records had at least one mismatched field, with the most common issues being outdated pricing, missing line items, and stale customer contact information. We documented every field-level transformation required to map billing data into the CRM schema, creating a complete data dictionary that served as the single reference for all subsequent development.</p>
+
+                <h3>2. API Analysis &amp; Rate Limit Documentation</h3>
+                <p>The billing platform's API was thoroughly documented through hands-on testing and collaboration with the vendor's technical team. We mapped every endpoint's rate limits, pagination requirements, authentication flows, and error code taxonomy. Critically, we identified the silent failure behaviour under throttling conditions and designed detection logic that could differentiate between legitimate empty responses and rate-limited ones. We also profiled the API's performance characteristics under various load patterns, establishing the optimal batch sizes and request intervals for sustained throughput.</p>
+
+                <h3>3. Architecture Design</h3>
+                <p>With the data landscape and API constraints fully understood, we designed the solution architecture around Power Automate for orchestration and Azure Functions for heavy processing. This hybrid approach leveraged Power Automate's strengths in scheduling, sequencing, and low-code flow management, while offloading computationally intensive data transformation and batch processing to Azure Functions written in C#. Every sync operation was designed to be idempotent &mdash; processing the same record multiple times would always produce the same result &mdash; eliminating the risk of duplicate entries from retries or overlapping sync runs.</p>
+
+                <h3>4. Error Handling Strategy</h3>
+                <p>We implemented a multi-layered error handling strategy inspired by production-grade distributed systems. At the API communication layer, a circuit breaker pattern monitored failure rates and temporarily halted requests when the billing API showed signs of distress, preventing cascade failures. For individual record failures, exponential backoff retry logic progressively increased wait times between attempts, with jitter to prevent thundering herd scenarios. Records that exhausted all retry attempts were routed to a dead letter queue &mdash; a dedicated SQL table with full context about the failure &mdash; enabling the operations team to investigate and reprocess failures without any data loss.</p>
+
+                <h3>5. Monitoring &amp; Alerting</h3>
+                <p>We built a comprehensive Power BI dashboard that provided real-time visibility into sync health, including transaction volumes, success and failure rates, processing latency, and dead letter queue depth. Azure Monitor alert rules were configured to trigger notifications via email and Microsoft Teams when key thresholds were breached &mdash; for example, when the failure rate exceeded 0.5% in any rolling hour, or when the dead letter queue accumulated more than 50 unresolved records. This monitoring-first approach ensured that issues were detected and addressed within minutes rather than the days or weeks that had characterised the previous manual process.</p>
+
+                <h3>6. Performance Testing</h3>
+                <p>Before going live, we load-tested the entire pipeline with production-equivalent data volumes. We simulated 1.2 million transactions flowing through the system under realistic conditions, including intermittent API failures, rate limit enforcement, and concurrent processing. The testing validated that the system could sustain the required throughput within API rate limits, that the retry and circuit breaker mechanisms functioned correctly under stress, and that the monitoring dashboards accurately reflected real-time system state. We identified and resolved two performance bottlenecks during this phase &mdash; an inefficient batch query pattern and a connection pool exhaustion issue &mdash; before they could impact production.</p>
+            </section>
+
+            <!-- Solution Architecture -->
+            <section id="architecture">
+                <h2>Solution Architecture</h2>
+                <p>The solution architecture is built around a clear separation of concerns. Power Automate serves as the orchestration engine, managing the scheduling of sync runs, coordinating the sequence of operations, and handling top-level error routing. Azure Functions, written in C#, perform the heavy lifting: paginated data retrieval from the billing API, field-level data transformation and validation, batch upsert operations into CRM via the Dataverse API, and dead letter queue management. A SQL database acts as the staging layer, temporarily holding billing records between retrieval and CRM write operations, and permanently storing reconciliation logs and dead letter entries for audit and reprocessing.</p>
+                <p>Power BI connects directly to the SQL staging database and Azure Monitor telemetry to deliver real-time dashboards. The circuit breaker pattern is implemented within the Azure Functions layer, tracking API response patterns and automatically transitioning between closed (normal operation), open (requests halted), and half-open (cautious probing) states. This architecture is designed for resilience at every layer: if Power Automate experiences a transient failure, Azure Functions can continue processing their current batch independently. If the billing API goes down entirely, the circuit breaker prevents wasted requests and the system resumes automatically when the API recovers.</p>
+
+                <div class="architecture-mockup">
+                    <div class="project-mockup">
+                        <div class="mockup-browser">
+                            <div class="mockup-titlebar">
+                                <span class="mockup-dot red"></span>
+                                <span class="mockup-dot yellow"></span>
+                                <span class="mockup-dot green"></span>
+                                <span class="mockup-titlebar-text">Sync Monitor</span>
+                            </div>
+                            <div class="mockup-content">
+                                <div class="mockup-stat-row">
+                                    <div class="mockup-stat"><span class="mockup-stat-value">1.2M</span><span class="mockup-stat-label">Transactions</span></div>
+                                    <div class="mockup-stat"><span class="mockup-stat-value accent">99.9%</span><span class="mockup-stat-label">Success</span></div>
+                                    <div class="mockup-stat"><span class="mockup-stat-value error">127</span><span class="mockup-stat-label">Failed</span></div>
+                                </div>
+                                <div class="mockup-bar-chart">
+                                    <div class="mockup-bar" style="height: 85%;"></div>
+                                    <div class="mockup-bar" style="height: 70%;"></div>
+                                    <div class="mockup-bar" style="height: 95%;"></div>
+                                    <div class="mockup-bar" style="height: 60%;"></div>
+                                    <div class="mockup-bar" style="height: 90%;"></div>
+                                    <div class="mockup-bar" style="height: 78%;"></div>
+                                    <div class="mockup-bar highlight" style="height: 92%;"></div>
+                                </div>
+                                <div class="mockup-log-table">
+                                    <div class="mockup-log-row"><span class="mockup-status-dot active"></span><span>INV-4821 synced</span><span class="mockup-log-time">2s ago</span></div>
+                                    <div class="mockup-log-row"><span class="mockup-status-dot active"></span><span>INV-4820 synced</span><span class="mockup-log-time">8s ago</span></div>
+                                    <div class="mockup-log-row"><span class="mockup-status-dot error"></span><span>INV-4819 retry</span><span class="mockup-log-time">15s ago</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Key Features -->
+            <section id="features">
+                <h2>Key Features</h2>
+                <ul>
+                    <li><strong>Paginated Data Retrieval:</strong> Handles large datasets by navigating the billing API's pagination mechanism with cursor tracking, ensuring no records are skipped or duplicated across pages.</li>
+                    <li><strong>Exponential Backoff Retry Logic:</strong> Transient failures trigger progressively longer wait periods between retry attempts, with added jitter to prevent synchronized retry storms across concurrent processes.</li>
+                    <li><strong>Circuit Breaker Pattern:</strong> Monitors API health in real time and automatically halts requests when the billing API shows signs of distress, preventing cascade failures and allowing graceful recovery.</li>
+                    <li><strong>Idempotent Sync Operations:</strong> Every write operation is designed so that processing the same record multiple times produces identical results, eliminating duplicate entries from retries or overlapping sync runs.</li>
+                    <li><strong>Dead Letter Queue:</strong> Records that exhaust all retry attempts are captured with full failure context in a dedicated queue, enabling manual investigation and bulk reprocessing without data loss.</li>
+                    <li><strong>Real-Time Power BI Dashboard:</strong> A centralized monitoring dashboard displays transaction volumes, success rates, processing latency, error trends, and dead letter queue depth, refreshed continuously.</li>
+                    <li><strong>Automated Exception Reporting:</strong> Detailed exception reports are generated and delivered via email on a scheduled basis, summarizing failures, their root causes, and recommended remediation actions.</li>
+                    <li><strong>Data Transformation &amp; Field Mapping Engine:</strong> A configuration-driven engine translates billing data into the CRM schema, handling field name mapping, data type conversion, value normalization, and business rule validation.</li>
+                    <li><strong>Scheduled and On-Demand Sync Modes:</strong> The workflow supports both automated scheduled runs for routine synchronization and manual on-demand triggers for ad hoc reconciliation or data migration scenarios.</li>
+                </ul>
+            </section>
+
+            <!-- Technologies Used -->
+            <section id="technologies">
+                <h2>Technologies Used</h2>
+                <div class="detail-tech-tags">
+                    <span class="tag">Power Automate</span>
+                    <span class="tag">Azure Functions</span>
+                    <span class="tag">SQL Server</span>
+                    <span class="tag">Power BI</span>
+                    <span class="tag">REST APIs</span>
+                    <span class="tag">Azure Monitor</span>
+                    <span class="tag">C#</span>
+                    <span class="tag">JSON</span>
+                </div>
+            </section>
+
+            <!-- Results & Impact -->
+            <section id="results">
+                <h2>Results &amp; Impact</h2>
+                <div class="metric-grid">
+                    <div class="metric-card">
+                        <span class="value">99.9%</span>
+                        <span class="label">Sync Accuracy</span>
+                    </div>
+                    <div class="metric-card">
+                        <span class="value">1.2M+</span>
+                        <span class="label">Transactions Processed</span>
+                    </div>
+                    <div class="metric-card">
+                        <span class="value">Zero</span>
+                        <span class="label">Manual Reconciliation</span>
+                    </div>
+                    <div class="metric-card">
+                        <span class="value">40 hrs</span>
+                        <span class="label">Saved Per Month</span>
+                    </div>
+                </div>
+
+                <div class="before-after">
+                    <div class="before">
+                        <h3>Before</h3>
+                        <ul>
+                            <li>Manual monthly reconciliation consuming 3&ndash;5 days of finance team effort</li>
+                            <li>Frequent billing errors leading to incorrect invoices and customer disputes</li>
+                            <li>Revenue leakage from unbilled services going undetected for weeks</li>
+                            <li>No real-time visibility into sync health or failure detection</li>
+                            <li>Silent API failures causing data gaps with no alerting mechanism</li>
+                        </ul>
+                    </div>
+                    <div class="after">
+                        <h3>After</h3>
+                        <ul>
+                            <li>Fully automated real-time synchronization running continuously</li>
+                            <li>99.9% billing accuracy with comprehensive validation at every step</li>
+                            <li>Complete visibility via Power BI dashboard with live transaction monitoring</li>
+                            <li>Immediate error alerting through Azure Monitor and email notifications</li>
+                            <li>Scalable architecture handling 10x growth without modification</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Lessons Learned -->
+            <section id="lessons">
+                <h2>Lessons Learned</h2>
+
+                <h3>What Worked Well</h3>
+                <p>The circuit breaker pattern proved to be one of the most valuable design decisions in the entire project. During the first month of production operation, the billing API experienced three unplanned outages. In each case, the circuit breaker detected the elevated failure rate within seconds, halted outgoing requests to prevent wasted compute and API quota consumption, and automatically resumed operations once the API recovered &mdash; all without human intervention. Without this pattern, those outages would have triggered thousands of failed requests, overwhelmed the dead letter queue, and required manual recovery efforts. Idempotent sync design was equally critical: because retries and overlapping runs could never produce duplicate records, the operations team had complete confidence that reprocessing was always safe, which simplified incident response enormously.</p>
+                <p>The Power BI monitoring dashboards transformed stakeholder engagement with the project. Finance leadership, who had been sceptical of automation after previous failed attempts, could see in real time that the system was processing transactions accurately and at scale. The dashboard became a daily touchpoint for the operations team and a regular feature in monthly business reviews. Transparency bred confidence, and that confidence accelerated adoption across the organisation.</p>
+
+                <h3>What We Would Improve</h3>
+                <p>If we were to build this solution again, we would implement change data capture (CDC) to enable an event-driven synchronization model rather than the polling-based approach we used. Polling works well and is simpler to implement, but it introduces inherent latency &mdash; records are only synced as frequently as the polling interval allows. A CDC-based approach would detect changes at the source the moment they occur and trigger synchronization immediately, reducing end-to-end latency from minutes to seconds. We would also introduce a data quality scoring mechanism that proactively measures drift between the two systems on a continuous basis, surfacing potential issues before they manifest as billing errors. Finally, for organisations processing even larger datasets &mdash; tens of millions of records &mdash; we would evaluate Azure Data Factory as the orchestration layer, leveraging its native capabilities for large-scale data movement and transformation.</p>
+            </section>
+
+            <!-- Client Value -->
+            <section id="value">
+                <h2>Client Value</h2>
+                <p>The financial impact of this solution was felt almost immediately. By eliminating the billing discrepancies that had been a persistent source of revenue leakage, the organisation recovered significant monthly revenue that had previously been lost to unbilled services, incorrect charges, and write-offs from disputed invoices. The precise figure varied month to month, but the cumulative effect over the first quarter alone exceeded the total cost of the project, delivering a rapid and compelling return on investment.</p>
+                <p>The operational savings were equally substantial. The finance team reclaimed over 40 hours each month that had been consumed by manual reconciliation &mdash; time that was redirected toward financial analysis, forecasting, and strategic planning. Billing disputes, which had previously consumed significant customer success and account management bandwidth, dropped dramatically as invoices became consistently accurate. Customer trust improved, renewal conversations became easier, and the organisation's reputation for operational reliability was strengthened.</p>
+                <p>Perhaps most importantly, the solution enabled real-time financial reporting for the first time. Leadership could access up-to-the-minute billing data in their CRM dashboards, making informed decisions based on current reality rather than month-old snapshots. And the architecture was built to scale: designed to handle ten times the current transaction volume without modification, it provides a durable foundation that will serve the organisation well as it grows. The days of billing data living in a silo, of silent failures going undetected, and of finance teams drowning in spreadsheets are definitively over.</p>
+            </section>
+
+            <!-- Call to Action -->
+            <section id="cta">
+                <div class="cta-box">
+                    <h2>Interested in a Similar Solution?</h2>
+                    <p>I help organisations achieve billing accuracy and eliminate manual reconciliation through intelligent data synchronization. Let's discuss how I can streamline your data workflows.</p>
+                    <a href="../index.html#contact" class="btn">Get in Touch</a>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="project-footer">
+        <p>&copy; <span id="year"></span> Seun Gabriel Ogunwande. All rights reserved.</p>
+        <p><a href="../index.html">Back to Portfolio</a></p>
+    </footer>
+
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+        // Smooth scroll
+        document.querySelectorAll('.sidebar-link').forEach(link => {
+            link.addEventListener('click', e => {
+                e.preventDefault();
+                const target = document.querySelector(link.getAttribute('href'));
+                if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
+        // Scroll spy
+        const sections = document.querySelectorAll('.project-content section[id]');
+        const sidebarLinks = document.querySelectorAll('.sidebar-link');
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                if (window.pageYOffset >= section.offsetTop - 100) current = section.id;
+            });
+            sidebarLinks.forEach(link => {
+                link.classList.toggle('active', link.getAttribute('href') === '#' + current);
+            });
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="CRM Data Integration System - Connecting Dynamics 365 with external systems using Azure Logic Apps">
+    <title>CRM Data Integration System | Seun Gabriel Ogunwande</title>
+    <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/project-detail.css">
+</head>
+<body>
+
+    <!-- Hero Section -->
+    <section class="project-hero">
+        <a href="../index.html#projects" class="back-link">&larr; Back to Portfolio</a>
+        <h1>CRM Data Integration System</h1>
+        <p class="tagline">Eliminating data silos through intelligent bi-directional synchronization</p>
+    </section>
+
+    <!-- Project Layout -->
+    <div class="project-layout">
+
+        <!-- Sidebar Navigation -->
+        <aside class="project-sidebar">
+            <nav>
+                <ul>
+                    <li><a href="#executive-summary" class="sidebar-link">Executive Summary</a></li>
+                    <li><a href="#background" class="sidebar-link">Background &amp; Context</a></li>
+                    <li><a href="#objectives" class="sidebar-link">Objectives</a></li>
+                    <li><a href="#methodology" class="sidebar-link">Methodology</a></li>
+                    <li><a href="#architecture" class="sidebar-link">Solution Architecture</a></li>
+                    <li><a href="#features" class="sidebar-link">Key Features</a></li>
+                    <li><a href="#technologies" class="sidebar-link">Technologies</a></li>
+                    <li><a href="#results" class="sidebar-link">Results &amp; Impact</a></li>
+                    <li><a href="#lessons" class="sidebar-link">Lessons Learned</a></li>
+                    <li><a href="#value" class="sidebar-link">Client Value</a></li>
+                    <li><a href="#cta" class="sidebar-link">Get in Touch</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <div class="project-content">
+
+            <!-- Executive Summary -->
+            <section id="executive-summary">
+                <h2>Executive Summary</h2>
+                <p>Organizations that rely on Dynamics 365 as their core CRM platform often find themselves contending with a fragmented data landscape. Customer information lives in separate systems — ERP platforms, marketing automation tools, third-party databases, legacy applications — and keeping it all in sync becomes a daily exercise in frustration. This project delivered a comprehensive data integration solution that connected Dynamics 365 CRM with multiple external systems through Azure Logic Apps and custom-built REST APIs, creating a seamless, automated flow of information across the entire technology stack.</p>
+                <p>The solution established real-time, bi-directional data synchronization that processes over 12,000 records daily across six connected systems. By automating what had previously been a manual, error-prone process, we eliminated redundant data entry, reduced data errors by 85%, and gave the organization a single, authoritative source of truth for all customer-related data. The integration layer operates with a 99.2% success rate, with intelligent retry mechanisms and proactive alerting ensuring that no record falls through the cracks.</p>
+                <p>Beyond the technical achievement, this project fundamentally changed how the sales and operations teams work. Hours previously spent on data reconciliation were redirected toward revenue-generating activities. Compliance teams gained confidence in the accuracy and auditability of their data. And leadership finally had access to unified reporting that painted a complete, real-time picture of customer relationships across every touchpoint.</p>
+            </section>
+
+            <!-- Background & Context -->
+            <section id="background">
+                <h2>Background &amp; Context</h2>
+                <p>The client operated in a complex technology environment where Dynamics 365 served as the primary CRM, but critical customer data also resided in an ERP system, a marketing automation platform, a custom-built quoting tool, and several third-party databases used by partner organizations. Each system had its own data model, its own update cadence, and its own version of the truth. When a sales representative updated a contact record in Dynamics 365, that change had to be manually replicated in three or four other systems — a process that was tedious, slow, and inevitably prone to mistakes.</p>
+                <p>The consequences of this fragmentation were significant. Sales teams routinely spent four or more hours each day on data reconciliation, cross-referencing records between systems to ensure consistency. Despite these efforts, discrepancies were common. A customer's address might be current in the CRM but outdated in the billing system. A new opportunity created in Dynamics 365 might not appear in the forecasting tool for days. These inconsistencies created friction in customer interactions, delayed invoicing, and introduced compliance risks — particularly in regulated industries where data accuracy is not optional.</p>
+                <p>The organization needed more than a simple point-to-point integration. They needed an intelligent, scalable middleware layer that could orchestrate data flows between multiple systems, handle conflicts gracefully, and provide complete visibility into the health and performance of every synchronization process. That is precisely what we set out to build.</p>
+            </section>
+
+            <!-- Objectives -->
+            <section id="objectives">
+                <h2>Objectives</h2>
+                <ul>
+                    <li>Establish real-time bi-directional data synchronization between Dynamics 365 and 3+ external systems</li>
+                    <li>Eliminate manual data entry and reduce human error by 80% or more</li>
+                    <li>Create a single source of truth for customer data across the entire technology stack</li>
+                    <li>Implement robust error handling with automatic retry logic and proactive alerting</li>
+                    <li>Achieve a 99%+ synchronization success rate under production workloads</li>
+                    <li>Reduce data reconciliation effort from hours of daily manual work to minutes of exception review</li>
+                </ul>
+            </section>
+
+            <!-- Methodology & Approach -->
+            <section id="methodology">
+                <h2>Methodology &amp; Approach</h2>
+
+                <h3>1. Discovery &amp; Data Mapping</h3>
+                <p>We began with a thorough discovery phase, working closely with stakeholders from sales, operations, IT, and compliance. We mapped every existing data flow between systems, documented each system's API specifications and rate limits, and identified the critical integration points where data inconsistencies were causing the most pain. This phase also surfaced several undocumented, informal data transfers — spreadsheets emailed between teams, manual copy-paste workflows — that needed to be formalized and automated.</p>
+
+                <h3>2. Architecture Design</h3>
+                <p>With the data landscape fully mapped, we designed the integration architecture around Azure Logic Apps as the central orchestration layer. This decision was driven by several factors: Logic Apps offers native, first-party connectors for Dynamics 365 and Dataverse, eliminating the need for custom authentication and connection management. Its visual designer made it possible for the client's internal team to understand and eventually maintain the integration flows. And its enterprise-grade reliability — backed by Azure's SLA guarantees — gave stakeholders confidence in the solution's resilience. We complemented Logic Apps with custom REST APIs built in C# to handle the more complex transformation and business logic requirements that fell outside the scope of standard connectors.</p>
+
+                <h3>3. Development &amp; Integration Build</h3>
+                <p>Development proceeded in iterative sprints, with each sprint delivering a fully functional integration between Dynamics 365 and one external system. We built reusable connector templates, a shared data transformation engine, and a comprehensive error handling framework that included automatic retry with exponential backoff, dead-letter queuing for failed records, and real-time alerting via email and Microsoft Teams. Every integration flow was instrumented with detailed logging from day one, giving us full observability into data movements.</p>
+
+                <h3>4. Testing &amp; Validation</h3>
+                <p>End-to-end testing was conducted with production-like data volumes — simulating thousands of concurrent record updates, network failures, API throttling, and data conflicts. We validated every transformation rule against business requirements and ran the system under sustained load to identify performance bottlenecks before they could surface in production.</p>
+
+                <h3>5. Deployment &amp; Enablement</h3>
+                <p>Rollout followed a phased approach, starting with the least complex integration and progressively enabling additional systems over a four-week period. Each phase included monitoring dashboards, runbooks for the support team, and hands-on training for key stakeholders. This approach minimized risk and allowed us to apply lessons from each phase to the next.</p>
+            </section>
+
+            <!-- Solution Architecture -->
+            <section id="architecture">
+                <h2>Solution Architecture</h2>
+                <p>The solution architecture centres on Azure Logic Apps as the orchestration engine, coordinating data flows between Dynamics 365 (via Dataverse) and six external systems. Custom REST APIs, built in C# and hosted on Azure App Service, serve as the connectivity layer for external systems that lack native Logic Apps connectors. Azure Service Bus provides reliable message queuing, decoupling the source and target systems to handle spikes in data volume and ensure no messages are lost during transient failures. Azure Monitor and Application Insights deliver end-to-end observability, tracking every record from source to destination and surfacing anomalies through configurable alert rules.</p>
+                <p>The architecture is designed for horizontal scalability. New integrations can be added by deploying additional Logic Apps workflows that leverage the existing connector templates and shared transformation engine, without modifying the core infrastructure. Data transformation rules are externalized into configuration, enabling business users to adjust field mappings without requiring code changes or redeployment.</p>
+
+                <div class="architecture-mockup">
+                    <div class="project-mockup">
+                        <div class="mockup-browser">
+                            <div class="mockup-titlebar">
+                                <span class="mockup-dot red"></span>
+                                <span class="mockup-dot yellow"></span>
+                                <span class="mockup-dot green"></span>
+                                <span class="mockup-titlebar-text">Integration Dashboard</span>
+                            </div>
+                            <div class="mockup-content">
+                                <div class="mockup-stat-row">
+                                    <div class="mockup-stat"><span class="mockup-stat-value">12,847</span><span class="mockup-stat-label">Records Synced</span></div>
+                                    <div class="mockup-stat"><span class="mockup-stat-value accent">99.2%</span><span class="mockup-stat-label">Success Rate</span></div>
+                                    <div class="mockup-stat"><span class="mockup-stat-value">6</span><span class="mockup-stat-label">Active Connections</span></div>
+                                </div>
+                                <div class="mockup-flow">
+                                    <span class="mockup-flow-node">Dynamics 365</span>
+                                    <span class="mockup-flow-arrow">&rarr;</span>
+                                    <span class="mockup-flow-node highlight">Azure Logic Apps</span>
+                                    <span class="mockup-flow-arrow">&rarr;</span>
+                                    <span class="mockup-flow-node">External API</span>
+                                </div>
+                                <div class="mockup-status-bar"><span class="mockup-status-dot active"></span><span>All systems operational &mdash; Last sync: 2 min ago</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Key Features -->
+            <section id="features">
+                <h2>Key Features</h2>
+                <ul>
+                    <li><strong>Real-Time Bi-Directional Sync:</strong> Changes in any connected system are detected and propagated within seconds, ensuring every system reflects the latest data at all times.</li>
+                    <li><strong>Intelligent Conflict Resolution:</strong> When simultaneous updates occur across systems, configurable rules determine which change takes precedence based on timestamp, source authority, and field-level priority.</li>
+                    <li><strong>Automatic Retry with Exponential Backoff:</strong> Transient failures — network timeouts, API throttling, temporary outages — are handled gracefully with escalating retry intervals, preventing cascade failures.</li>
+                    <li><strong>Comprehensive Error Logging &amp; Alerting:</strong> Every failed synchronization is logged with full context and triggers immediate alerts via email and Microsoft Teams, enabling rapid investigation and resolution.</li>
+                    <li><strong>Data Transformation &amp; Mapping Engine:</strong> A flexible, configuration-driven engine translates data formats, field names, and value sets between systems without requiring code changes.</li>
+                    <li><strong>Rate Limiting &amp; Throttling:</strong> Built-in controls respect each external system's API rate limits, distributing requests evenly to avoid throttling and ensure sustained throughput.</li>
+                    <li><strong>Audit Trail for Compliance:</strong> Every data movement is recorded with source, destination, timestamp, and before/after values, providing a complete audit trail for regulatory and internal compliance requirements.</li>
+                    <li><strong>Monitoring Dashboard with Real-Time Metrics:</strong> A centralized dashboard displays sync volumes, success rates, error trends, and system health, giving operations teams instant visibility into the integration landscape.</li>
+                </ul>
+            </section>
+
+            <!-- Technologies Used -->
+            <section id="technologies">
+                <h2>Technologies Used</h2>
+                <div class="detail-tech-tags">
+                    <span class="tag">Dynamics 365</span>
+                    <span class="tag">Azure Logic Apps</span>
+                    <span class="tag">Power Automate</span>
+                    <span class="tag">REST APIs</span>
+                    <span class="tag">Azure Service Bus</span>
+                    <span class="tag">Azure Monitor</span>
+                    <span class="tag">Dataverse</span>
+                    <span class="tag">C#</span>
+                    <span class="tag">JSON/XML</span>
+                </div>
+            </section>
+
+            <!-- Results & Impact -->
+            <section id="results">
+                <h2>Results &amp; Impact</h2>
+                <div class="metric-grid">
+                    <div class="metric-card">
+                        <span class="value">85%</span>
+                        <span class="label">Reduction in Manual Entry</span>
+                    </div>
+                    <div class="metric-card">
+                        <span class="value">99.2%</span>
+                        <span class="label">Sync Success Rate</span>
+                    </div>
+                    <div class="metric-card">
+                        <span class="value">12,000+</span>
+                        <span class="label">Records Synced Daily</span>
+                    </div>
+                    <div class="metric-card">
+                        <span class="value">6</span>
+                        <span class="label">Connected Systems</span>
+                    </div>
+                </div>
+
+                <div class="before-after">
+                    <div class="before">
+                        <h3>Before</h3>
+                        <ul>
+                            <li>Manual data entry across multiple disconnected systems</li>
+                            <li>4+ hours spent daily on data reconciliation</li>
+                            <li>Frequent data inconsistencies causing customer-facing errors</li>
+                            <li>No audit trail for data changes across systems</li>
+                        </ul>
+                    </div>
+                    <div class="after">
+                        <h3>After</h3>
+                        <ul>
+                            <li>Fully automated real-time synchronization across all systems</li>
+                            <li>Minutes spent on exception review instead of hours on reconciliation</li>
+                            <li>Single source of truth with consistent data everywhere</li>
+                            <li>Complete audit trail meeting regulatory compliance requirements</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Lessons Learned -->
+            <section id="lessons">
+                <h2>Lessons Learned</h2>
+
+                <h3>What Worked Well</h3>
+                <p>The phased rollout strategy proved invaluable. By starting with the simplest integration and progressively adding complexity, we were able to validate our architecture, refine our error handling, and build stakeholder confidence incrementally. Each phase generated insights that improved the next. The monitoring-first approach — instrumenting every flow with detailed logging and alerting before going live — meant we caught issues within minutes rather than days. Anomalies that might have gone undetected for weeks in a less observable system were surfaced and resolved before they could impact downstream processes. Close collaboration with business stakeholders throughout the project ensured that our technical design decisions remained grounded in real operational needs, and it built the organizational buy-in that made adoption seamless.</p>
+
+                <h3>What We Would Do Differently</h3>
+                <p>In hindsight, we would implement Azure Service Bus message queuing from day one rather than introducing it midway through the project. Early integrations relied on synchronous processing, which worked well at low volumes but required refactoring when data volumes scaled. Starting with an asynchronous, queue-based architecture from the outset would have saved that rework. We would also invest more heavily in automated integration testing earlier in the development cycle. While our end-to-end testing before deployment was thorough, having a comprehensive automated test suite from the first sprint would have accelerated development and caught edge cases sooner. Finally, for organizations with extremely low-latency requirements, we would explore an event-driven architecture using Azure Event Grid from the start, enabling near-instantaneous data propagation rather than the polling-based approach we initially employed for some integrations.</p>
+            </section>
+
+            <!-- Client Value -->
+            <section id="value">
+                <h2>Client Value</h2>
+                <p>The return on investment for this integration initiative was both substantial and rapid. By automating data synchronization across six systems, we freed approximately 20 hours per week of staff time that had been consumed by manual data entry and reconciliation. For a sales team, those recovered hours translate directly into more customer conversations, more pipeline development, and ultimately more revenue. At a conservative estimate, the productivity gains alone delivered a full return on the project investment within four months.</p>
+                <p>The 85% reduction in data errors had ripple effects across the organization. Customer-facing teams no longer had to apologize for incorrect invoices, outdated contact information, or duplicated communications. The compliance team gained confidence that their data met regulatory accuracy requirements, reducing audit preparation time and mitigating the risk of penalties. Operations leaders, for the first time, had access to unified dashboards that drew from a single, consistent data set — enabling faster, better-informed decisions.</p>
+                <p>Perhaps most importantly, the integration platform we built is not a static solution. It is a foundation. New systems can be connected in days rather than months. As the organization grows, acquires new tools, or expands into new markets, the integration layer scales with them — protecting their investment and ensuring that data silos never again become a barrier to growth.</p>
+            </section>
+
+            <!-- Call to Action -->
+            <section id="cta">
+                <div class="cta-box">
+                    <h2>Interested in a Similar Solution?</h2>
+                    <p>I help organizations eliminate data silos and automate their integration workflows. Let's discuss how I can help transform your data landscape.</p>
+                    <a href="../index.html#contact" class="btn">Get in Touch</a>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="project-footer">
+        <p>&copy; <span id="year"></span> Seun Gabriel Ogunwande. All rights reserved.</p>
+        <p><a href="../index.html">Back to Portfolio</a></p>
+    </footer>
+
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+        // Smooth scroll
+        document.querySelectorAll('.sidebar-link').forEach(link => {
+            link.addEventListener('click', e => {
+                e.preventDefault();
+                const target = document.querySelector(link.getAttribute('href'));
+                if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
+        // Scroll spy
+        const sections = document.querySelectorAll('.project-content section[id]');
+        const sidebarLinks = document.querySelectorAll('.sidebar-link');
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                if (window.pageYOffset >= section.offsetTop - 100) current = section.id;
+            });
+            sidebarLinks.forEach(link => {
+                link.classList.toggle('active', link.getAttribute('href') === '#' + current);
+            });
+        });
+    </script>
+
+</body>
+</html>

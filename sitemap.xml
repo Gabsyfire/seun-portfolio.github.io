@@ -5,4 +5,24 @@
     <lastmod>2026-02-28</lastmod>
     <priority>1.0</priority>
   </url>
+  <url>
+    <loc>https://gabsyfy.co.uk/projects/crm-data-integration.html</loc>
+    <lastmod>2026-02-28</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://gabsyfy.co.uk/projects/automated-document-management.html</loc>
+    <lastmod>2026-02-28</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://gabsyfy.co.uk/projects/engineer-appointment-validation.html</loc>
+    <lastmod>2026-02-28</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://gabsyfy.co.uk/projects/billing-api-data-sync.html</loc>
+    <lastmod>2026-02-28</lastmod>
+    <priority>0.8</priority>
+  </url>
 </urlset>

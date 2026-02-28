@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Automated Document Management - DocuSign and SharePoint integration with Power Automate">
+    <title>Automated Document Management | Seun Gabriel Ogunwande</title>
+    <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/project-detail.css">
+</head>
+<body>
+
+    <!-- Hero -->
+    <section class="project-hero">
+        <a href="../index.html#projects" class="back-link">&larr; Back to Portfolio</a>
+        <h1>Automated Document Management</h1>
+        <p class="project-tagline">Transforming contract lifecycle from days to hours with intelligent workflow automation</p>
+    </section>
+
+    <!-- Main Layout -->
+    <div class="project-layout">
+
+        <!-- Sidebar Navigation -->
+        <aside class="project-sidebar">
+            <nav>
+                <a href="#executive-summary" class="sidebar-link">Executive Summary</a>
+                <a href="#background" class="sidebar-link">Background &amp; Context</a>
+                <a href="#objectives" class="sidebar-link">Objectives</a>
+                <a href="#methodology" class="sidebar-link">Methodology</a>
+                <a href="#architecture" class="sidebar-link">Architecture</a>
+                <a href="#features" class="sidebar-link">Key Features</a>
+                <a href="#technologies" class="sidebar-link">Technologies</a>
+                <a href="#results" class="sidebar-link">Results &amp; Impact</a>
+                <a href="#lessons" class="sidebar-link">Lessons Learned</a>
+                <a href="#value" class="sidebar-link">Client Value</a>
+                <a href="#cta" class="sidebar-link">Get in Touch</a>
+            </nav>
+        </aside>
+
+        <!-- Content -->
+        <div class="project-content">
+
+            <!-- Executive Summary -->
+            <section id="executive-summary">
+                <h2>Executive Summary</h2>
+                <p>Contract management is the backbone of every commercial relationship, yet many organisations still rely on manual processes that introduce unnecessary risk, delay, and cost. For this engagement, I designed and deployed an end-to-end document workflow system that integrates DocuSign with SharePoint via Power Automate, eliminating the fragmented email chains and spreadsheet trackers that had long defined the client's contract lifecycle. The solution automates every stage of the journey &mdash; from document generation through multi-level approval routing, legally binding e-signature capture, and final archival &mdash; while maintaining a complete, immutable audit trail that satisfies both internal governance and external regulatory requirements.</p>
+                <p>Before implementation, the average contract turnaround time was approximately five business days, with approvals frequently stalling in individual inboxes and no centralised visibility into document status. The new system reduced that turnaround to under four hours for standard agreements. Stakeholders at every level now have real-time insight into where a contract sits in the process, who needs to act next, and whether any escalation rules have been triggered. The compliance team can produce a full audit history for any document in seconds rather than spending hours reconstructing the paper trail.</p>
+                <p>This project demonstrates the power of combining Microsoft's low-code automation platform with best-in-class e-signature technology to solve a problem that affects virtually every organisation. The result is a scalable, maintainable solution that the client's team can extend and adapt as their business grows, without requiring custom development or costly third-party platforms.</p>
+            </section>
+
+            <!-- Background & Context -->
+            <section id="background">
+                <h2>Background &amp; Context</h2>
+                <p>The client's contract management process had evolved organically over several years, and the cracks were becoming impossible to ignore. Contracts were initiated via email, with draft documents attached to threads that often included half a dozen stakeholders. Approvals were requested informally &mdash; a message to a manager here, a forwarded email to legal there &mdash; and there was no standardised routing or escalation. When an approver was on leave or simply busy, contracts sat in inboxes for days with no visibility into the delay.</p>
+                <p>Version control was another persistent pain point. Multiple copies of the same agreement would circulate simultaneously, leading to situations where signatories were reviewing outdated terms or, worse, executing the wrong version of a document. The compliance team had no reliable way to demonstrate a complete audit trail for any given contract, which created significant exposure during regulatory reviews and internal audits.</p>
+                <p>The financial impact was tangible. Delayed contract execution meant delayed revenue recognition, strained vendor relationships, and missed partnership opportunities. The administrative overhead of chasing approvals, reconciling document versions, and manually filing signed agreements consumed dozens of hours each week across multiple departments. The client needed a solution that would bring structure, speed, and accountability to the entire contract lifecycle without disrupting existing ways of working more than necessary.</p>
+            </section>
+
+            <!-- Objectives -->
+            <section id="objectives">
+                <h2>Objectives</h2>
+                <ul>
+                    <li>Automate the full contract lifecycle from draft to archive</li>
+                    <li>Integrate DocuSign for legally binding e-signatures</li>
+                    <li>Implement multi-level approval routing with escalation rules</li>
+                    <li>Maintain a complete, immutable audit trail for compliance</li>
+                    <li>Reduce contract turnaround time by 80% or more</li>
+                    <li>Centralise all documents in SharePoint with proper metadata</li>
+                </ul>
+            </section>
+
+            <!-- Methodology & Approach -->
+            <section id="methodology">
+                <h2>Methodology &amp; Approach</h2>
+                <p>Delivering a solution of this scope required a structured, phased approach that balanced thoroughness with pace. The project moved through six distinct stages, each building on the last.</p>
+
+                <h3>1. Process Mapping</h3>
+                <p>The first step was to document the existing approval chains in detail, interviewing stakeholders from legal, procurement, finance, and operations. I mapped every handoff, identified the most common bottlenecks, and classified the organisation's document types by complexity and risk level. This exercise revealed that roughly 70% of contracts followed a predictable, two-tier approval path, while the remaining 30% required conditional routing based on value thresholds, department, or contract type.</p>
+
+                <h3>2. Platform Selection</h3>
+                <p>With the process landscape understood, I evaluated the technology stack. Power Automate was selected as the orchestration engine due to its native integration with the Microsoft 365 ecosystem, its mature approval connector, and its ability to call external APIs without custom middleware. DocuSign was chosen for e-signatures based on its legal standing, global recognition, and robust API. SharePoint provided the natural home for document management, given the client's existing Microsoft 365 investment.</p>
+
+                <h3>3. Workflow Design</h3>
+                <p>I designed multi-stage approval flows with conditional routing logic. Standard contracts follow a streamlined two-step approval, while high-value or high-risk agreements trigger additional review stages, including legal sign-off and executive authorisation. Parallel approvals were implemented where independent reviewers could act simultaneously, cutting wait times significantly. Each flow was built with clear timeout thresholds and escalation paths to prevent documents from stalling.</p>
+
+                <h3>4. Integration</h3>
+                <p>The DocuSign API was connected to Power Automate to programmatically create signature requests, track envelope status, and retrieve signed documents. SharePoint document libraries were configured with custom metadata columns &mdash; contract type, counterparty, value band, expiry date, and status &mdash; enabling powerful filtering and reporting. Email and Microsoft Teams notifications were wired into each stage to keep stakeholders informed without requiring them to check a separate system.</p>
+
+                <h3>5. Testing &amp; Compliance</h3>
+                <p>Before go-live, the solution underwent rigorous testing. I validated that the audit trail captured every action &mdash; who approved, when, from which device, and any comments left during the review. Edge cases were tested extensively: what happens when an approver rejects, when a signer declines, when a document expires unsigned, or when a user is out of office. Each scenario was mapped to a defined outcome in the workflow.</p>
+
+                <h3>6. Training &amp; Rollout</h3>
+                <p>A change management programme accompanied the technical deployment. I conducted hands-on training sessions with each department, created quick-reference guides, and established a feedback loop for the first 30 days post-launch. Adoption was monitored through usage analytics, and the workflow was iteratively refined based on real-world feedback from the teams using it daily.</p>
+            </section>
+
+            <!-- Solution Architecture -->
+            <section id="architecture">
+                <h2>Solution Architecture</h2>
+                <p>The solution architecture is built around Power Automate as the central workflow engine, orchestrating interactions between four key systems. When a contract is initiated &mdash; either manually through a Power Apps form or automatically from a Dataverse trigger &mdash; Power Automate takes control of the entire lifecycle. It consults an approval matrix stored in Dataverse to determine the correct routing path based on contract type, value, and department, then dispatches approval requests through Microsoft's built-in approval connector.</p>
+                <p>Once all approvals are secured, the workflow calls the DocuSign API to create a signature envelope, populating it with the approved document and the designated signatories. DocuSign's webhook callbacks notify Power Automate of status changes &mdash; viewed, signed, declined, or expired &mdash; allowing the workflow to respond in real time. Upon completion, the signed document is automatically filed to a SharePoint document library with full metadata tagging, and all parties receive confirmation via email and Teams.</p>
+                <p>Every action taken throughout this process is logged to an audit table in Dataverse, creating a tamper-proof record that the compliance team can query at any time. The architecture is designed with resilience in mind: retry policies handle transient API failures, and error notifications alert administrators if any step requires manual intervention.</p>
+
+                <div class="architecture-mockup">
+                    <div class="project-mockup">
+                        <div class="mockup-browser">
+                            <div class="mockup-titlebar">
+                                <span class="mockup-dot red"></span>
+                                <span class="mockup-dot yellow"></span>
+                                <span class="mockup-dot green"></span>
+                                <span class="mockup-titlebar-text">Document Workflow</span>
+                            </div>
+                            <div class="mockup-content">
+                                <div class="mockup-pipeline">
+                                    <span class="mockup-stage done">Draft</span>
+                                    <span class="mockup-stage-arrow">&rarr;</span>
+                                    <span class="mockup-stage done">Review</span>
+                                    <span class="mockup-stage-arrow">&rarr;</span>
+                                    <span class="mockup-stage active">Sign</span>
+                                    <span class="mockup-stage-arrow">&rarr;</span>
+                                    <span class="mockup-stage pending">Archive</span>
+                                </div>
+                                <div class="mockup-doc-list">
+                                    <div class="mockup-doc-row"><span>Service Agreement v2.1</span><span class="mockup-badge green">Signed</span></div>
+                                    <div class="mockup-doc-row"><span>NDA &mdash; Partner Corp</span><span class="mockup-badge yellow">Pending</span></div>
+                                    <div class="mockup-doc-row"><span>Q4 Contract Renewal</span><span class="mockup-badge gray">Draft</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Key Features -->
+            <section id="features">
+                <h2>Key Features</h2>
+                <ul>
+                    <li>Automated document generation from pre-approved templates with dynamic field population</li>
+                    <li>Multi-level approval routing with conditional logic based on contract type, value, and department</li>
+                    <li>DocuSign e-signature integration for legally binding, globally recognised digital signatures</li>
+                    <li>Automatic archival to SharePoint with metadata tagging for easy retrieval and reporting</li>
+                    <li>Version control and document locking to prevent conflicting edits during the approval cycle</li>
+                    <li>Compliance-ready audit trail recording every action, timestamp, and participant</li>
+                    <li>Real-time status notifications via email and Microsoft Teams at every stage of the workflow</li>
+                    <li>Escalation rules for overdue approvals with configurable timeout thresholds and delegate routing</li>
+                </ul>
+            </section>
+
+            <!-- Technologies Used -->
+            <section id="technologies">
+                <h2>Technologies Used</h2>
+                <div class="detail-tech-tags">
+                    <span class="tag">Power Automate</span>
+                    <span class="tag">SharePoint</span>
+                    <span class="tag">DocuSign API</span>
+                    <span class="tag">Power Apps</span>
+                    <span class="tag">Microsoft Teams</span>
+                    <span class="tag">Dataverse</span>
+                    <span class="tag">Azure AD</span>
+                    <span class="tag">HTML/CSS</span>
+                </div>
+            </section>
+
+            <!-- Results & Impact -->
+            <section id="results">
+                <h2>Results &amp; Impact</h2>
+                <div class="metric-grid">
+                    <div class="metric-card">
+                        <span class="value">92%</span>
+                        <span class="label">Faster Contract Turnaround (5 days &rarr; 4 hours)</span>
+                    </div>
+                    <div class="metric-card">
+                        <span class="value">100%</span>
+                        <span class="label">Audit Trail Compliance</span>
+                    </div>
+                    <div class="metric-card">
+                        <span class="value">300+</span>
+                        <span class="label">Contracts Processed Monthly</span>
+                    </div>
+                    <div class="metric-card">
+                        <span class="value">Zero</span>
+                        <span class="label">Lost Documents</span>
+                    </div>
+                </div>
+
+                <div class="before-after">
+                    <div class="before">
+                        <h3>Before</h3>
+                        <ul>
+                            <li>Manual email-based routing with no standardised process</li>
+                            <li>5-day average contract turnaround time</li>
+                            <li>Approvals lost in crowded inboxes with no tracking</li>
+                            <li>No audit trail &mdash; compliance exposure at every review</li>
+                            <li>Version conflicts from multiple document copies in circulation</li>
+                        </ul>
+                    </div>
+                    <div class="after">
+                        <h3>After</h3>
+                        <ul>
+                            <li>Automated workflow routing with conditional logic and parallel approvals</li>
+                            <li>4-hour average turnaround for standard agreements</li>
+                            <li>Real-time tracking with status visible to all stakeholders</li>
+                            <li>Complete, immutable audit trail for every document action</li>
+                            <li>Single source of truth in SharePoint with version control and locking</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Lessons Learned -->
+            <section id="lessons">
+                <h2>Lessons Learned</h2>
+
+                <h3>What Worked Well</h3>
+                <p>The DocuSign API proved to be exceptionally reliable and well-documented, which made the integration work smoother than anticipated. Envelope status callbacks provided real-time visibility without the need for polling, and the API's sandbox environment allowed thorough testing before connecting to production. Power Automate's built-in approval connector was another standout &mdash; it handled multi-tier routing, delegate assignments, and timeout logic out of the box, significantly reducing the amount of custom logic required. SharePoint's metadata columns transformed document retrieval from a manual search exercise into a structured, filterable experience that users genuinely appreciated.</p>
+
+                <h3>What We Would Improve</h3>
+                <p>In hindsight, building a self-service portal for document requests from day one would have reduced the onboarding friction considerably. Early users had to request contract initiation through a simplified form, but a more polished Power Apps front-end with guided workflows would have improved the user experience and driven faster adoption. I would also implement an analytics dashboard earlier in the project to give management real-time insight into bottlenecks &mdash; which approvers are slowest, which contract types take longest, and where escalation rules are firing most often. These insights would enable continuous process optimisation rather than relying on periodic reviews.</p>
+            </section>
+
+            <!-- Client Value -->
+            <section id="value">
+                <h2>Client Value</h2>
+                <p>The return on investment for this project was immediate and measurable. By automating the contract lifecycle, the organisation saved an estimated 120 hours or more of administrative time each month &mdash; time that was previously spent chasing approvals, reconciling document versions, and manually filing signed agreements. That translates directly into recovered productivity for teams across legal, procurement, finance, and operations.</p>
+                <p>Beyond the time savings, the elimination of contract delays had a direct revenue impact. Agreements that once stalled for days in approval queues now reach signature within hours, accelerating deal closure and improving cash flow predictability. Vendor and partner relationships improved as counterparties experienced a faster, more professional contracting process with clear status updates and timely execution.</p>
+                <p>Compliance risk was reduced to near-zero. The immutable audit trail means the organisation can respond to regulatory inquiries or internal audit requests in minutes rather than days, with complete confidence in the accuracy and completeness of the record. And because the solution is built on the Microsoft 365 platform the client already licenses, there were no significant new platform costs &mdash; just the DocuSign subscription, which pays for itself many times over through operational efficiency gains.</p>
+                <p>Perhaps most importantly, the solution is designed to scale. As the organisation grows, new contract types, approval paths, and document templates can be added without re-architecting the system. The foundation is in place to support not just today's volume, but the demands of a business that continues to expand.</p>
+            </section>
+
+            <!-- CTA -->
+            <section id="cta">
+                <div class="cta-box">
+                    <h2>Interested in a Similar Solution?</h2>
+                    <p>I help organisations automate their document workflows and eliminate manual bottlenecks. Let's discuss how I can streamline your contract lifecycle.</p>
+                    <a href="../index.html#contact" class="btn">Get in Touch</a>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="project-footer">
+        <p>&copy; <span id="year"></span> Seun Gabriel Ogunwande. All rights reserved.</p>
+        <p><a href="../index.html">Back to Portfolio</a></p>
+    </footer>
+
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+        document.querySelectorAll('.sidebar-link').forEach(link => {
+            link.addEventListener('click', e => {
+                e.preventDefault();
+                const target = document.querySelector(link.getAttribute('href'));
+                if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
+        const sections = document.querySelectorAll('.project-content section[id]');
+        const sidebarLinks = document.querySelectorAll('.sidebar-link');
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                if (window.pageYOffset >= section.offsetTop - 100) current = section.id;
+            });
+            sidebarLinks.forEach(link => {
+                link.classList.toggle('active', link.getAttribute('href') === '#' + current);
+            });
+        });
+    </script>
+
+</body>
+</html>

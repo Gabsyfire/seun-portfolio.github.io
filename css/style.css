@@ -611,6 +611,21 @@ input, textarea {
   border-color: var(--color-primary);
 }
 
+.project-card-link {
+  display: inline-block;
+  margin-top: var(--spacing-md);
+  color: var(--color-primary);
+  text-decoration: none;
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  transition: color var(--transition-fast), transform var(--transition-fast);
+}
+
+.project-card-link:hover {
+  color: var(--color-accent);
+  transform: translateX(5px);
+}
+
 /* Project Mockups */
 .project-mockup {
   margin: var(--spacing-md) 0;
