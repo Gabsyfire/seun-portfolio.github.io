@@ -1874,6 +1874,7 @@ textarea:focus-visible {
 
 .chatbot-input {
   flex: 1;
+  min-width: 0;
   padding: var(--spacing-xs) var(--spacing-sm);
   background-color: var(--color-background);
   border: 1px solid var(--color-border);
@@ -1920,15 +1921,15 @@ textarea:focus-visible {
 
 @media (max-width: 480px) {
   .chatbot-window {
+    top: 0;
     bottom: 0;
     right: 0;
     left: 0;
     width: 100%;
-    max-height: 100dvh;
-    height: 100dvh;
+    height: 100%;
+    max-height: none;
     border-radius: 0;
     transform: translateY(100%);
-    padding-bottom: env(safe-area-inset-bottom, 0);
   }
 
   .chatbot-window--open {
@@ -1938,11 +1939,21 @@ textarea:focus-visible {
   .chatbot-messages {
     max-height: none;
     flex: 1;
+    overflow-y: auto;
     -webkit-overflow-scrolling: touch;
   }
 
   .chatbot-input-area {
     padding-bottom: calc(var(--spacing-sm) + env(safe-area-inset-bottom, 0));
+  }
+
+  .chatbot-input {
+    font-size: 16px;
+  }
+
+  .chatbot-send {
+    min-width: 36px;
+    min-height: 36px;
   }
 
   .chatbot-bubble {
