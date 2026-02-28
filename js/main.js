@@ -212,6 +212,42 @@ document.addEventListener('DOMContentLoaded', () => {
     'powershell': {
       title: 'PowerShell',
       items: ['Scripting for system administration', 'Bulk operations', 'Azure resource management', 'Automated deployments and data migration scripts']
+    },
+    'csharp': {
+      title: 'C#',
+      items: ['Dynamics 365 plugin development', 'Custom workflow activities', 'Backend service development', 'Data migration tools']
+    },
+    'api-integrations': {
+      title: 'API Integrations',
+      items: ['RESTful API design and consumption', 'Third-party system integrations', 'Webhook and event-driven architectures', 'Authentication and data mapping']
+    },
+    'pcf-controls': {
+      title: 'PCF Controls',
+      items: ['Custom PowerApps Component Framework controls', 'Reusable UI components for model-driven apps', 'TypeScript-based control development', 'Enhanced user experience in Dynamics 365']
+    },
+    'itsm': {
+      title: 'IT Service Management',
+      items: ['ITIL-aligned service delivery', 'Incident and change management', 'Service desk operations', 'SLA monitoring and reporting']
+    },
+    'it-governance': {
+      title: 'IT Governance',
+      items: ['Policy development and compliance', 'Risk assessment frameworks', 'Technology standards and best practices', 'Stakeholder alignment']
+    },
+    'cybersecurity': {
+      title: 'Cybersecurity Culture',
+      items: ['Security awareness programmes', 'Trust-based security frameworks', 'Phishing prevention and user education', 'Organisational security posture improvement']
+    },
+    'ai-strategy': {
+      title: 'AI Strategy',
+      items: ['AI adoption roadmaps', 'Practical AI use case identification', 'Responsible AI implementation', 'AI-driven process improvement']
+    },
+    'digital-transformation': {
+      title: 'Digital Transformation',
+      items: ['Legacy system modernisation', 'Cloud migration planning', 'Change management and adoption', 'Technology-driven business improvement']
+    },
+    'bpo': {
+      title: 'Business Process Optimization',
+      items: ['Process mapping and analysis', 'Automation opportunity identification', 'Workflow redesign', 'Efficiency measurement and KPIs']
     }
   };
 
