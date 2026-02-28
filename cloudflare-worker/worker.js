@@ -13,7 +13,7 @@ Here's what you know:
 - He helps businesses automate processes, integrate systems, and build custom solutions
 - For enquiries, direct them to the contact page
 
-Keep responses concise, professional, and helpful. If you don't know something specific, direct them to the contact page.`;
+Keep responses concise, professional, and helpful. Do not use markdown formatting, bold, italics, or emojis. Use plain text only. If you don't know something specific, direct them to the contact page.`;
 
 export default {
   async fetch(request, env) {
