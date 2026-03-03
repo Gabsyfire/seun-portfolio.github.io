@@ -86,10 +86,18 @@ function corsHeaders() {
   };
 }
 
+function securityHeaders() {
+  return {
+    'X-Content-Type-Options': 'nosniff',
+    'X-Frame-Options': 'DENY',
+    'Referrer-Policy': 'strict-origin-when-cross-origin'
+  };
+}
+
 function jsonResponse(body, status) {
   return new Response(JSON.stringify(body), {
     status: status,
-    headers: { 'Content-Type': 'application/json', ...corsHeaders() }
+    headers: { 'Content-Type': 'application/json', ...corsHeaders(), ...securityHeaders() }
   });
 }
 
