@@ -419,7 +419,7 @@ body.light-theme .icon-moon { display: none; }
   content: '';
   position: absolute;
   inset: 0;
-  background: url('https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=1920&q=80') center/cover no-repeat;
+  background: rgba(10, 14, 39, 1) url('https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=1920&q=80') center/cover no-repeat;
   filter: blur(8px);
   opacity: 0.25;
   z-index: 0;
