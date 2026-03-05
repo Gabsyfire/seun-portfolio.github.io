@@ -171,7 +171,7 @@ export const tenantApi = (tenantId: string) => ({
 export const orgApi = {
   listUsers: () => api.get('/api/v1/org/users'),
   listTenants: () => api.get('/api/v1/tenants'),
-  createTenant: (data: { name: string }) =>
+  createTenant: (data: { name: string; slug: string }) =>
     api.post('/api/v1/tenants', data),
   updateTenant: (tenantId: string, data: { name: string }) =>
     api.put(`/api/v1/tenants/${tenantId}`, data),
