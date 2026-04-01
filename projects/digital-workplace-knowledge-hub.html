@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="description" content="Digital Workplace & Knowledge Base Initiative - SharePoint Online intranet design, information architecture, and governance framework for 200+ users">
+    <title>Digital Workplace & Knowledge Hub | Seun Gabriel Ogunwande</title>
+    <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/project-detail.css">
+</head>
+<body>
+    <script>if(localStorage.getItem('theme')!=='dark')document.body.classList.add('light-theme')</script>
+
+    <!-- Hero -->
+    <section class="project-hero">
+        <div class="project-hero-nav">
+            <a href="../index.html#projects" class="back-link">&larr; Back to Portfolio</a>
+            <button class="theme-toggle" aria-label="Toggle light/dark mode">
+                <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+                <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+            </button>
+        </div>
+        <h1>Digital Workplace & Knowledge Hub</h1>
+        <p class="project-tagline">Designing and deploying a SharePoint Online intranet from scratch &mdash; information architecture, governance, and adoption for 200+ users</p>
+    </section>
+
+    <!-- Main Layout -->
+    <div class="project-layout">
+
+        <!-- Sidebar Navigation -->
+        <aside class="project-sidebar">
+            <nav>
+                <a href="#executive-summary" class="sidebar-link">Executive Summary</a>
+                <a href="#background" class="sidebar-link">Background &amp; Context</a>
+                <a href="#objectives" class="sidebar-link">Objectives</a>
+                <a href="#methodology" class="sidebar-link">Methodology</a>
+                <a href="#architecture" class="sidebar-link">Architecture</a>
+                <a href="#features" class="sidebar-link">Key Features</a>
+                <a href="#technologies" class="sidebar-link">Technologies</a>
+                <a href="#results" class="sidebar-link">Results &amp; Impact</a>
+                <a href="#lessons" class="sidebar-link">Lessons Learned</a>
+                <a href="#value" class="sidebar-link">Client Value</a>
+                <a href="#cta" class="sidebar-link">Get in Touch</a>
+            </nav>
+        </aside>
+
+        <!-- Content -->
+        <div class="project-content">
+
+            <!-- Executive Summary -->
+            <section id="executive-summary">
+                <h2>Executive Summary</h2>
+                <p>I was given full ownership to design, build, and maintain a SharePoint Online-based digital workplace platform from scratch for YellowCom Ltd, serving as the company's central hub for 200+ users across multiple departments. The initiative encompassed every dimension of the project &mdash; from defining the information architecture and metadata taxonomy through to site provisioning, navigation design, governance frameworks, and end-user adoption.</p>
+                <p>The platform replaced a fragmented landscape of shared drives, email chains, and ad-hoc file stores with a structured, searchable, and governed intranet. At its core sits a knowledge management hub containing 75+ articles and training guides that I authored and maintain, which has directly contributed to a 30% reduction in repeat support queries. The project also established comprehensive governance policies covering content lifecycle management, permissions models, and site provisioning standards.</p>
+                <p>This case study demonstrates end-to-end digital workplace ownership: from blank tenant to a fully operational intranet that serves as the single source of truth for an entire organisation.</p>
+            </section>
+
+            <!-- Background & Context -->
+            <section id="background">
+                <h2>Background &amp; Context</h2>
+                <p>When I joined YellowCom Ltd, the organisation had no centralised digital workplace. Information was scattered across personal OneDrive accounts, legacy shared drives, email attachments, and various third-party tools. There was no standardised way for employees to find company policies, process documentation, or operational guidance. New starters had no single place to go for onboarding materials, and teams operated in silos with limited visibility into each other's work.</p>
+                <p>The lack of structure extended to Microsoft Teams, where team creation was ungoverned &mdash; anyone could create teams and channels without naming conventions, purpose definitions, or lifecycle policies. Guest access had no formal controls, and app management was inconsistent. The result was sprawl: dozens of abandoned teams, duplicate channels, and no clear ownership model.</p>
+                <p>Leadership recognised that as the organisation grew beyond 200 employees, this lack of governance and centralised information was becoming a material risk to productivity, compliance, and knowledge retention. They needed someone to take ownership of the entire Microsoft 365 digital workplace &mdash; not just build it, but define the standards, drive adoption, and maintain it as a living platform.</p>
+            </section>
+
+            <!-- Objectives -->
+            <section id="objectives">
+                <h2>Objectives</h2>
+                <ul>
+                    <li>Design and build a SharePoint Online intranet from scratch as the organisation's central digital workplace</li>
+                    <li>Define a comprehensive information architecture with metadata taxonomy, managed navigation, and search optimisation</li>
+                    <li>Establish governance frameworks for content lifecycle, permissions, site provisioning, and Teams management</li>
+                    <li>Create a knowledge management hub to centralise operational documentation and reduce support burden</li>
+                    <li>Configure and govern Microsoft Teams environments including creation policies, guest access, and app management</li>
+                    <li>Drive adoption across 200+ users through training workshops, documentation, and change management</li>
+                    <li>Implement identity and access management via Azure AD/Entra ID and Intune</li>
+                </ul>
+            </section>
+
+            <!-- Methodology & Approach -->
+            <section id="methodology">
+                <h2>Methodology &amp; Approach</h2>
+
+                <h3>1. Discovery &amp; Stakeholder Analysis</h3>
+                <p>I began by conducting workshops with department heads and key users across the organisation to understand their information needs, pain points, and daily workflows. This involved mapping the existing content landscape &mdash; identifying what lived where, who owned it, and how it was used. I catalogued the most common employee queries and support requests to identify the highest-value content for the knowledge base.</p>
+
+                <h3>2. Information Architecture Design</h3>
+                <p>Based on discovery findings, I designed a hub-and-spoke site architecture with a central intranet hub connecting departmental sites, project spaces, and the knowledge management portal. I defined managed metadata term sets for consistent content classification, designed the global and local navigation structures, and created a URL strategy that supported intuitive wayfinding. Search was configured with custom result sources, promoted results, and refiners aligned to the metadata taxonomy.</p>
+
+                <h3>3. Governance Framework</h3>
+                <p>I authored and implemented governance policies covering: site provisioning standards (who can create sites, naming conventions, required metadata); content lifecycle management (review cycles, archival rules, expiration policies); permissions models (security groups aligned to organisational roles, least-privilege access, external sharing controls); and Teams governance (creation policies, channel naming standards, guest access controls, and app management).</p>
+
+                <h3>4. Platform Build &amp; Configuration</h3>
+                <p>I built the SharePoint sites and pages using modern site templates, configuring web parts, page layouts, and branding to create a cohesive look and feel. Document libraries were structured with content types and metadata columns. Teams environments were configured with policies enforced through the Teams admin centre and Azure AD. I set up Intune device compliance policies to ensure governance extended to endpoints accessing the platform.</p>
+
+                <h3>5. Knowledge Base Development</h3>
+                <p>I authored 75+ knowledge articles covering M365 tools, internal processes, troubleshooting guides, and best practices. Each article was tagged with metadata for discoverability and organised into a logical category structure. I implemented a feedback mechanism so users could rate articles and suggest improvements, creating a continuous improvement loop for content quality.</p>
+
+                <h3>6. Training &amp; Adoption</h3>
+                <p>I delivered hands-on workshops and onboarding sessions to 100+ end users covering M365 tools, the new intranet, navigation, search, and Teams best practices. I created quick-reference guides, video walkthroughs, and a dedicated "Getting Started" site for new joiners. Adoption was tracked through SharePoint analytics and Teams usage reports, with targeted follow-up for low-engagement departments.</p>
+            </section>
+
+            <!-- Solution Architecture -->
+            <section id="architecture">
+                <h2>Solution Architecture</h2>
+                <p>The platform follows a hub-and-spoke architecture built entirely on SharePoint Online and the wider Microsoft 365 ecosystem. The central hub site serves as the organisation's front door &mdash; housing company news, announcements, the knowledge base, and global navigation to departmental sites. Each department has its own connected site with tailored content, document libraries, and team-specific resources.</p>
+                <p>Microsoft Teams is integrated as the real-time collaboration layer, with team structures aligned to the SharePoint site architecture. Governance is enforced through Azure AD security groups, conditional access policies, and Teams creation policies configured in the admin centre. Intune provides endpoint compliance, ensuring devices accessing the platform meet security baselines.</p>
+                <p>Power Automate workflows handle content lifecycle automation &mdash; triggering review reminders when articles approach their review date, notifying site owners of stale content, and automating the site provisioning request process. Power BI dashboards provide governance and adoption metrics to leadership.</p>
+
+                <div class="architecture-mockup">
+                    <div class="project-mockup">
+                        <div class="mockup-browser">
+                            <div class="mockup-titlebar">
+                                <span class="mockup-dot red"></span>
+                                <span class="mockup-dot yellow"></span>
+                                <span class="mockup-dot green"></span>
+                                <span class="mockup-titlebar-text">YellowCom &mdash; Digital Workplace Hub</span>
+                            </div>
+                            <div class="mockup-content">
+                                <div class="mockup-stat-row">
+                                    <div class="mockup-stat">
+                                        <span class="mockup-stat-value">200+</span>
+                                        <span class="mockup-stat-label">Active Users</span>
+                                    </div>
+                                    <div class="mockup-stat">
+                                        <span class="mockup-stat-value accent">75+</span>
+                                        <span class="mockup-stat-label">KB Articles</span>
+                                    </div>
+                                    <div class="mockup-stat">
+                                        <span class="mockup-stat-value">12</span>
+                                        <span class="mockup-stat-label">Dept Sites</span>
+                                    </div>
+                                </div>
+                                <div class="mockup-doc-list">
+                                    <div class="mockup-doc-row">
+                                        <span>Company Intranet Hub</span>
+                                        <span class="mockup-badge green">Live</span>
+                                    </div>
+                                    <div class="mockup-doc-row">
+                                        <span>Knowledge Base Portal</span>
+                                        <span class="mockup-badge green">Live</span>
+                                    </div>
+                                    <div class="mockup-doc-row">
+                                        <span>IT Service Desk</span>
+                                        <span class="mockup-badge green">Live</span>
+                                    </div>
+                                    <div class="mockup-doc-row">
+                                        <span>New Starter Onboarding</span>
+                                        <span class="mockup-badge yellow">Updating</span>
+                                    </div>
+                                </div>
+                                <div class="mockup-status-bar">
+                                    <span class="mockup-status-dot active"></span>
+                                    <span>All sites governed &mdash; Metadata taxonomy active</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Key Features -->
+            <section id="features">
+                <h2>Key Features</h2>
+                <ul>
+                    <li>Hub-and-spoke SharePoint site architecture with managed navigation and consistent branding across 12+ departmental sites</li>
+                    <li>Managed metadata taxonomy with custom term sets enabling structured content classification and faceted search</li>
+                    <li>Comprehensive knowledge management portal with 75+ authored articles, feedback mechanisms, and content review cycles</li>
+                    <li>Microsoft Teams governance including team creation policies, naming conventions, channel standards, guest access controls, and app management</li>
+                    <li>Content lifecycle automation via Power Automate &mdash; review reminders, stale content alerts, and provisioning workflows</li>
+                    <li>Azure AD/Entra ID security group-based permissions model with least-privilege access and conditional access policies</li>
+                    <li>Intune device compliance policies ensuring endpoint governance for all platform users</li>
+                    <li>Search optimisation with custom result sources, promoted results, and metadata-driven refiners</li>
+                    <li>Adoption tracking via SharePoint analytics and Power BI governance dashboards</li>
+                </ul>
+            </section>
+
+            <!-- Technologies Used -->
+            <section id="technologies">
+                <h2>Technologies Used</h2>
+                <div class="detail-tech-tags">
+                    <span class="tag">SharePoint Online</span>
+                    <span class="tag">Microsoft Teams</span>
+                    <span class="tag">Azure AD / Entra ID</span>
+                    <span class="tag">Microsoft Intune</span>
+                    <span class="tag">Power Automate</span>
+                    <span class="tag">Power BI</span>
+                    <span class="tag">Managed Metadata</span>
+                    <span class="tag">Microsoft Viva</span>
+                </div>
+            </section>
+
+            <!-- Results & Impact -->
+            <section id="results">
+                <h2>Results &amp; Impact</h2>
+                <div class="metric-grid">
+                    <div class="metric-card">
+                        <span class="value">30%</span>
+                        <span class="label">Reduction in Repeat Support Queries</span>
+                    </div>
+                    <div class="metric-card">
+                        <span class="value">200+</span>
+                        <span class="label">Users Onboarded to the Platform</span>
+                    </div>
+                    <div class="metric-card">
+                        <span class="value">75+</span>
+                        <span class="label">Knowledge Articles Authored</span>
+                    </div>
+                    <div class="metric-card">
+                        <span class="value">25%</span>
+                        <span class="label">Increase in First-Contact Resolution</span>
+                    </div>
+                </div>
+
+                <div class="before-after">
+                    <div class="before">
+                        <h3>Before</h3>
+                        <ul>
+                            <li>No centralised intranet &mdash; information scattered across drives, email, and ad-hoc tools</li>
+                            <li>No information architecture or metadata taxonomy</li>
+                            <li>Ungoverned Teams environment with sprawl, no naming standards, and uncontrolled guest access</li>
+                            <li>New starters had no single onboarding resource</li>
+                            <li>Repeat support queries consuming significant IT time</li>
+                        </ul>
+                    </div>
+                    <div class="after">
+                        <h3>After</h3>
+                        <ul>
+                            <li>Fully governed SharePoint intranet serving as the organisation's single source of truth</li>
+                            <li>Structured information architecture with managed metadata and optimised search</li>
+                            <li>Teams governance with creation policies, naming conventions, and controlled guest access</li>
+                            <li>Dedicated onboarding hub with guided new-starter experience</li>
+                            <li>75+ knowledge articles reducing repeat queries by 30%</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Lessons Learned -->
+            <section id="lessons">
+                <h2>Lessons Learned</h2>
+
+                <h3>What Worked Well</h3>
+                <p>Starting with stakeholder workshops proved invaluable &mdash; understanding how each department actually worked (rather than how we assumed they worked) led to an information architecture that people naturally adopted. The knowledge base became a self-reinforcing success: as articles resolved common queries, more users trusted the platform, which drove further adoption. Tracking usage analytics from day one allowed me to identify low-engagement areas early and intervene with targeted training before habits solidified around the old ways of working.</p>
+
+                <h3>What We Would Improve</h3>
+                <p>In hindsight, I would implement a formal content champion programme from the start &mdash; appointing advocates in each department to own their local content and promote the platform within their teams. While the centralised approach worked well for the initial build, sustaining content freshness at scale requires distributed ownership. I would also invest earlier in automated governance reporting, so leadership could see adoption trends and compliance metrics without manual report generation.</p>
+            </section>
+
+            <!-- Client Value -->
+            <section id="value">
+                <h2>Client Value</h2>
+                <p>This project transformed how YellowCom operates as a digital workplace. For the first time, the organisation has a single, governed platform where employees can find company information, operational documentation, and team resources without navigating a maze of disconnected systems. The 30% reduction in repeat support queries alone freed up significant IT capacity that could be redirected to higher-value work.</p>
+                <p>The governance frameworks ensure the platform remains sustainable as the organisation grows. Site provisioning standards prevent sprawl, content lifecycle policies keep information current, and the permissions model protects sensitive data while enabling collaboration. These aren't just policies on paper &mdash; they're enforced through the platform's configuration and automated workflows.</p>
+                <p>The knowledge base has become a genuine business asset. With 75+ articles covering everything from M365 tooling to internal processes, it serves as institutional memory that doesn't walk out the door when employees move on. New starters are productive faster, experienced staff spend less time answering repeat questions, and the entire organisation benefits from consistent, documented ways of working.</p>
+                <p>Most critically, this project demonstrated the value of having a single point of ownership for the digital workplace. Rather than piecemeal solutions from multiple vendors or consultants, the organisation now has a coherent, integrated platform with a clear roadmap for future enhancements including Viva Connections and Copilot adoption.</p>
+            </section>
+
+            <!-- CTA -->
+            <section id="cta">
+                <div class="cta-box">
+                    <h2>Need a Digital Workplace Strategy?</h2>
+                    <p>I design, build, and govern SharePoint-based digital workplaces from scratch. Let's discuss how I can transform your organisation's collaboration and knowledge management.</p>
+                    <a href="../contact.html" class="btn">Get in Touch</a>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="project-footer">
+        <p>&copy; <span id="year"></span> Seun Gabriel Ogunwande. All rights reserved.</p>
+        <p><a href="../index.html">Back to Portfolio</a> | <a href="../privacy-policy.html">Privacy Policy</a></p>
+    </footer>
+
+    <script>
+  // Theme toggle
+  var themeBtn = document.querySelector('.theme-toggle');
+  if (themeBtn) {
+    themeBtn.addEventListener('click', function() {
+      document.body.classList.toggle('light-theme');
+      localStorage.setItem('theme', document.body.classList.contains('light-theme') ? 'light' : 'dark');
+    });
+  }
+        document.getElementById('year').textContent = new Date().getFullYear();
+        document.querySelectorAll('.sidebar-link').forEach(link => {
+            link.addEventListener('click', e => {
+                e.preventDefault();
+                const target = document.querySelector(link.getAttribute('href'));
+                if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
+        const sections = document.querySelectorAll('.project-content section[id]');
+        const sidebarLinks = document.querySelectorAll('.sidebar-link');
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                if (window.pageYOffset >= section.offsetTop - 100) current = section.id;
+            });
+            sidebarLinks.forEach(link => {
+                link.classList.toggle('active', link.getAttribute('href') === '#' + current);
+            });
+        });
+    </script>
+    <script src="../js/consent.js"></script>
+    <script src="../js/chatbot.js"></script>
+
+</body>
+</html>
