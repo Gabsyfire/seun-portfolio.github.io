@@ -459,9 +459,15 @@ body.light-theme .icon-moon { display: none; }
   font-size: clamp(1.125rem, 3vw, 1.5rem);
   color: var(--color-text-secondary);
   margin-bottom: var(--spacing-xl);
-  max-width: 600px;
+  max-width: 720px;
   margin-left: auto;
   margin-right: auto;
+}
+
+.hero-title .hero-divider {
+  color: var(--color-accent);
+  margin: 0 0.4em;
+  opacity: 0.85;
 }
 
 /* ==========================================
