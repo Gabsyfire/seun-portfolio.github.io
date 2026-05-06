@@ -60,7 +60,7 @@ Once images are added to this directory, update the HTML as follows:
 
 #### Profile Photo:
 ```html
-<img src="assets/images/profile.jpg" alt="Seun - IT Manager & D365 Solutions Architect" class="profile-photo">
+<img src="assets/images/profile.jpg" alt="Seun - D365 Solutions Architect" class="profile-photo">
 ```
 
 #### Project Thumbnails:
