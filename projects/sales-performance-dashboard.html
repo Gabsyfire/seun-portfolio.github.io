@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="description" content="Power BI sales performance dashboard built on a Dataverse semantic model with Row-Level Security for a UK/IE MSP sales team">
+    <title>Sales Performance Dashboard | Seun Gabriel Ogunwande</title>
+    <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/project-detail.css">
+    <style>
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--spacing-md);
+            margin: var(--spacing-lg) 0;
+        }
+        .feature-card {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+            padding: var(--spacing-lg);
+        }
+        .feature-card-icon {
+            font-size: 2rem;
+            margin-bottom: var(--spacing-sm);
+        }
+        .feature-card h3 {
+            color: var(--color-text-primary);
+            font-size: var(--font-size-base);
+            margin-bottom: var(--spacing-xs);
+        }
+        .feature-card p {
+            color: var(--color-text-muted);
+            font-size: var(--font-size-sm);
+            line-height: 1.6;
+            margin-bottom: 0;
+        }
+        .arch-flow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: var(--spacing-sm);
+            margin: var(--spacing-lg) 0;
+            padding: var(--spacing-lg);
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+        }
+        .arch-flow-node {
+            background: rgba(0, 168, 255, 0.1);
+            border: 1px solid var(--color-primary);
+            border-radius: var(--radius-sm);
+            padding: var(--spacing-sm) var(--spacing-md);
+            font-size: var(--font-size-sm);
+            font-weight: 600;
+            color: var(--color-primary);
+            white-space: nowrap;
+        }
+        .arch-flow-arrow {
+            color: var(--color-text-muted);
+            font-size: var(--font-size-lg);
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body>
+    <script>if(localStorage.getItem('theme')!=='dark')document.body.classList.add('light-theme')</script>
+
+    <!-- Hero -->
+    <section class="project-hero">
+        <div class="project-hero-nav">
+            <a href="../index.html#projects" class="back-link">&larr; Back to Portfolio</a>
+            <button class="theme-toggle" aria-label="Toggle light/dark mode">
+                <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+                <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+            </button>
+        </div>
+        <h1>Sales Performance Dashboard</h1>
+        <p class="project-tagline">Power BI on Dataverse, secured for the sales floor</p>
+    </section>
+
+    <!-- Main Layout -->
+    <div class="project-layout">
+
+        <!-- Sidebar Navigation -->
+        <aside class="project-sidebar">
+            <nav>
+                <a href="#executive-summary" class="sidebar-link">Executive Summary</a>
+                <a href="#background" class="sidebar-link">Background &amp; Context</a>
+                <a href="#objectives" class="sidebar-link">Objectives</a>
+                <a href="#architecture" class="sidebar-link">Architecture</a>
+                <a href="#features" class="sidebar-link">Key Features</a>
+                <a href="#technologies" class="sidebar-link">Technologies</a>
+                <a href="#results" class="sidebar-link">Results &amp; Impact</a>
+                <a href="#lessons" class="sidebar-link">Lessons Learned</a>
+                <a href="#cta" class="sidebar-link">Get in Touch</a>
+            </nav>
+        </aside>
+
+        <!-- Content -->
+        <div class="project-content">
+
+            <!-- Executive Summary -->
+            <section id="executive-summary">
+                <h2>Executive Summary</h2>
+                <p>Sales leadership at a UK/IE MSP had no live view of profit, rep performance, or pipeline health. Reporting was Excel-based, stale, and inconsistent. I designed and shipped a Power BI reporting suite, built directly on a Dataverse semantic model, with 10 KPI cards, profit trend visuals, rep-level breakdowns, and a slicer-driven exploration layer.</p>
+                <p>The model is secured with Row-Level Security backed by mail-enabled Entra security groups, so reps see their numbers, managers see their teams, and leadership sees the full estate &mdash; all from a single report. The result replaced the weekly Excel ritual with live data the sales floor uses daily for quote-to-renewal decisions.</p>
+            </section>
+
+            <!-- Background & Context -->
+            <section id="background">
+                <h2>Background &amp; Context</h2>
+                <p>The sales team operated on D365 Customer Engagement for opportunity, account, and product data, but reporting hadn't kept pace. Weekly performance packs were assembled by hand from CSV exports, with figures that drifted between sources and meetings. By the time a number reached a manager, it was already out of date and frequently disputed.</p>
+                <p>The brief was to deliver a single source of truth that leadership trusted, that reps would actually open during the day, and that didn't depend on a person remembering to refresh a spreadsheet.</p>
+            </section>
+
+            <!-- Objectives -->
+            <section id="objectives">
+                <h2>Objectives</h2>
+                <p>The goals were: build a Power BI semantic model on Dataverse with reusable measures; surface 10 headline KPIs covering revenue, margin, conversion, and pipeline; provide rep-level and manager-level views without duplicating reports; secure the data with Row-Level Security so visibility matches role; embed a chromeless view for the sales floor wallboard; and deliver something performant enough to use interactively.</p>
+            </section>
+
+            <!-- Architecture -->
+            <section id="architecture">
+                <h2>Architecture</h2>
+                <p>The dashboard sits on top of a Dataverse semantic model that pulls opportunity, account, and product data from D365 Customer Engagement. Power Query handles transformation, DAX measures define the headline metrics once, and Row-Level Security roles map onto mail-enabled Entra security groups so membership management lives where IT already manages it.</p>
+
+                <div class="arch-flow">
+                    <span class="arch-flow-node">D365 CE</span>
+                    <span class="arch-flow-arrow">&rarr;</span>
+                    <span class="arch-flow-node">Dataverse Model</span>
+                    <span class="arch-flow-arrow">&rarr;</span>
+                    <span class="arch-flow-node">Power Query / DAX</span>
+                    <span class="arch-flow-arrow">&rarr;</span>
+                    <span class="arch-flow-node">Power BI Report</span>
+                    <span class="arch-flow-arrow">&rarr;</span>
+                    <span class="arch-flow-node">RLS via Entra Groups</span>
+                </div>
+
+                <p>The result is a single artefact serving rep, manager, and leadership audiences from one model, with security applied at the data layer rather than duplicated across reports.</p>
+            </section>
+
+            <!-- Key Features -->
+            <section id="features">
+                <h2>Key Features</h2>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <div class="feature-card-icon">&#x1F4CA;</div>
+                        <h3>10 KPI Cards</h3>
+                        <p>Headline metrics covering revenue, margin, conversion, average deal size, and pipeline health, refreshed live against the Dataverse model.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-card-icon">&#x1F4C8;</div>
+                        <h3>Profit Trend Visuals</h3>
+                        <p>Time-series visuals showing profit and margin movement, with drill-through into product, account, and rep level detail.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-card-icon">&#x1F465;</div>
+                        <h3>Rep-Level Breakdown</h3>
+                        <p>Per-rep performance against target, with manager rollups, ranked tables, and slicer-driven comparisons across teams and periods.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-card-icon">&#x1F510;</div>
+                        <h3>Row-Level Security</h3>
+                        <p>Rep and Manager roles enforced at the model layer via mail-enabled Entra security groups &mdash; visibility follows organisational structure.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-card-icon">&#x1F39B;</div>
+                        <h3>Slicer-Driven Exploration</h3>
+                        <p>Period, product, region, and rep slicers let users self-serve answers without bespoke report builds for every question.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-card-icon">&#x1F5A5;</div>
+                        <h3>Embedded Wallboard View</h3>
+                        <p>Chromeless embedded view suitable for a sales floor wallboard, surfacing the live numbers the team rallies around each day.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Technologies -->
+            <section id="technologies">
+                <h2>Technologies</h2>
+                <div class="detail-tech-tags">
+                    <span class="tag">Power BI</span>
+                    <span class="tag">Dataverse</span>
+                    <span class="tag">DAX</span>
+                    <span class="tag">Power Query</span>
+                    <span class="tag">Row-Level Security</span>
+                    <span class="tag">Entra ID</span>
+                    <span class="tag">Mail-Enabled Security Groups</span>
+                    <span class="tag">D365 Customer Engagement</span>
+                </div>
+            </section>
+
+            <!-- Results & Impact -->
+            <section id="results">
+                <h2>Results &amp; Impact</h2>
+                <div class="metric-grid">
+                    <div class="metric-card">
+                        <span class="value">10</span>
+                        <span class="label">Live KPIs replacing weekly Excel</span>
+                    </div>
+                    <div class="metric-card">
+                        <span class="value">1</span>
+                        <span class="label">Model serving Rep, Manager, Leadership</span>
+                    </div>
+                    <div class="metric-card">
+                        <span class="value">RLS</span>
+                        <span class="label">Secured at the data layer</span>
+                    </div>
+                </div>
+                <p>The dashboard replaced the weekly Excel ritual; sales conversations now start from live data rather than yesterday's snapshot. The same model is reused for monthly leadership reporting, removing a parallel build that previously diverged from the sales-facing numbers.</p>
+                <p>Because security was implemented at the model layer through Entra groups, onboarding a new rep is now a group membership change handled by IT, not a report rebuild. The semantic model has become the foundation for further reporting work without revisiting the security posture each time.</p>
+            </section>
+
+            <!-- Lessons Learned -->
+            <section id="lessons">
+                <h2>Lessons Learned</h2>
+                <p>Define the measures once, in the model, and never again. Every measure that lived inside a report rather than the semantic model became a maintenance liability the moment a second report needed it. Pushing logic down to the model paid back immediately.</p>
+                <p>Tie Row-Level Security to identity infrastructure that already exists. Building RLS roles directly against Entra security groups means joiner-mover-leaver flows already cover access changes &mdash; no separate process for the report. This is the same principle that underpins access reviews in an ISMS.</p>
+                <p>Build for the audience that will use it daily, not the one that will sign it off. The sales floor's needs &mdash; speed, clarity, headline numbers &mdash; drove the design. Leadership reporting fell out of the same model almost for free, but designing for leadership first would have produced a report nobody opened.</p>
+            </section>
+
+            <!-- CTA -->
+            <section id="cta">
+                <div class="cta-box">
+                    <h2>Get in Touch</h2>
+                    <a href="../contact.html" class="btn">Get in Touch &rarr;</a>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="project-footer">
+        <p>&copy; <span id="year"></span> Seun Gabriel Ogunwande. All rights reserved.</p>
+        <p><a href="../index.html">Back to Portfolio</a> | <a href="../privacy-policy.html">Privacy Policy</a></p>
+    </footer>
+
+    <script>
+  var themeBtn = document.querySelector('.theme-toggle');
+  if (themeBtn) {
+    themeBtn.addEventListener('click', function() {
+      document.body.classList.toggle('light-theme');
+      localStorage.setItem('theme', document.body.classList.contains('light-theme') ? 'light' : 'dark');
+    });
+  }
+        document.getElementById('year').textContent = new Date().getFullYear();
+        document.querySelectorAll('.sidebar-link').forEach(link => {
+            link.addEventListener('click', e => {
+                e.preventDefault();
+                const target = document.querySelector(link.getAttribute('href'));
+                if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
+        const sections = document.querySelectorAll('.project-content section[id]');
+        const sidebarLinks = document.querySelectorAll('.sidebar-link');
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                if (window.pageYOffset >= section.offsetTop - 100) current = section.id;
+            });
+            sidebarLinks.forEach(link => {
+                link.classList.toggle('active', link.getAttribute('href') === '#' + current);
+            });
+        });
+    </script>
+    <script src="../js/consent.js"></script>
+    <script src="../js/chatbot.js"></script>
+
+</body>
+</html>
