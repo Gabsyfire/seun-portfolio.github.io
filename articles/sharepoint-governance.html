@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="description" content="A practical SharePoint governance playbook for the Microsoft 365 era &mdash; site sprawl, oversharing, lifecycle policies, and a 30/60/90 plan, grounded in Microsoft Learn.">
+    <title>SharePoint Governance in the Microsoft 365 Era | Seun Gabriel Ogunwande</title>
+    <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/project-detail.css">
+    <style>
+        .article-meta {
+            color: var(--color-text-muted);
+            font-size: var(--font-size-sm);
+            margin-top: var(--spacing-sm);
+            display: flex;
+            gap: var(--spacing-md);
+            flex-wrap: wrap;
+        }
+        .article-meta span::before {
+            content: "\2022";
+            margin-right: var(--spacing-sm);
+            color: var(--color-primary);
+        }
+        .article-meta span:first-child::before {
+            content: "";
+            margin-right: 0;
+        }
+        .callout {
+            background: var(--color-surface);
+            border-left: 3px solid var(--color-primary);
+            border-radius: var(--radius-sm);
+            padding: var(--spacing-md) var(--spacing-lg);
+            margin: var(--spacing-lg) 0;
+        }
+        .callout p:last-child { margin-bottom: 0; }
+        .gov-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: var(--spacing-lg) 0;
+            font-size: var(--font-size-sm);
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+        }
+        .gov-table th,
+        .gov-table td {
+            text-align: left;
+            padding: var(--spacing-sm) var(--spacing-md);
+            border-bottom: 1px solid var(--color-border);
+            vertical-align: top;
+        }
+        .gov-table th {
+            background: var(--color-surface-hover, var(--color-surface));
+            color: var(--color-text-primary);
+            font-weight: 600;
+        }
+        .gov-table tr:last-child td { border-bottom: none; }
+        .pillar-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: var(--spacing-sm);
+            margin: var(--spacing-lg) 0;
+        }
+        .pillar {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-sm);
+            padding: var(--spacing-sm) var(--spacing-md);
+            font-size: var(--font-size-sm);
+        }
+        .pillar strong {
+            color: var(--color-primary);
+            display: block;
+            font-size: var(--font-size-xs, 0.85rem);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 2px;
+        }
+        .plan-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: var(--spacing-md);
+            margin: var(--spacing-lg) 0;
+        }
+        .plan-card {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+            padding: var(--spacing-lg);
+        }
+        .plan-card h3 {
+            color: var(--color-primary);
+            font-size: var(--font-size-base);
+            margin-bottom: var(--spacing-sm);
+        }
+        .plan-card ul {
+            margin: 0;
+            padding-left: 0;
+            list-style: none;
+        }
+        .plan-card ul li {
+            padding-left: 1.25rem;
+            position: relative;
+            margin-bottom: var(--spacing-xs);
+            color: var(--color-text-secondary);
+            font-size: var(--font-size-sm);
+            line-height: 1.55;
+        }
+        .plan-card ul li::before {
+            content: "\2192";
+            position: absolute;
+            left: 0;
+            color: var(--color-primary);
+            font-weight: 700;
+        }
+        .sources-list {
+            list-style: none;
+            padding-left: 0;
+        }
+        .sources-list li {
+            padding: var(--spacing-xs) 0;
+            border-bottom: 1px dashed var(--color-border);
+            font-size: var(--font-size-sm);
+        }
+        .sources-list li:last-child { border-bottom: none; }
+        .sources-list a {
+            color: var(--color-primary);
+            text-decoration: none;
+            word-break: break-word;
+        }
+        .sources-list a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <script>if(localStorage.getItem('theme')!=='dark')document.body.classList.add('light-theme')</script>
+
+    <!-- Hero -->
+    <section class="project-hero">
+        <div class="project-hero-nav">
+            <a href="../index.html#blog" class="back-link">&larr; Back to Articles</a>
+            <button class="theme-toggle" aria-label="Toggle light/dark mode">
+                <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+                <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+            </button>
+        </div>
+        <h1>SharePoint Governance in the Microsoft 365 Era</h1>
+        <p class="project-tagline">From sprawl to stewardship &mdash; a practical playbook for keeping SharePoint usable as your tenant grows.</p>
+        <div class="article-meta">
+            <span>Article</span>
+            <span>Microsoft 365</span>
+            <span>SharePoint Online</span>
+            <span>10 min read</span>
+        </div>
+    </section>
+
+    <!-- Main Layout -->
+    <div class="project-layout">
+
+        <!-- Sidebar Navigation -->
+        <aside class="project-sidebar">
+            <nav>
+                <a href="#why-now" class="sidebar-link">Why Governance Matters Now</a>
+                <a href="#what-it-means" class="sidebar-link">What Governance Actually Means</a>
+                <a href="#sprawl" class="sidebar-link">Controlling Site Sprawl</a>
+                <a href="#oversharing" class="sidebar-link">Preventing Oversharing</a>
+                <a href="#protection" class="sidebar-link">Information Protection &amp; Lifecycle</a>
+                <a href="#roles" class="sidebar-link">Roles, Provisioning &amp; Naming</a>
+                <a href="#plan" class="sidebar-link">A 30/60/90 Plan</a>
+                <a href="#takeaway" class="sidebar-link">Takeaway</a>
+                <a href="#sources" class="sidebar-link">Sources</a>
+            </nav>
+        </aside>
+
+        <!-- Content -->
+        <div class="project-content">
+
+            <!-- Why now -->
+            <section id="why-now">
+                <h2>Why Governance Matters Now</h2>
+                <p>In a typical Microsoft 365 tenant, anyone can spin up a Team, a Microsoft 365 Group, or a SharePoint site in minutes. That ease of creation is the platform's biggest strength and its biggest governance challenge. Without intervention, you end up with thousands of sites, no clear owners, oversharing of sensitive content, and search results so noisy that users give up and start hoarding files in their OneDrive again.</p>
+                <p>Once Microsoft 365 Copilot starts indexing that estate, every governance shortcut becomes a Copilot answer. Microsoft's own guidance for getting ready for Copilot is, almost word for word, a governance plan: get sprawl under control, archive what you don't need, restrict oversharing, and make sure permissions reflect reality.</p>
+                <div class="callout">
+                    <p>A governance plan is the antidote &mdash; but it's not a 50-page document nobody reads. It's a working framework of vision, policies, controls, and behaviours that keeps SharePoint useful as the tenant grows.</p>
+                </div>
+            </section>
+
+            <!-- What it means -->
+            <section id="what-it-means">
+                <h2>What Governance Actually Means</h2>
+                <p>Microsoft Learn defines SharePoint governance as the set of policies, roles, responsibilities, and processes that guide how an organisation's business divisions and IT teams cooperate to achieve its goals. In practice, that decomposes into <strong>eleven concrete planning elements</strong>:</p>
+
+                <div class="pillar-grid">
+                    <div class="pillar"><strong>01</strong>Vision</div>
+                    <div class="pillar"><strong>02</strong>Policies &amp; guidelines</div>
+                    <div class="pillar"><strong>03</strong>Site provisioning &amp; decommissioning</div>
+                    <div class="pillar"><strong>04</strong>Information architecture &amp; search</div>
+                    <div class="pillar"><strong>05</strong>Branding</div>
+                    <div class="pillar"><strong>06</strong>Content management</div>
+                    <div class="pillar"><strong>07</strong>Security &amp; information management</div>
+                    <div class="pillar"><strong>08</strong>Roles &amp; responsibilities</div>
+                    <div class="pillar"><strong>09</strong>Feedback</div>
+                    <div class="pillar"><strong>10</strong>Training &amp; support</div>
+                    <div class="pillar"><strong>11</strong>Measurement</div>
+                </div>
+
+                <p>The mistake most organisations make is starting at #6 &mdash; "lock down sharing!" &mdash; without doing #1: what are we actually optimising for? The result is governance that's resented and routed around. A clear vision, even a single paragraph, lets every later decision earn its keep.</p>
+                <p>Microsoft also draws a useful line between <em>policies</em> and <em>guidelines</em>. Policies are non-negotiable, usually driven by statutory or regulatory requirements; guidelines are recommendations that promote consistency. Treating everything as a policy makes the plan unenforceable. Treating everything as a guideline makes it toothless.</p>
+            </section>
+
+            <!-- Sprawl -->
+            <section id="sprawl">
+                <h2>Controlling Site Sprawl</h2>
+                <p>Sprawl is the most visible failure mode and the easiest to measure. Microsoft's answer is <strong>SharePoint Advanced Management (SAM)</strong>, which is bundled into every Microsoft 365 Copilot licence and exposes three lifecycle policy types you can run in <em>simulation mode</em> before going live.</p>
+
+                <ul>
+                    <li><strong>Site ownership policies.</strong> Set a minimum owner/admin count per site, get automated notifications when a site falls below it, and prevent ownerless sites from accumulating.</li>
+                    <li><strong>Inactive site policies.</strong> Detect sites with no recent activity and notify the listed owners by email. The site is the unit; the owner is the action.</li>
+                    <li><strong>Site attestation policies.</strong> Periodically ask owners to confirm the site is still needed, that its members are still right, and that its sharing settings are still appropriate.</li>
+                </ul>
+
+                <p>Behind these policies sits <strong>Microsoft 365 Archive</strong> for content you don't want to delete but don't want consuming active storage quota either. Archived sites preserve content, permissions, and metadata; they're invisible to users until reactivated; and &mdash; crucially for the Copilot era &mdash; Copilot isn't trained on archived content.</p>
+
+                <div class="callout">
+                    <p>If you're not licensed for SAM, the classic SharePoint <strong>site policies</strong> still apply the same control loop: close, then delete on a schedule. The underlying "site use confirmation and deletion" mechanism predates the cloud entirely. The technology is not the missing piece &mdash; the policy is.</p>
+                </div>
+            </section>
+
+            <!-- Oversharing -->
+            <section id="oversharing">
+                <h2>Preventing Oversharing</h2>
+                <p>External sharing is on by default in SharePoint and OneDrive, and Microsoft explicitly recommends leaving it on &mdash; emailed attachments and consumer file-sharing services are worse alternatives. The control surface is the <strong>Sharing page in the SharePoint admin center</strong>, which offers four organisation-level settings:</p>
+
+                <table class="gov-table">
+                    <thead>
+                        <tr><th>Setting</th><th>Effect</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><strong>Anyone</strong></td><td>Links work without sign-in. Highest friction-free, lowest accountability.</td></tr>
+                        <tr><td><strong>New and existing guests</strong></td><td>Guests must authenticate or use a verification code. Recommended default for most organisations.</td></tr>
+                        <tr><td><strong>Existing guests</strong></td><td>Only directory guests can be shared with. Tight, but watch for back-channel guest creation.</td></tr>
+                        <tr><td><strong>Only people in your organization</strong></td><td>External sharing off entirely.</td></tr>
+                    </tbody>
+                </table>
+
+                <p>The organisation setting is a ceiling: individual sites can be locked down further, but they can't be made more permissive than the tenant. Beyond the master switch, the high-leverage settings are:</p>
+
+                <ul>
+                    <li><strong>Default sharing link type.</strong> Microsoft's intranet governance guide explicitly recommends setting intranet defaults to "People with existing access" so visitors can't accidentally get edit rights through forwarded links.</li>
+                    <li><strong>Limit external sharing by domain.</strong> Allow- or block-list up to 5,000 partner domains.</li>
+                    <li><strong>Allow only specific security groups to share externally.</strong> Gate external sharing behind training or role.</li>
+                    <li><strong>Guest expiration.</strong> Auto-expire guest access after a set number of days, with extension prompts to the sharer.</li>
+                    <li><strong>Block download policies.</strong> For sensitive sites, allow users to view files in the browser but block local downloads.</li>
+                </ul>
+
+                <div class="callout">
+                    <p>The pattern that holds together: <strong>sensitive content lives on sites where external sharing is off</strong>, full stop. Don't try to make one site safe and open at the same time. Create another site.</p>
+                </div>
+            </section>
+
+            <!-- Protection -->
+            <section id="protection">
+                <h2>Information Protection &amp; Lifecycle</h2>
+                <p>Sharing controls are necessary but not sufficient. The other half is making content protect itself as it moves around. The Microsoft 365 toolkit:</p>
+
+                <ul>
+                    <li><strong>Sensitivity labels for sites and files.</strong> Classification that travels with the document and can drive encryption, watermarking, and conditional access.</li>
+                    <li><strong>Retention policies.</strong> Automatically retain or delete after a defined period, with defence against accidental deletion.</li>
+                    <li><strong>Storage limits.</strong> Set per-site storage to <em>automatic</em> for simplicity or <em>manual</em> when you need predictability.</li>
+                    <li><strong>Version history limits.</strong> Set the organisation default to automatic for the optimal restore-vs-storage trade-off.</li>
+                </ul>
+
+                <p>These four levers together turn a tenant from "the place files go to die" into a measurable, recoverable, auditable system. Importantly, evidence becomes a by-product of operations rather than a quarterly fire drill.</p>
+            </section>
+
+            <!-- Roles -->
+            <section id="roles">
+                <h2>Roles, Provisioning &amp; Naming</h2>
+                <p>The unglamorous middle layer that holds everything else together:</p>
+                <ul>
+                    <li><strong>Every site has a primary and secondary contact</strong>, recorded in a defined place and surfaced on the home page. Without ownership, every other policy decays.</li>
+                    <li><strong>Naming conventions</strong> for sites, files, and Microsoft 365 Groups &mdash; enforced where possible via Microsoft 365 group naming policies.</li>
+                    <li><strong>Site templates</strong> (formerly site designs) embed your conventions into every new site automatically &mdash; libraries, themes, web parts, Power Automate triggers &mdash; so site owners "fall into the pit of success" without reading the docs.</li>
+                    <li><strong>Provisioning request flow.</strong> Even a Microsoft Form plus a Power Automate approval beats letting users click <em>Create site</em> in the SharePoint home, because the form captures purpose, owner, and classification at birth.</li>
+                </ul>
+            </section>
+
+            <!-- Plan -->
+            <section id="plan">
+                <h2>A Practical 30/60/90 Plan</h2>
+                <p>Knowing what governance is doesn't put it in place. A workable sequence for an organisation starting from "we have a tenant and no plan":</p>
+
+                <div class="plan-grid">
+                    <div class="plan-card">
+                        <h3>Days 0&ndash;30: Visibility</h3>
+                        <ul>
+                            <li>Pull the active sites list; identify the top 20 by storage and by recent activity.</li>
+                            <li>Run SAM lifecycle policies in <em>simulation mode</em> &mdash; ownership, inactive, attestation.</li>
+                            <li>Audit organisation-level sharing: external sharing level, default link, guest expiration, domain restrictions.</li>
+                        </ul>
+                    </div>
+                    <div class="plan-card">
+                        <h3>Days 30&ndash;60: Quick Wins</h3>
+                        <ul>
+                            <li>Change default sharing link to <em>Specific people</em> at the tenant level.</li>
+                            <li>Turn on guest expiration &mdash; start at 90 days.</li>
+                            <li>Restrict external sharing by domain if you have a defined partner list.</li>
+                            <li>Stand up a governance &amp; training site (Microsoft 365 Learning Pathways is a free starting point).</li>
+                        </ul>
+                    </div>
+                    <div class="plan-card">
+                        <h3>Days 60&ndash;90: Durable Controls</h3>
+                        <ul>
+                            <li>Move SAM lifecycle policies from simulation to active enforcement &mdash; ownership and inactive site first.</li>
+                            <li>Roll out one or two sensitivity labels (typically <em>Internal</em> and <em>Confidential</em>) on the highest-risk sites.</li>
+                            <li>Set up a quarterly site attestation cycle for top-tier sites.</li>
+                            <li>Document the eleven governance elements in a living governance site, not a Word document.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <p>After ninety days you don't have a finished governance programme &mdash; that's a multi-year posture, not a project &mdash; but you have visibility, the highest-leverage controls in place, and a cycle that keeps them honest.</p>
+            </section>
+
+            <!-- Takeaway -->
+            <section id="takeaway">
+                <h2>Takeaway</h2>
+                <p>SharePoint governance is less about which checkbox in which admin centre and more about a loop: decide what good looks like, enforce it where you can automate it, train where you can't, audit on a defined cadence, and iterate. The platform now provides genuine tooling &mdash; SAM, sensitivity labels, retention, Microsoft 365 Archive &mdash; to operate that loop at scale. The work is choosing to run it.</p>
+            </section>
+
+            <!-- Sources -->
+            <section id="sources">
+                <h2>Sources</h2>
+                <p>All technical guidance in this article is grounded in official Microsoft Learn documentation:</p>
+                <ul class="sources-list">
+                    <li><a href="https://learn.microsoft.com/sharepoint/governance/what-is-governance-in-sharepoint" target="_blank" rel="noopener noreferrer">What is governance in SharePoint?</a></li>
+                    <li><a href="https://learn.microsoft.com/sharepoint/intranet-governance" target="_blank" rel="noopener noreferrer">Planning intranet governance</a></li>
+                    <li><a href="https://learn.microsoft.com/sharepoint/advanced-management" target="_blank" rel="noopener noreferrer">What is SharePoint Advanced Management?</a></li>
+                    <li><a href="https://learn.microsoft.com/sharepoint/get-ready-copilot-sharepoint-advanced-management" target="_blank" rel="noopener noreferrer">Get ready for Microsoft 365 Copilot and agents with SharePoint Advanced Management</a></li>
+                    <li><a href="https://learn.microsoft.com/sharepoint/site-lifecycle-management" target="_blank" rel="noopener noreferrer">Manage inactive SharePoint sites</a></li>
+                    <li><a href="https://learn.microsoft.com/sharepoint/create-sharepoint-site-ownership-policy" target="_blank" rel="noopener noreferrer">Create a SharePoint site ownership policy</a></li>
+                    <li><a href="https://learn.microsoft.com/sharepoint/request-site-attestations" target="_blank" rel="noopener noreferrer">Request site attestations</a></li>
+                    <li><a href="https://learn.microsoft.com/sharepoint/turn-external-sharing-on-or-off" target="_blank" rel="noopener noreferrer">Manage sharing settings for SharePoint and OneDrive</a></li>
+                    <li><a href="https://learn.microsoft.com/sharepoint/collaboration-options" target="_blank" rel="noopener noreferrer">Plan sharing and collaboration options</a></li>
+                    <li><a href="https://learn.microsoft.com/sharepoint/manage-security-groups" target="_blank" rel="noopener noreferrer">Allow only specific security groups to share externally</a></li>
+                    <li><a href="https://learn.microsoft.com/sharepoint/block-download-from-sites" target="_blank" rel="noopener noreferrer">Block download policies for SharePoint sites</a></li>
+                    <li><a href="https://learn.microsoft.com/sharepoint/sharepoint-storage-planning" target="_blank" rel="noopener noreferrer">SharePoint storage planning</a></li>
+                    <li><a href="https://learn.microsoft.com/sharepoint/sites/site-policy-overview" target="_blank" rel="noopener noreferrer">Overview of site policies in SharePoint Server</a></li>
+                    <li><a href="https://learn.microsoft.com/purview/retention-policies-sharepoint" target="_blank" rel="noopener noreferrer">Retention policies for SharePoint</a></li>
+                </ul>
+            </section>
+
+            <!-- CTA -->
+            <section id="cta">
+                <div class="cta-box">
+                    <h2>Working on a SharePoint governance plan?</h2>
+                    <a href="../contact.html" class="btn">Get in Touch &rarr;</a>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="project-footer">
+        <p>&copy; <span id="year"></span> Seun Gabriel Ogunwande. All rights reserved.</p>
+        <p><a href="../index.html">Back to Portfolio</a> | <a href="../privacy-policy.html">Privacy Policy</a></p>
+    </footer>
+
+    <script>
+        var themeBtn = document.querySelector('.theme-toggle');
+        if (themeBtn) {
+            themeBtn.addEventListener('click', function() {
+                document.body.classList.toggle('light-theme');
+                localStorage.setItem('theme', document.body.classList.contains('light-theme') ? 'light' : 'dark');
+            });
+        }
+        document.getElementById('year').textContent = new Date().getFullYear();
+        document.querySelectorAll('.sidebar-link').forEach(link => {
+            link.addEventListener('click', e => {
+                e.preventDefault();
+                const target = document.querySelector(link.getAttribute('href'));
+                if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
+        const sections = document.querySelectorAll('.project-content section[id]');
+        const sidebarLinks = document.querySelectorAll('.sidebar-link');
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                if (window.pageYOffset >= section.offsetTop - 100) current = section.id;
+            });
+            sidebarLinks.forEach(link => {
+                link.classList.toggle('active', link.getAttribute('href') === '#' + current);
+            });
+        });
+    </script>
+    <script src="../js/consent.js"></script>
+    <script src="../js/chatbot.js"></script>
+
+</body>
+</html>
