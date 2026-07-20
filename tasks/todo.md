@@ -144,3 +144,13 @@ or emails. Employer = "a UK/IE Microsoft partner" / "a UK/IE MSP". Only architec
   schedule times, real company names, and a dataset URL — none of it was carried over. Post-edit
   grep sweep for all of those tokens: clean. Sidebar updated; scroll-spy re-verified (9 links ↔ 9
   sections); section re-rendered and visually consistent.
+- Follow-up 2: replaced the linear `.arch-flow` row with the full schematic as a hand-built inline
+  SVG (subgraphs for HubSpot / Companies House / Azure / Dynamics 365; nodes for Logic App, Function
+  App, Key Vault, blob watermark, summary email, Accounts; labelled edges incl. HTTP POST / JSON
+  summary round-trip and PATCH · update-only). Styled entirely from existing CSS variables
+  (`--color-surface/border/primary/text-*`) via SVG style attributes — matches `.arch-flow-node`
+  colours exactly, theme-aware in dark AND light (verified by screenshot). Wrapped in the existing
+  `.architecture-mockup` container class from project-detail.css. Inline SVG precedent: index.html
+  blog-card SVG. Same sanitization applied to the mermaid source (resource/secret/tenant names,
+  publisher-prefixed fields, schedule times, `?code=` auth all stripped); sweep clean. Rendered at
+  1440px dark/light + 375px; scroll-spy and links re-verified.

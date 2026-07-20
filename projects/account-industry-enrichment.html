@@ -185,16 +185,78 @@
                 <h2>Architecture</h2>
                 <p>A Logic App fires the nightly sync over HTTP and receives a JSON summary back; the weekly Companies House pass runs on a timer trigger inside the same .NET 8 isolated Azure Function app. Secrets live in Azure Key Vault and are read via managed identity; the delta watermark sits in blob storage so each nightly run only pulls what changed since the last one. Every run &mdash; success or failure &mdash; ends in a summary email, so a silent failure cannot quietly stall enrichment.</p>
 
-                <div class="arch-flow">
-                    <span class="arch-flow-node">HubSpot / CH / CRO</span>
-                    <span class="arch-flow-arrow">&rarr;</span>
-                    <span class="arch-flow-node">Azure Functions (.NET 8)</span>
-                    <span class="arch-flow-arrow">&rarr;</span>
-                    <span class="arch-flow-node">Match + Write Rules</span>
-                    <span class="arch-flow-arrow">&rarr;</span>
-                    <span class="arch-flow-node">Dataverse PATCH (update-only)</span>
-                    <span class="arch-flow-arrow">&rarr;</span>
-                    <span class="arch-flow-node">Run Summary Email</span>
+                <div class="architecture-mockup">
+                    <svg viewBox="0 0 980 425" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Schematic of the enrichment pipeline: a Logic App triggers the Azure Function app over HTTP; the function reads secrets from Key Vault via managed identity and a delta watermark from blob storage, searches HubSpot nightly and Companies House weekly, patches accounts in Dynamics 365 update-only, and returns a JSON summary that the Logic App emails after every run" style="width:100%;height:auto;display:block;">
+                        <defs>
+                            <marker id="schematic-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                                <path d="M0 0 L10 5 L0 10 z" style="fill:var(--color-text-muted)"/>
+                            </marker>
+                        </defs>
+
+                        <!-- Subgraph: HubSpot -->
+                        <rect x="20" y="140" width="195" height="110" rx="8" style="fill:var(--color-surface);stroke:var(--color-border)"/>
+                        <text x="30" y="162" style="fill:var(--color-text-muted);font-size:12px;font-weight:600">HubSpot</text>
+                        <rect x="32" y="175" width="171" height="60" rx="6" style="fill:rgba(0,168,255,0.1);stroke:var(--color-primary)"/>
+                        <text x="117.5" y="199" text-anchor="middle" style="fill:var(--color-primary);font-size:13px;font-weight:600">Companies</text>
+                        <text x="117.5" y="218" text-anchor="middle" style="fill:var(--color-text-secondary);font-size:11px">name + industry</text>
+
+                        <!-- Subgraph: Companies House -->
+                        <rect x="20" y="300" width="195" height="110" rx="8" style="fill:var(--color-surface);stroke:var(--color-border)"/>
+                        <text x="30" y="322" style="fill:var(--color-text-muted);font-size:12px;font-weight:600">Companies House</text>
+                        <rect x="32" y="335" width="171" height="60" rx="6" style="fill:rgba(0,168,255,0.1);stroke:var(--color-primary)"/>
+                        <text x="117.5" y="359" text-anchor="middle" style="fill:var(--color-primary);font-size:13px;font-weight:600">Register search</text>
+                        <text x="117.5" y="378" text-anchor="middle" style="fill:var(--color-text-secondary);font-size:11px">profile + SIC codes</text>
+
+                        <!-- Subgraph: Azure -->
+                        <rect x="270" y="20" width="460" height="360" rx="8" style="fill:var(--color-surface);stroke:var(--color-border)"/>
+                        <text x="280" y="42" style="fill:var(--color-text-muted);font-size:12px;font-weight:600">Azure</text>
+
+                        <rect x="295" y="60" width="175" height="62" rx="6" style="fill:rgba(0,168,255,0.1);stroke:var(--color-primary)"/>
+                        <text x="382.5" y="85" text-anchor="middle" style="fill:var(--color-primary);font-size:13px;font-weight:600">Logic App</text>
+                        <text x="382.5" y="104" text-anchor="middle" style="fill:var(--color-text-secondary);font-size:11px">nightly trigger</text>
+
+                        <rect x="530" y="60" width="175" height="62" rx="6" style="fill:rgba(0,168,255,0.1);stroke:var(--color-primary)"/>
+                        <text x="617.5" y="85" text-anchor="middle" style="fill:var(--color-primary);font-size:13px;font-weight:600">Run summary email</text>
+                        <text x="617.5" y="104" text-anchor="middle" style="fill:var(--color-text-secondary);font-size:11px">success and failure</text>
+
+                        <rect x="295" y="205" width="180" height="88" rx="6" style="fill:rgba(0,168,255,0.1);stroke:var(--color-primary)"/>
+                        <text x="385" y="230" text-anchor="middle" style="fill:var(--color-primary);font-size:13px;font-weight:600">Function App</text>
+                        <text x="385" y="250" text-anchor="middle" style="fill:var(--color-text-secondary);font-size:11px">.NET 8 isolated</text>
+                        <text x="385" y="268" text-anchor="middle" style="fill:var(--color-text-secondary);font-size:11px">nightly + weekly jobs</text>
+
+                        <rect x="530" y="150" width="175" height="58" rx="6" style="fill:rgba(0,168,255,0.1);stroke:var(--color-primary)"/>
+                        <text x="617.5" y="173" text-anchor="middle" style="fill:var(--color-primary);font-size:13px;font-weight:600">Key Vault</text>
+                        <text x="617.5" y="191" text-anchor="middle" style="fill:var(--color-text-secondary);font-size:11px">secrets</text>
+
+                        <rect x="530" y="300" width="175" height="58" rx="6" style="fill:rgba(0,168,255,0.1);stroke:var(--color-primary)"/>
+                        <text x="617.5" y="323" text-anchor="middle" style="fill:var(--color-primary);font-size:13px;font-weight:600">Blob storage</text>
+                        <text x="617.5" y="341" text-anchor="middle" style="fill:var(--color-text-secondary);font-size:11px">delta watermark</text>
+
+                        <!-- Subgraph: Dynamics 365 -->
+                        <rect x="765" y="185" width="195" height="130" rx="8" style="fill:var(--color-surface);stroke:var(--color-border)"/>
+                        <text x="775" y="207" style="fill:var(--color-text-muted);font-size:12px;font-weight:600">Dynamics 365</text>
+                        <rect x="777" y="220" width="171" height="78" rx="6" style="fill:rgba(0,168,255,0.1);stroke:var(--color-primary)"/>
+                        <text x="862.5" y="244" text-anchor="middle" style="fill:var(--color-primary);font-size:13px;font-weight:600">Accounts</text>
+                        <text x="862.5" y="263" text-anchor="middle" style="fill:var(--color-text-secondary);font-size:11px">industry + group</text>
+                        <text x="862.5" y="281" text-anchor="middle" style="fill:var(--color-text-secondary);font-size:11px">SIC + description</text>
+
+                        <!-- Edges -->
+                        <line x1="370" y1="122" x2="370" y2="200" style="stroke:var(--color-text-muted);stroke-width:1.5" marker-end="url(#schematic-arrow)"/>
+                        <text x="362" y="168" text-anchor="end" style="fill:var(--color-text-secondary);font-size:11px">HTTP POST</text>
+                        <line x1="400" y1="205" x2="400" y2="127" style="stroke:var(--color-text-muted);stroke-width:1.5" marker-end="url(#schematic-arrow)"/>
+                        <text x="408" y="168" text-anchor="start" style="fill:var(--color-text-secondary);font-size:11px">JSON summary</text>
+                        <line x1="470" y1="91" x2="525" y2="91" style="stroke:var(--color-text-muted);stroke-width:1.5" marker-end="url(#schematic-arrow)"/>
+                        <line x1="475" y1="228" x2="525" y2="185" style="stroke:var(--color-text-muted);stroke-width:1.5" marker-end="url(#schematic-arrow)"/>
+                        <text x="522" y="224" text-anchor="start" style="fill:var(--color-text-secondary);font-size:11px">managed identity</text>
+                        <line x1="475" y1="272" x2="525" y2="318" style="stroke:var(--color-text-muted);stroke-width:1.5" marker-end="url(#schematic-arrow)"/>
+                        <text x="498" y="316" text-anchor="end" style="fill:var(--color-text-secondary);font-size:11px">read / advance</text>
+                        <line x1="295" y1="228" x2="208" y2="207" style="stroke:var(--color-text-muted);stroke-width:1.5" marker-end="url(#schematic-arrow)"/>
+                        <text x="250" y="205" text-anchor="middle" style="fill:var(--color-text-secondary);font-size:11px">delta search</text>
+                        <line x1="295" y1="272" x2="208" y2="358" style="stroke:var(--color-text-muted);stroke-width:1.5" marker-end="url(#schematic-arrow)"/>
+                        <text x="225" y="296" text-anchor="middle" style="fill:var(--color-text-secondary);font-size:11px">weekly lookup</text>
+                        <line x1="475" y1="255" x2="772" y2="255" style="stroke:var(--color-text-muted);stroke-width:1.5" marker-end="url(#schematic-arrow)"/>
+                        <text x="623" y="247" text-anchor="middle" style="fill:var(--color-text-secondary);font-size:11px">PATCH &middot; update-only</text>
+                    </svg>
                 </div>
 
                 <p>Industry and industry group are always patched together in a single request, mapped through one lookup, so the two fields can never drift apart. Writes go through the Dataverse Web API as update-only PATCHes &mdash; the pipeline can amend an account but can never create one &mdash; and anything below the write threshold ends up in the run log as a review candidate instead of in the database.</p>
