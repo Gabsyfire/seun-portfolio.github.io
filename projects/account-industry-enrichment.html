@@ -100,6 +100,7 @@
                 <a href="#executive-summary" class="sidebar-link">Executive Summary</a>
                 <a href="#background" class="sidebar-link">The Problem</a>
                 <a href="#approach" class="sidebar-link">Approach</a>
+                <a href="#architecture" class="sidebar-link">Architecture</a>
                 <a href="#matching" class="sidebar-link">Matching</a>
                 <a href="#gotchas" class="sidebar-link">Things That Bit</a>
                 <a href="#technologies" class="sidebar-link">Technologies</a>
@@ -177,6 +178,26 @@
                 <p><strong>3. Companies House, weekly.</strong> A timer-triggered function takes a capped batch of blank customer accounts each week, normalises the name, searches the register, and writes industry, group, SIC and SIC description &mdash; but only on an exact normalised match. High-but-imperfect scores are logged as review candidates and never written.</p>
 
                 <p><strong>4. CRO Ireland, monthly.</strong> Ireland has no equivalent live API, so the pipeline consumes the CRO's bulk open-data company file. Recent registrations carry a NACE Rev 2 code; older ones carry a principal-objects code on the Rev 1.1 scheme, numbered completely differently, needing its own mapping table. Running old codes through the modern lookup silently mislabels a decade of Irish accounts.</p>
+            </section>
+
+            <!-- Architecture -->
+            <section id="architecture">
+                <h2>Architecture</h2>
+                <p>A Logic App fires the nightly sync over HTTP and receives a JSON summary back; the weekly Companies House pass runs on a timer trigger inside the same .NET 8 isolated Azure Function app. Secrets live in Azure Key Vault and are read via managed identity; the delta watermark sits in blob storage so each nightly run only pulls what changed since the last one. Every run &mdash; success or failure &mdash; ends in a summary email, so a silent failure cannot quietly stall enrichment.</p>
+
+                <div class="arch-flow">
+                    <span class="arch-flow-node">HubSpot / CH / CRO</span>
+                    <span class="arch-flow-arrow">&rarr;</span>
+                    <span class="arch-flow-node">Azure Functions (.NET 8)</span>
+                    <span class="arch-flow-arrow">&rarr;</span>
+                    <span class="arch-flow-node">Match + Write Rules</span>
+                    <span class="arch-flow-arrow">&rarr;</span>
+                    <span class="arch-flow-node">Dataverse PATCH (update-only)</span>
+                    <span class="arch-flow-arrow">&rarr;</span>
+                    <span class="arch-flow-node">Run Summary Email</span>
+                </div>
+
+                <p>Industry and industry group are always patched together in a single request, mapped through one lookup, so the two fields can never drift apart. Writes go through the Dataverse Web API as update-only PATCHes &mdash; the pipeline can amend an account but can never create one &mdash; and anything below the write threshold ends up in the run log as a review candidate instead of in the database.</p>
             </section>
 
             <!-- Matching -->

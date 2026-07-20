@@ -131,3 +131,16 @@ or emails. Employer = "a UK/IE Microsoft partner" / "a UK/IE MSP". Only architec
   sizes, thresholds, money, real names, URLs, secret names, or emails. Employer referred to only as
   "a UK/IE Microsoft partner" / "a UK/IE MSP".
 - `sitemap.xml` validated as well-formed XML; new URL present; new card confirmed first in the grid.
+
+### Follow-up: Architecture section (from internal schematic)
+- Added an `#architecture` section (between Approach and Matching) distilled from the internal
+  func README/mermaid schematic, using the existing `.arch-flow` node pattern the sibling pages
+  use (classes were already in the shared inline style block — no new CSS).
+- Flow: HubSpot / CH / CRO → Azure Functions (.NET 8) → Match + Write Rules → Dataverse PATCH
+  (update-only) → Run Summary Email. Prose covers Logic App HTTP trigger + timer trigger, Key Vault
+  via managed identity, blob-storage watermark, always-email summary, industry+group patched together.
+- SANITIZED: the source doc contained employer/resource/Key Vault/secret names, an app registration
+  ID, tenant URL, publisher-prefixed field names, record counts, batch caps, similarity thresholds,
+  schedule times, real company names, and a dataset URL — none of it was carried over. Post-edit
+  grep sweep for all of those tokens: clean. Sidebar updated; scroll-spy re-verified (9 links ↔ 9
+  sections); section re-rendered and visually consistent.
