@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="description" content="Case study on a four-source data enrichment pipeline that resolved industry classification across a UK/IE MSP's customer base in Dynamics 365.">
+    <meta name="keywords" content="Dynamics 365, Dataverse, Azure Functions, HubSpot, Companies House, CRO Ireland, SIC, NACE, data quality">
+    <meta name="author" content="Seun Gabriel Ogunwande">
+
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="Account Industry Enrichment Pipeline | Seun Gabriel Ogunwande">
+    <meta property="og:description" content="Case study on a four-source data enrichment pipeline that resolved industry classification across a UK/IE MSP's customer base in Dynamics 365.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://gabsyfy.co.uk/projects/account-industry-enrichment.html">
+    <meta property="og:image" content="https://gabsyfy.co.uk/assets/images/profile.jpg">
+
+    <title>Account Industry Enrichment Pipeline | Seun Gabriel Ogunwande</title>
+    <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/project-detail.css">
+    <style>
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--spacing-md);
+            margin: var(--spacing-lg) 0;
+        }
+        .feature-card {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+            padding: var(--spacing-lg);
+        }
+        .feature-card-icon {
+            font-size: 2rem;
+            margin-bottom: var(--spacing-sm);
+        }
+        .feature-card h3 {
+            color: var(--color-text-primary);
+            font-size: var(--font-size-base);
+            margin-bottom: var(--spacing-xs);
+        }
+        .feature-card p {
+            color: var(--color-text-muted);
+            font-size: var(--font-size-sm);
+            line-height: 1.6;
+            margin-bottom: 0;
+        }
+        .arch-flow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: var(--spacing-sm);
+            margin: var(--spacing-lg) 0;
+            padding: var(--spacing-lg);
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+        }
+        .arch-flow-node {
+            background: rgba(0, 168, 255, 0.1);
+            border: 1px solid var(--color-primary);
+            border-radius: var(--radius-sm);
+            padding: var(--spacing-sm) var(--spacing-md);
+            font-size: var(--font-size-sm);
+            font-weight: 600;
+            color: var(--color-primary);
+            white-space: nowrap;
+        }
+        .arch-flow-arrow {
+            color: var(--color-text-muted);
+            font-size: var(--font-size-lg);
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body>
+    <script>if(localStorage.getItem('theme')!=='dark')document.body.classList.add('light-theme')</script>
+
+    <!-- Hero -->
+    <section class="project-hero">
+        <div class="project-hero-nav">
+            <a href="../index.html#projects" class="back-link">&larr; Back to Portfolio</a>
+            <button class="theme-toggle" aria-label="Toggle light/dark mode">
+                <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+                <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+            </button>
+        </div>
+        <h1>Account Industry Enrichment Pipeline</h1>
+        <p class="project-tagline">Data Engineering &middot; Dynamics 365</p>
+    </section>
+
+    <!-- Main Layout -->
+    <div class="project-layout">
+
+        <!-- Sidebar Navigation -->
+        <aside class="project-sidebar">
+            <nav>
+                <a href="#executive-summary" class="sidebar-link">Executive Summary</a>
+                <a href="#background" class="sidebar-link">The Problem</a>
+                <a href="#approach" class="sidebar-link">Approach</a>
+                <a href="#matching" class="sidebar-link">Matching</a>
+                <a href="#gotchas" class="sidebar-link">Things That Bit</a>
+                <a href="#technologies" class="sidebar-link">Technologies</a>
+                <a href="#results" class="sidebar-link">Results &amp; Impact</a>
+                <a href="#cta" class="sidebar-link">Get in Touch</a>
+            </nav>
+        </aside>
+
+        <!-- Content -->
+        <div class="project-content">
+
+            <!-- Executive Summary -->
+            <section id="executive-summary">
+                <h2>Executive Summary</h2>
+                <p>A UK/IE Microsoft partner had industry classification on only a small share of its customer accounts, so segmentation, campaign targeting and board reporting were all running on guesswork. I built a four-source enrichment pipeline that closed most of the gap, and wrote it so it can never confidently write the wrong answer.</p>
+            </section>
+
+            <!-- The Problem -->
+            <section id="background">
+                <h2>The Problem</h2>
+                <p>Industry was an optional field in Dynamics 365, filled in inconsistently over a decade of sales activity. Most active customers had nothing in it, so any report slicing revenue, churn or opportunity by sector was quietly wrong, and marketing could not build a sector list without manually eyeballing account names.</p>
+                <p>The obvious fix &mdash; bulk-guessing from account names &mdash; is exactly the fix that poisons a CRM. The real requirement was coverage and trustworthiness: every value written had to be defensible, and anything uncertain had to land on a human's review list rather than in the database.</p>
+            </section>
+
+            <!-- Approach -->
+            <section id="approach">
+                <h2>Approach: four sources, ranked by confidence</h2>
+                <p>Treated as a waterfall rather than a single integration. Each source fills what the previous one could not, and each has its own write threshold.</p>
+
+                <div class="project-mockup">
+                    <div class="mockup-browser">
+                        <div class="mockup-titlebar">
+                            <span class="mockup-dot red"></span>
+                            <span class="mockup-dot yellow"></span>
+                            <span class="mockup-dot green"></span>
+                            <span class="mockup-titlebar-text">Enrichment Waterfall</span>
+                        </div>
+                        <div class="mockup-content">
+                            <div class="mockup-doc-list">
+                                <div class="mockup-doc-row">
+                                    <span>1 &middot; HubSpot company sync &mdash; industry + group</span>
+                                    <span class="mockup-badge green">Nightly</span>
+                                </div>
+                                <div class="mockup-doc-row">
+                                    <span>2 &middot; CRM credit-feed SIC codes &mdash; SIC &rarr; industry</span>
+                                    <span class="mockup-badge gray">One-off</span>
+                                </div>
+                                <div class="mockup-doc-row">
+                                    <span>3 &middot; Companies House API &mdash; UK, exact match only</span>
+                                    <span class="mockup-badge green">Weekly</span>
+                                </div>
+                                <div class="mockup-doc-row">
+                                    <span>4 &middot; CRO Ireland open data &mdash; NACE Rev 1.1 + Rev 2</span>
+                                    <span class="mockup-badge green">Monthly</span>
+                                </div>
+                                <div class="mockup-doc-row">
+                                    <span>Residual &mdash; on no official register</span>
+                                    <span class="mockup-badge gray">Owner review</span>
+                                </div>
+                            </div>
+                            <div class="mockup-status-bar">
+                                <span class="mockup-status-dot active"></span>
+                                <span>Each source writes only above its own confidence threshold</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <p>Sole traders and trading names appear on no register at all. For those, owner review is the only honest path.</p>
+
+                <p><strong>1. HubSpot &rarr; Dataverse, nightly.</strong> Marketing had already curated industry on a large slice of the company records in HubSpot. A .NET 8 isolated Azure Function, triggered by a Logic App overnight, pulls companies modified since a watermark held in blob storage, matches them into Dataverse, and patches industry and industry group together so the two never drift apart. Every run emails a summary, on success and on failure.</p>
+
+                <p><strong>2. SIC codes already sitting in the CRM.</strong> A credit-referencing feed had been writing SIC codes onto accounts for years without anyone deriving anything from them. A Python pass mapped SIC divisions onto the industry option set, giving free coverage from data already in the building.</p>
+
+                <p><strong>3. Companies House, weekly.</strong> A timer-triggered function takes a capped batch of blank customer accounts each week, normalises the name, searches the register, and writes industry, group, SIC and SIC description &mdash; but only on an exact normalised match. High-but-imperfect scores are logged as review candidates and never written.</p>
+
+                <p><strong>4. CRO Ireland, monthly.</strong> Ireland has no equivalent live API, so the pipeline consumes the CRO's bulk open-data company file. Recent registrations carry a NACE Rev 2 code; older ones carry a principal-objects code on the Rev 1.1 scheme, numbered completely differently, needing its own mapping table. Running old codes through the modern lookup silently mislabels a decade of Irish accounts.</p>
+            </section>
+
+            <!-- Matching -->
+            <section id="matching">
+                <h2>Getting matching wrong, twice</h2>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <div class="feature-card-icon">&#x26A0;</div>
+                        <h3>Substring matching is not name matching</h3>
+                        <p>A plain <code>contains()</code> lookup matched one company's name inside another's, where the shorter name happened to fall on a syllable boundary in the longer one, and wrote to the wrong account. The fix was a word-boundary check: the characters either side of the match must be non-alphanumeric. Fuzzy matching without a boundary rule is not fuzzy, it is wrong.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-card-icon">&#x26A0;</div>
+                        <h3>Corroboration can launder a bad guess</h3>
+                        <p>Promoting low-confidence candidates by corroborating the registered town happily matched a childcare provider onto an unrelated tyre centre: same town, same first word, a high similarity score, and the differing words were the entire business. A second weak signal does not add up to a strong one. Exact normalised match is the only grade good enough for an unattended write.</p>
+                    </div>
+                </div>
+
+                <div class="project-mockup">
+                    <div class="mockup-browser">
+                        <div class="mockup-titlebar">
+                            <span class="mockup-dot red"></span>
+                            <span class="mockup-dot yellow"></span>
+                            <span class="mockup-dot green"></span>
+                            <span class="mockup-titlebar-text">Write Rules</span>
+                        </div>
+                        <div class="mockup-content">
+                            <div class="mockup-doc-list">
+                                <div class="mockup-doc-row">
+                                    <span>exact name match</span>
+                                    <span class="mockup-badge green">write</span>
+                                </div>
+                                <div class="mockup-doc-row">
+                                    <span>word-boundary fuzzy &mdash; one candidate only</span>
+                                    <span class="mockup-badge green">write</span>
+                                </div>
+                                <div class="mockup-doc-row">
+                                    <span>0 candidates &mdash; logged, reviewed</span>
+                                    <span class="mockup-badge yellow">no match</span>
+                                </div>
+                                <div class="mockup-doc-row">
+                                    <span>2+ candidates &mdash; logged, reviewed</span>
+                                    <span class="mockup-badge yellow">ambiguous</span>
+                                </div>
+                                <div class="mockup-doc-row">
+                                    <span>value already correct &mdash; no audit noise</span>
+                                    <span class="mockup-badge gray">skip</span>
+                                </div>
+                                <div class="mockup-doc-row">
+                                    <span>PATCH with If-Match: * &mdash; can never create an account</span>
+                                    <span class="mockup-badge green">update-only</span>
+                                </div>
+                            </div>
+                            <div class="mockup-status-bar">
+                                <span class="mockup-status-dot active"></span>
+                                <span>Anything short of an exact match lands on a human's review list</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <p>The ambiguous list turned out to be worth as much as the enrichment itself &mdash; it doubles as a duplicate-accounts report, surfacing years of accumulated CRM sprawl as a side effect.</p>
+            </section>
+
+            <!-- Things That Bit -->
+            <section id="gotchas">
+                <h2>Things That Bit</h2>
+                <ul>
+                    <li><strong>Holding-company codes mislead.</strong> Registration codes for holding companies and head offices describe the paperwork, not the business. Excluded from mapping rather than mapped badly.</li>
+                    <li><strong>The consumption plan's HTTP response ceiling.</strong> A long sync over HTTP returns a timeout while the execution carries on invisibly in the background. Full resyncs go via the timer trigger; HTTP is for deltas only.</li>
+                    <li><strong>Dataverse <code>$top</code> is a total cap, not a page size.</strong> Paginate with <code>Prefer: odata.maxpagesize</code> and <code>@odata.nextLink</code>, or use it as a deliberate per-run cap.</li>
+                    <li><strong>Field semantics beat field names.</strong> The stock customer-type field and the organisation's own relationship field disagreed on a material slice of the estate. Scope had to follow the field the business actually maintains, not the one that sounds right.</li>
+                    <li><strong>Old registry codes go stale.</strong> A hotel registered under telecoms in the 1990s is still registered under telecoms today.</li>
+                </ul>
+            </section>
+
+            <!-- Technologies -->
+            <section id="technologies">
+                <h2>Technologies</h2>
+                <div class="detail-tech-tags">
+                    <span class="tag">Azure Functions (.NET 8 isolated)</span>
+                    <span class="tag">Logic Apps</span>
+                    <span class="tag">Dataverse Web API</span>
+                    <span class="tag">Dynamics 365</span>
+                    <span class="tag">Python</span>
+                    <span class="tag">Azure Key Vault</span>
+                    <span class="tag">Blob Storage</span>
+                    <span class="tag">Companies House API</span>
+                    <span class="tag">CRO Ireland open data</span>
+                    <span class="tag">SIC / NACE</span>
+                </div>
+            </section>
+
+            <!-- Results & Impact -->
+            <section id="results">
+                <h2>Results &amp; Impact</h2>
+                <div class="metric-grid">
+                    <div class="metric-card">
+                        <span class="value">4</span>
+                        <span class="label">Data sources</span>
+                    </div>
+                    <div class="metric-card">
+                        <span class="value">3</span>
+                        <span class="label">Scheduled jobs</span>
+                    </div>
+                    <div class="metric-card">
+                        <span class="value">2</span>
+                        <span class="label">National registers</span>
+                    </div>
+                    <div class="metric-card">
+                        <span class="value">1</span>
+                        <span class="label">Write threshold: exact</span>
+                    </div>
+                </div>
+                <p>Industry and industry group are now populated across the large majority of active customers and maintained automatically &mdash; nightly from HubSpot, weekly from Companies House, monthly for new Irish registrations. Sector reporting and campaign segmentation run off real data. What is left is not a gap in the pipeline; it is the businesses that appear on no official register, and they sit on a named review list rather than being invented.</p>
+                <p>The matching rules and operational gotchas have since become the house pattern for other third-party-API-to-Dataverse integrations.</p>
+            </section>
+
+            <!-- CTA -->
+            <section id="cta">
+                <div class="cta-box">
+                    <h2>Get in Touch</h2>
+                    <a href="../contact.html" class="btn">Get in Touch &rarr;</a>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="project-footer">
+        <p>&copy; <span id="year"></span> Seun Gabriel Ogunwande. All rights reserved.</p>
+        <p><a href="../index.html">Back to Portfolio</a> | <a href="../privacy-policy.html">Privacy Policy</a></p>
+    </footer>
+
+    <script>
+  var themeBtn = document.querySelector('.theme-toggle');
+  if (themeBtn) {
+    themeBtn.addEventListener('click', function() {
+      document.body.classList.toggle('light-theme');
+      localStorage.setItem('theme', document.body.classList.contains('light-theme') ? 'light' : 'dark');
+    });
+  }
+        document.getElementById('year').textContent = new Date().getFullYear();
+        document.querySelectorAll('.sidebar-link').forEach(link => {
+            link.addEventListener('click', e => {
+                e.preventDefault();
+                const target = document.querySelector(link.getAttribute('href'));
+                if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
+        const sections = document.querySelectorAll('.project-content section[id]');
+        const sidebarLinks = document.querySelectorAll('.sidebar-link');
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                if (window.pageYOffset >= section.offsetTop - 100) current = section.id;
+            });
+            sidebarLinks.forEach(link => {
+                link.classList.toggle('active', link.getAttribute('href') === '#' + current);
+            });
+        });
+    </script>
+    <script src="../js/consent.js"></script>
+    <script src="../js/chatbot.js"></script>
+
+</body>
+</html>
