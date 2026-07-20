@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="description" content="Case study on retiring a forked mobile implementation so a single Dynamics 365 renewal engine runs unchanged on both the web client and an offline mobile CRM.">
+    <meta name="keywords" content="Dynamics 365, Resco Mobile CRM, offline mobile, JavaScript web resources, Dataverse, model-driven apps, Power Platform">
+    <meta name="author" content="Seun Gabriel Ogunwande">
+
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="One Renewal Engine, Two Clients | Seun Gabriel Ogunwande">
+    <meta property="og:description" content="Case study on retiring a forked mobile implementation so a single Dynamics 365 renewal engine runs unchanged on both the web client and an offline mobile CRM.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://gabsyfy.co.uk/projects/one-renewal-engine-two-clients.html">
+    <meta property="og:image" content="https://gabsyfy.co.uk/assets/images/profile.jpg">
+
+    <title>One Renewal Engine, Two Clients | Seun Gabriel Ogunwande</title>
+    <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/project-detail.css">
+    <style>
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--spacing-md);
+            margin: var(--spacing-lg) 0;
+        }
+        .feature-card {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+            padding: var(--spacing-lg);
+        }
+        .feature-card-icon {
+            font-size: 2rem;
+            margin-bottom: var(--spacing-sm);
+        }
+        .feature-card h3 {
+            color: var(--color-text-primary);
+            font-size: var(--font-size-base);
+            margin-bottom: var(--spacing-xs);
+        }
+        .feature-card p {
+            color: var(--color-text-muted);
+            font-size: var(--font-size-sm);
+            line-height: 1.6;
+            margin-bottom: 0;
+        }
+        .arch-flow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: var(--spacing-sm);
+            margin: var(--spacing-lg) 0;
+            padding: var(--spacing-lg);
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+        }
+        .arch-flow-node {
+            background: rgba(0, 168, 255, 0.1);
+            border: 1px solid var(--color-primary);
+            border-radius: var(--radius-sm);
+            padding: var(--spacing-sm) var(--spacing-md);
+            font-size: var(--font-size-sm);
+            font-weight: 600;
+            color: var(--color-primary);
+            white-space: nowrap;
+        }
+        .arch-flow-arrow {
+            color: var(--color-text-muted);
+            font-size: var(--font-size-lg);
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body>
+    <script>if(localStorage.getItem('theme')!=='dark')document.body.classList.add('light-theme')</script>
+
+    <!-- Hero -->
+    <section class="project-hero">
+        <div class="project-hero-nav">
+            <a href="../index.html#projects" class="back-link">&larr; Back to Portfolio</a>
+            <button class="theme-toggle" aria-label="Toggle light/dark mode">
+                <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+                <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+            </button>
+        </div>
+        <h1>One Renewal Engine, Two Clients</h1>
+        <p class="project-tagline">Power Platform &middot; Dynamics 365 &middot; Mobile</p>
+    </section>
+
+    <!-- Main Layout -->
+    <div class="project-layout">
+
+        <!-- Sidebar Navigation -->
+        <aside class="project-sidebar">
+            <nav>
+                <a href="#executive-summary" class="sidebar-link">Executive Summary</a>
+                <a href="#background" class="sidebar-link">The Problem</a>
+                <a href="#diagnosis" class="sidebar-link">Diagnosis</a>
+                <a href="#decision" class="sidebar-link">The Decision</a>
+                <a href="#architecture" class="sidebar-link">Architecture</a>
+                <a href="#shim" class="sidebar-link">The Seam</a>
+                <a href="#technologies" class="sidebar-link">Technologies</a>
+                <a href="#results" class="sidebar-link">Results &amp; Impact</a>
+                <a href="#cta" class="sidebar-link">Get in Touch</a>
+            </nav>
+        </aside>
+
+        <!-- Content -->
+        <div class="project-content">
+
+            <!-- Executive Summary -->
+            <section id="executive-summary">
+                <h2>Executive Summary</h2>
+                <p>A contract renewal process at a UK/IE Microsoft partner ran as a guided wizard in the Dynamics 365 web client, and separately as a hand-ported copy inside an offline mobile CRM app. The two had been drifting apart for months. I retired the copy and made a single engine run unchanged on both &mdash; so every fix now reaches the field engineers for free.</p>
+            </section>
+
+            <!-- The Problem -->
+            <section id="background">
+                <h2>The Problem</h2>
+                <p>Field staff needed to run account reviews on site, often with no signal, so the renewal flow had been ported by hand into the offline mobile app. Two implementations of the same business process then evolved independently.</p>
+                <p>The web version kept gaining logic: collapsing and upserting service lines, distinguishing a renewed line from a newly added one, re-asserting negotiated pricing against a catalogue workflow that would otherwise overwrite it, handling discounts and contributions, clawback, currency by territory, and a snapshot note attached to the record. The mobile copy was frozen several revisions behind and had none of it.</p>
+                <p>The failure was quiet, which made it worse. Reviews submitted from a device produced records that looked plausible but carried the wrong pricing, the wrong classification and missing context. Nothing errored. It only surfaced when the two sets of records were compared directly.</p>
+            </section>
+
+            <!-- Diagnosis -->
+            <section id="diagnosis">
+                <h2>Diagnosis</h2>
+                <p>I wrote a throwaway diagnostic that read back records created from a device and compared them, field by field, against records created from the web for an equivalent review.</p>
+                <p>Three recently shipped web features were provably absent from every device-created record. The mobile app was not running a stale build of the shared engine &mdash; it was running an entirely separate implementation that had never had those features at all.</p>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <div class="feature-card-icon">&#x26A0;</div>
+                        <h3>The bug was not the missing feature. The bug was the fork.</h3>
+                        <p>The instinct was to patch the port. That was the trap. I patched two of the three gaps successfully, and they worked. The third &mdash; re-asserting a negotiated price against the catalogue workflow &mdash; was a problem the web engine had already spent thousands of lines solving. Porting that solution by hand would have meant porting the next one too, and the one after.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- The Decision -->
+            <section id="decision">
+                <h2>The Decision</h2>
+                <p>Retire the port. Make the mobile app load and run the real engine.</p>
+                <p>The obstacle was that the shared engine is written against the web client's client-side API, which does not exist inside the mobile app's HTML host. There was already a compatibility shim standing in for parts of that API, but it stubbed out the one call the engine uses to open the wizard and receive the user's answers &mdash; the seam the whole flow hinges on.</p>
+                <p><strong>Make the shim honest.</strong> The stubbed navigation call became a real implementation: it hosts the wizard page in an iframe, waits for the user to submit, and resolves with the result in exactly the shape the engine expects. From the engine's point of view nothing changed.</p>
+                <p><strong>Make the launcher thin.</strong> The mobile entry point was rewritten from a full reimplementation down to roughly 130 lines that do only what a launcher should: load the bridge, load the shim, load the unmodified engine, resolve which record the user launched from, and call the engine's public entry point. Everything the old port did &mdash; record creation, line writing, pricing, financial calculation &mdash; was deleted.</p>
+
+                <div class="project-mockup">
+                    <div class="mockup-browser">
+                        <div class="mockup-titlebar">
+                            <span class="mockup-dot red"></span>
+                            <span class="mockup-dot yellow"></span>
+                            <span class="mockup-dot green"></span>
+                            <span class="mockup-titlebar-text">Mobile Load Order</span>
+                        </div>
+                        <div class="mockup-content">
+                            <div class="mockup-doc-list">
+                                <div class="mockup-doc-row">
+                                    <span>1 &middot; Platform bridge</span>
+                                    <span class="mockup-badge gray">Loaded</span>
+                                </div>
+                                <div class="mockup-doc-row">
+                                    <span>2 &middot; Compatibility shim &mdash; defines the web client API surface, including a real wizard host</span>
+                                    <span class="mockup-badge gray">Loaded</span>
+                                </div>
+                                <div class="mockup-doc-row">
+                                    <span>3 &middot; The renewal engine &mdash; byte-for-byte identical to the web version</span>
+                                    <span class="mockup-badge green">Unmodified</span>
+                                </div>
+                                <div class="mockup-doc-row">
+                                    <span>4 &middot; Resolve the launching record</span>
+                                    <span class="mockup-badge gray">Context</span>
+                                </div>
+                                <div class="mockup-doc-row">
+                                    <span>5 &middot; Call the engine's entry point</span>
+                                    <span class="mockup-badge green">Hand off</span>
+                                </div>
+                            </div>
+                            <div class="mockup-status-bar">
+                                <span class="mockup-status-dot active"></span>
+                                <span>Launcher: ~130 lines &mdash; the engine runs its own flow, unaware it is not on the web</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Architecture -->
+            <section id="architecture">
+                <h2>Architecture</h2>
+                <p>Both clients now consume the same deployed engine artefact. In the browser it runs against the native client-side API. On a device, a thin launcher loads the platform bridge, the compatibility shim, and then the engine itself &mdash; the shim presents the client API surface the engine was written against, including a real wizard host, so the engine cannot tell the two environments apart. Writes converge on the same records either way; the mobile side reaches them through offline sync.</p>
+
+                <div class="architecture-mockup">
+                    <svg viewBox="0 0 980 455" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Schematic of the shared renewal engine: the Dynamics 365 web client runs the engine against its native client-side API; the offline mobile CRM runs a thin launcher that loads a platform bridge, then a compatibility shim presenting the same client API surface with a real wizard host, then the identical engine artefact. Both paths write the same service records in Dataverse, the mobile path via offline sync" style="width:100%;height:auto;display:block;">
+                        <defs>
+                            <marker id="schematic-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                                <path d="M0 0 L10 5 L0 10 z" style="fill:var(--color-text-muted)"/>
+                            </marker>
+                        </defs>
+
+                        <!-- Subgraph: Web client -->
+                        <rect x="20" y="30" width="270" height="130" rx="8" style="fill:var(--color-surface);stroke:var(--color-border)"/>
+                        <text x="30" y="52" style="fill:var(--color-text-muted);font-size:12px;font-weight:600">Dynamics 365 web client</text>
+                        <rect x="35" y="70" width="240" height="60" rx="6" style="fill:rgba(0,168,255,0.1);stroke:var(--color-primary)"/>
+                        <text x="155" y="94" text-anchor="middle" style="fill:var(--color-primary);font-size:13px;font-weight:600">Client-side API</text>
+                        <text x="155" y="113" text-anchor="middle" style="fill:var(--color-text-secondary);font-size:11px">native wizard dialog</text>
+
+                        <!-- Subgraph: Mobile app -->
+                        <rect x="20" y="220" width="270" height="215" rx="8" style="fill:var(--color-surface);stroke:var(--color-border)"/>
+                        <text x="30" y="242" style="fill:var(--color-text-muted);font-size:12px;font-weight:600">Offline mobile CRM</text>
+                        <rect x="35" y="255" width="240" height="40" rx="6" style="fill:rgba(0,168,255,0.1);stroke:var(--color-primary)"/>
+                        <text x="155" y="280" text-anchor="middle" style="fill:var(--color-primary);font-size:13px;font-weight:600">1 &middot; Launcher &mdash; ~130 lines</text>
+                        <rect x="35" y="310" width="240" height="40" rx="6" style="fill:rgba(0,168,255,0.1);stroke:var(--color-primary)"/>
+                        <text x="155" y="335" text-anchor="middle" style="fill:var(--color-primary);font-size:13px;font-weight:600">2 &middot; Platform bridge</text>
+                        <rect x="35" y="365" width="240" height="58" rx="6" style="fill:rgba(0,168,255,0.1);stroke:var(--color-primary)"/>
+                        <text x="155" y="388" text-anchor="middle" style="fill:var(--color-primary);font-size:13px;font-weight:600">3 &middot; Compatibility shim</text>
+                        <text x="155" y="407" text-anchor="middle" style="fill:var(--color-text-secondary);font-size:11px">client API surface + wizard host</text>
+                        <line x1="155" y1="295" x2="155" y2="306" style="stroke:var(--color-text-muted);stroke-width:1.5" marker-end="url(#schematic-arrow)"/>
+                        <line x1="155" y1="350" x2="155" y2="361" style="stroke:var(--color-text-muted);stroke-width:1.5" marker-end="url(#schematic-arrow)"/>
+
+                        <!-- Shared engine -->
+                        <rect x="410" y="195" width="210" height="80" rx="6" style="fill:rgba(0,168,255,0.1);stroke:var(--color-primary)"/>
+                        <text x="515" y="220" text-anchor="middle" style="fill:var(--color-primary);font-size:13px;font-weight:600">Renewal engine</text>
+                        <text x="515" y="240" text-anchor="middle" style="fill:var(--color-text-secondary);font-size:11px">one deployed artefact</text>
+                        <text x="515" y="258" text-anchor="middle" style="fill:var(--color-text-secondary);font-size:11px">identical on both clients</text>
+
+                        <!-- Subgraph: Dataverse -->
+                        <rect x="750" y="170" width="210" height="140" rx="8" style="fill:var(--color-surface);stroke:var(--color-border)"/>
+                        <text x="760" y="192" style="fill:var(--color-text-muted);font-size:12px;font-weight:600">Dataverse</text>
+                        <rect x="765" y="205" width="180" height="64" rx="6" style="fill:rgba(0,168,255,0.1);stroke:var(--color-primary)"/>
+                        <text x="855" y="229" text-anchor="middle" style="fill:var(--color-primary);font-size:13px;font-weight:600">Service records</text>
+                        <text x="855" y="248" text-anchor="middle" style="fill:var(--color-text-secondary);font-size:11px">renewals + snapshot note</text>
+
+                        <!-- Edges -->
+                        <line x1="275" y1="100" x2="406" y2="212" style="stroke:var(--color-text-muted);stroke-width:1.5" marker-end="url(#schematic-arrow)"/>
+                        <text x="352" y="130" text-anchor="start" style="fill:var(--color-text-secondary);font-size:11px">loads + runs</text>
+                        <line x1="275" y1="394" x2="406" y2="258" style="stroke:var(--color-text-muted);stroke-width:1.5" marker-end="url(#schematic-arrow)"/>
+                        <text x="352" y="345" text-anchor="start" style="fill:var(--color-text-secondary);font-size:11px">loaded, not copied</text>
+                        <line x1="620" y1="235" x2="760" y2="235" style="stroke:var(--color-text-muted);stroke-width:1.5" marker-end="url(#schematic-arrow)"/>
+                        <text x="690" y="227" text-anchor="middle" style="fill:var(--color-text-secondary);font-size:11px">single write path</text>
+                        <line x1="292" y1="410" x2="852" y2="311" style="stroke:var(--color-text-muted);stroke-width:1.5" marker-start="url(#schematic-arrow)" marker-end="url(#schematic-arrow)"/>
+                        <text x="565" y="352" text-anchor="middle" style="fill:var(--color-text-secondary);font-size:11px">offline sync</text>
+                    </svg>
+                </div>
+
+                <p>The mobile-specific surface that remains is deliberately small: the shim, which translates the engine's queries and navigation into what the offline host can actually do, and a launcher small enough to read in one sitting. The engine itself carries all the business logic and is never edited for mobile.</p>
+            </section>
+
+            <!-- The Seam -->
+            <section id="shim">
+                <h2>What Made the Shim Hard</h2>
+                <p>The interesting problems were all in the seam, not in the business logic.</p>
+                <ul>
+                    <li><strong>The offline query layer never returned primary keys,</strong> unlike the online API the engine was written against. Every downstream lookup keyed on those IDs silently built an empty map, and the writes that depended on it quietly ran against undefined identifiers &mdash; rescued only by a fallback path that partially masked the fault. The shim now always requests the key explicitly and backfills it into every result.</li>
+                    <li><strong>Filter comparisons were being evaluated against display values</strong> rather than the underlying identifiers, so a lookup filter compared a human-readable name against a GUID and matched nothing. Fixed by normalising and routing lookup comparisons in the shim's filter evaluation.</li>
+                    <li><strong>Reads immediately after a write have to go online-first.</strong> Serving them from the offline cache returns pre-write state, so the engine's own re-find step saw stale data.</li>
+                    <li><strong>String escaping differed between the two query dialects,</strong> which broke any record whose name contained an apostrophe.</li>
+                    <li><strong>Fields must be explicitly present in the mobile sync configuration</strong> or they are dropped silently rather than erroring. Running the real engine meant it read more fields than the port ever had, so the sync model had to be widened to match, including the target entities behind every lookup.</li>
+                </ul>
+            </section>
+
+            <!-- Technologies -->
+            <section id="technologies">
+                <h2>Technologies</h2>
+                <div class="detail-tech-tags">
+                    <span class="tag">Dynamics 365</span>
+                    <span class="tag">Power Platform</span>
+                    <span class="tag">Resco Mobile CRM</span>
+                    <span class="tag">JavaScript</span>
+                    <span class="tag">Model-driven apps</span>
+                    <span class="tag">Dataverse Web API</span>
+                    <span class="tag">OData / FetchXML</span>
+                    <span class="tag">Offline-first</span>
+                </div>
+            </section>
+
+            <!-- Results & Impact -->
+            <section id="results">
+                <h2>Results &amp; Impact</h2>
+                <div class="metric-grid">
+                    <div class="metric-card">
+                        <span class="value">1</span>
+                        <span class="label">Shared engine</span>
+                    </div>
+                    <div class="metric-card">
+                        <span class="value">2</span>
+                        <span class="label">Client platforms</span>
+                    </div>
+                    <div class="metric-card">
+                        <span class="value">0</span>
+                        <span class="label">Forked codebases</span>
+                    </div>
+                    <div class="metric-card">
+                        <span class="value">~130</span>
+                        <span class="label">Lines in the mobile launcher</span>
+                    </div>
+                </div>
+                <p>The mobile app now runs the same engine as the web client, loaded rather than copied. Pricing re-assertion, line classification, financial roll-ups and the snapshot note all behave identically on a device with no signal as they do in a browser.</p>
+                <p>The maintenance shape changed completely. Previously every web fix started a clock on a hand-port that might or might not happen, and the gap between the two only ever widened. Now a fix ships once and reaches both clients on the next publish. The mobile-specific surface I still own is a thin compatibility shim and a launcher small enough to read in one sitting.</p>
+                <p>The cheapest mobile port is the one you delete.</p>
+            </section>
+
+            <!-- CTA -->
+            <section id="cta">
+                <div class="cta-box">
+                    <h2>Get in Touch</h2>
+                    <a href="../contact.html" class="btn">Get in Touch &rarr;</a>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="project-footer">
+        <p>&copy; <span id="year"></span> Seun Gabriel Ogunwande. All rights reserved.</p>
+        <p><a href="../index.html">Back to Portfolio</a> | <a href="../privacy-policy.html">Privacy Policy</a></p>
+    </footer>
+
+    <script>
+  var themeBtn = document.querySelector('.theme-toggle');
+  if (themeBtn) {
+    themeBtn.addEventListener('click', function() {
+      document.body.classList.toggle('light-theme');
+      localStorage.setItem('theme', document.body.classList.contains('light-theme') ? 'light' : 'dark');
+    });
+  }
+        document.getElementById('year').textContent = new Date().getFullYear();
+        document.querySelectorAll('.sidebar-link').forEach(link => {
+            link.addEventListener('click', e => {
+                e.preventDefault();
+                const target = document.querySelector(link.getAttribute('href'));
+                if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
+        const sections = document.querySelectorAll('.project-content section[id]');
+        const sidebarLinks = document.querySelectorAll('.sidebar-link');
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                if (window.pageYOffset >= section.offsetTop - 100) current = section.id;
+            });
+            sidebarLinks.forEach(link => {
+                link.classList.toggle('active', link.getAttribute('href') === '#' + current);
+            });
+        });
+    </script>
+    <script src="../js/consent.js"></script>
+    <script src="../js/chatbot.js"></script>
+
+</body>
+</html>

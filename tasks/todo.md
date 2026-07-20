@@ -1,4 +1,86 @@
-# Task: Account Industry Enrichment Pipeline case study
+# Task 2: One Renewal Engine, Two Clients case study
+
+## Files to change
+- [ ] `projects/one-renewal-engine-two-clients.html` — new page
+- [ ] `index.html` — new Featured Projects card, placed FIRST (before the enrichment card)
+- [ ] `sitemap.xml` — add the new URL
+- [ ] `robots.txt` — no change needed; no JSON manifest exists
+
+## Structure (unchanged findings from Task 1 — verified again this session)
+- Stylesheets: `../css/style.css` + `../css/project-detail.css` + the byte-identical shared inline
+  `<style>` block every project page carries (`.feature-*`, `.arch-flow-*`). The brief bans "inline
+  <style> block" in the sense of NEW page-specific styling; the shared block IS the existing shell —
+  omitting it would break the callout/feature classes. Carrying it over verbatim, zero new rules.
+  (Same call approved on Task 1.)
+- Card DOM: `article.project-card.slide-up[data-href]` → h3 → p → `.project-mockup > .mockup-browser`
+  (titlebar dots+text; content: stat-row / doc-list / status-bar) → `.tech-tags` → `a.project-card-link`.
+- Page shell: project-hero (back-link + theme toggle, h1, `p.project-tagline` as the eyebrow slot) →
+  project-layout (sidebar `a.sidebar-link` 1:1 with `section[id]`) → project-footer → standard scripts.
+  Nav/footer/meta are hand-rolled per page, not partials; copied verbatim.
+
+## Section plan (sidebar label — content)
+| id | label | content |
+|---|---|---|
+| executive-summary | Executive Summary | Lede |
+| background | The Problem | problem prose (drift, quiet failure) |
+| diagnosis | Diagnosis | diagnostic prose + "the bug was the fork" callout (feature-card style, as Task 1) |
+| decision | The Decision | two-halves prose + load-order panel (mock-UI doc-list — Task 1 precedent for "code block") |
+| architecture | Architecture | inline-SVG schematic per tasks/lessons.md house rule (see below) |
+| shim | The Seam | "What made the shim hard" bullet list (`.project-content ul`) |
+| technologies | Technologies | `.detail-tech-tags` |
+| results | Results & Impact | 4 metric cards (1 / 2 / 0 / ~130) + Outcome + closing line |
+| cta | Get in Touch | `.cta-box` |
+
+## Judgment calls (all Task 1 precedent)
+1. Eyebrow "Power Platform · Dynamics 365 · Mobile" → hero `p.project-tagline`.
+2. Load-order "code block" → mock-UI panel (user chose this over raw `<pre>` on Task 1).
+3. Callout → `feature-grid` with one full-width-ish `feature-card` (⚠ icon).
+4. Stat tiles → `.metric-grid` in Results (~130 is the one permitted number).
+5. Meta keywords + OG tags added per brief (siblings lack them; approved divergence on Task 1).
+6. NEW vs Task 1: `tasks/lessons.md` now mandates a schematic architecture diagram on every case
+   study (inline SVG, existing CSS vars, `.architecture-mockup` wrapper). Not in this brief —
+   proposing to include one: web client + mobile host both loading the SAME engine artefact;
+   mobile side shows launcher → bridge → shim → engine → offline store/sync. Confirm at check-in.
+
+## Confidentiality sweep plan (stricter than Task 1)
+Grep both changed files for: digits (every survivor must be architectural: 365, .NET-style platform
+names, ~130, source counts), currency symbols, underscore tokens (no schema/field names), and
+capitalised multi-word proper nouns (allowed: Microsoft, Dynamics 365, Power Platform, Resco Mobile
+CRM, JavaScript, Dataverse, OData, FetchXML, Companies House refs elsewhere). Anything else → report,
+don't guess.
+
+## Verification
+- [ ] Serve locally; homepage + new page; screenshots vs sibling page
+- [ ] 375px and 1440px; dark + light themes (incl. SVG if approved)
+- [ ] Back link / footer / sidebar scroll-spy from inside `projects/`
+- [ ] Confidentiality grep sweep as above
+- [ ] Validate HTML (python html.parser + tag-balance check as Task 1)
+- [x] All verification steps completed — see review below
+
+## Review (Task 2)
+- Created `projects/one-renewal-engine-two-clients.html`: same shell as siblings (style.css +
+  project-detail.css + shared inline block, hero with tagline-as-eyebrow, sidebar, footer, standard
+  scripts). Sections: executive-summary / background / diagnosis (with "the bug was the fork"
+  callout as feature-card) / decision (load-order mock-UI panel, Task 1 precedent) / architecture
+  (inline-SVG schematic per lessons.md: web client + mobile launcher→bridge→shim stacks both
+  consuming ONE engine node; single write path to Dataverse; offline sync edge) / shim (bullets) /
+  technologies / results (1 · 2 · 0 · ~130 metric tiles + closing line) / cta.
+- `index.html`: new card FIRST in Featured Projects (load-order mock panel, "One engine. Two
+  clients. No fork." status bar, 5 tags). `sitemap.xml`: new URL added. robots.txt: no change;
+  no manifest exists.
+- Verified: sidebar links ↔ section ids 1:1 (9/9); back link → index#projects; card link →
+  new page; zero console errors; full-page screenshots dark/light 1440px + 375px; schematic
+  re-rendered after fixing an edge-label adjacency ("offline sync" rerouted to subgraph bottoms).
+- Confidentiality sweep (both changed files): no currency symbols; no underscore tokens; visible
+  digits are only 0/1/2 (tiles), 1–5 (load-order steps), ~130 (permitted line count), 365
+  (platform name); capitalised sequences are only public vendor/platform names, the author, and
+  headings. No client, employer, supplier, colleague or product-brand names; no schema/field
+  names; no tenant/env/repo/ticket identifiers.
+- HTML tag-balance validation passed on both files; sitemap parses as well-formed XML.
+
+---
+
+# Task 1: Account Industry Enrichment Pipeline case study
 
 ## Files to change
 - [ ] `projects/account-industry-enrichment.html` — new case study page
