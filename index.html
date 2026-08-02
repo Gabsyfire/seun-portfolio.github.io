@@ -209,6 +209,63 @@
             <div class="container">
                 <h2 class="section-title slide-up">Featured Projects</h2>
                 <div class="projects-grid">
+                    <article class="project-card slide-up" data-href="projects/ipecs-call-sync.html">
+                        <h3>iPECS Call Sync &mdash; Telephony to Dynamics 365 Automation</h3>
+                        <p>Zero-touch pipeline that turns daily phone-system call reports into live CRM account statuses for two regions. Nightly emailed CSVs are parsed, dialled numbers normalised across UK/ROI formats, matched against accounts across five phone fields with a contact fallback &mdash; and every processed call lands in exactly one audit table.</p>
+                        <div class="project-mockup">
+                            <div class="mockup-browser">
+                                <div class="mockup-titlebar">
+                                    <span class="mockup-dot red"></span>
+                                    <span class="mockup-dot yellow"></span>
+                                    <span class="mockup-dot green"></span>
+                                    <span class="mockup-titlebar-text">iPECS Call Sync &mdash; Nightly Run</span>
+                                </div>
+                                <div class="mockup-content">
+                                    <div class="mockup-stat-row">
+                                        <div class="mockup-stat">
+                                            <span class="mockup-stat-value">2</span>
+                                            <span class="mockup-stat-label">Regions</span>
+                                        </div>
+                                        <div class="mockup-stat">
+                                            <span class="mockup-stat-value accent">~800</span>
+                                            <span class="mockup-stat-label">Calls/Day</span>
+                                        </div>
+                                        <div class="mockup-stat">
+                                            <span class="mockup-stat-value">0</span>
+                                            <span class="mockup-stat-label">Manual Updates</span>
+                                        </div>
+                                    </div>
+                                    <div class="mockup-doc-list">
+                                        <div class="mockup-doc-row">
+                                            <span>Parse &amp; normalise call report</span>
+                                            <span class="mockup-badge gray">Canonical</span>
+                                        </div>
+                                        <div class="mockup-doc-row">
+                                            <span>Match accounts &mdash; 5 fields + contact fallback</span>
+                                            <span class="mockup-badge green">Unique only</span>
+                                        </div>
+                                        <div class="mockup-doc-row">
+                                            <span>ADE Status &rarr; Called + manager summary</span>
+                                            <span class="mockup-badge green">Audited</span>
+                                        </div>
+                                    </div>
+                                    <div class="mockup-status-bar">
+                                        <span class="mockup-status-dot active"></span>
+                                        <span>Every call accounted for in exactly one summary table</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tech-tags">
+                            <span class="tag">Power Automate</span>
+                            <span class="tag">Dynamics 365 / Dataverse</span>
+                            <span class="tag">OData Web API</span>
+                            <span class="tag">Python</span>
+                            <span class="tag">iPECS Cloud</span>
+                        </div>
+                        <a href="projects/ipecs-call-sync.html" class="project-card-link">View Case Study &rarr;</a>
+                    </article>
+
                     <article class="project-card slide-up" data-href="projects/one-renewal-engine-two-clients.html">
                         <h3>One Renewal Engine, Two Clients</h3>
                         <p>Retired a hand-ported mobile implementation of a contract renewal process so a single Dynamics 365 engine now runs unchanged on both the web client and an offline mobile CRM &mdash; via a compatibility shim and a thin launcher. Every web fix now reaches field engineers for free.</p>
