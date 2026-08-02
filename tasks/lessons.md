@@ -28,3 +28,20 @@ Key Vault/secret names, tenant URLs, publisher-prefixed field names, schedule ti
 record counts, thresholds, and auth query strings. Strip ALL of it; keep only the
 topology and architectural facts, then grep-sweep the page for the banned tokens
 before calling it done.
+
+## Case studies: no vendor brands, no internal terminology — ever
+
+**Pattern (2026-08-02, DialSync):** a case study shipped naming the phone-system vendor in the
+title/slug/images and using an internal team abbreviation as a field name; the user corrected it
+for HR/confidentiality reasons after it went live.
+
+**Rules:**
+- Name internal-work case studies with an invented product codename (VaultBridge precedent),
+  never a vendor or product brand tied to the employer's stack.
+- Replace internal team names, field names and report-section names with industry-standard
+  wording (e.g. "sales team", "call status", "customer success") — in page text, card, slug,
+  image pixels, alt text, aria-labels, HTML comments, sitemap AND tasks/*.md (the repo is public).
+- Treat operational volume figures (calls/day, record counts) as company data: keep metrics
+  architectural, and make fake numbers in mock images diverge from real magnitudes.
+- Sweep case-insensitively for the banned tokens across the WHOLE repo before done — including
+  pre-existing pages, generated images' source HTML, and this tasks folder.
