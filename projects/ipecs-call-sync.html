@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="description" content="Case study on a zero-touch pipeline that turns daily iPECS phone-system call reports into live Dynamics 365 account statuses for two regions, built with Power Automate and Python-generated flow packages.">
+    <meta name="keywords" content="Power Automate, Dynamics 365, Dataverse, OData Web API, iPECS Cloud, telephony integration, CRM automation, Python">
+    <meta name="author" content="Seun Gabriel Ogunwande">
+
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="iPECS Call Sync — Telephony to Dynamics 365 Automation | Seun Gabriel Ogunwande">
+    <meta property="og:description" content="Zero-touch pipeline that turns daily phone-system call reports into live CRM account statuses for two regions.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://gabsyfy.co.uk/projects/ipecs-call-sync.html">
+    <meta property="og:image" content="https://gabsyfy.co.uk/assets/images/profile.jpg">
+
+    <title>iPECS Call Sync — Telephony to Dynamics 365 Automation | Seun Gabriel Ogunwande</title>
+    <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/project-detail.css">
+    <style>
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--spacing-md);
+            margin: var(--spacing-lg) 0;
+        }
+        .feature-card {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+            padding: var(--spacing-lg);
+        }
+        .feature-card-icon {
+            font-size: 2rem;
+            margin-bottom: var(--spacing-sm);
+        }
+        .feature-card h3 {
+            color: var(--color-text-primary);
+            font-size: var(--font-size-base);
+            margin-bottom: var(--spacing-xs);
+        }
+        .feature-card p {
+            color: var(--color-text-muted);
+            font-size: var(--font-size-sm);
+            line-height: 1.6;
+            margin-bottom: 0;
+        }
+        .arch-flow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: var(--spacing-sm);
+            margin: var(--spacing-lg) 0;
+            padding: var(--spacing-lg);
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+        }
+        .arch-flow-node {
+            background: rgba(0, 168, 255, 0.1);
+            border: 1px solid var(--color-primary);
+            border-radius: var(--radius-sm);
+            padding: var(--spacing-sm) var(--spacing-md);
+            font-size: var(--font-size-sm);
+            font-weight: 600;
+            color: var(--color-primary);
+            white-space: nowrap;
+        }
+        .arch-flow-arrow {
+            color: var(--color-text-muted);
+            font-size: var(--font-size-lg);
+            font-weight: 700;
+        }
+        /* Screenshot cards */
+        .screenshot-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--spacing-md);
+            margin: var(--spacing-lg) 0;
+        }
+        .screenshot-card {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+        }
+        .screenshot-card img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        .screenshot-card-placeholder {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, var(--color-surface) 0%, rgba(0, 168, 255, 0.05) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-text-muted);
+            font-size: var(--font-size-sm);
+        }
+        .screenshot-card-label {
+            padding: var(--spacing-sm) var(--spacing-md);
+            font-size: var(--font-size-sm);
+            color: var(--color-text-muted);
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <script>if(localStorage.getItem('theme')!=='dark')document.body.classList.add('light-theme')</script>
+
+    <!-- Hero -->
+    <section class="project-hero">
+        <div class="project-hero-nav">
+            <a href="../index.html#projects" class="back-link">&larr; Back to Portfolio</a>
+            <button class="theme-toggle" aria-label="Toggle light/dark mode">
+                <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+                <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+            </button>
+        </div>
+        <h1>iPECS Call Sync &mdash; Telephony to Dynamics 365 Automation</h1>
+        <p class="project-tagline">Zero-touch pipeline that turns daily phone-system call reports into live CRM account statuses for two regions</p>
+    </section>
+
+    <!-- Main Layout -->
+    <div class="project-layout">
+
+        <!-- Sidebar Navigation -->
+        <aside class="project-sidebar">
+            <nav>
+                <a href="#executive-summary" class="sidebar-link">Executive Summary</a>
+                <a href="#background" class="sidebar-link">The Problem</a>
+                <a href="#solution" class="sidebar-link">The Solution</a>
+                <a href="#architecture" class="sidebar-link">Architecture</a>
+                <a href="#highlights" class="sidebar-link">Engineering Highlights</a>
+                <a href="#screenshots" class="sidebar-link">Screenshots</a>
+                <a href="#technologies" class="sidebar-link">Technologies</a>
+                <a href="#results" class="sidebar-link">Results &amp; Impact</a>
+                <a href="#cta" class="sidebar-link">Get in Touch</a>
+            </nav>
+        </aside>
+
+        <!-- Content -->
+        <div class="project-content">
+
+            <!-- Executive Summary -->
+            <section id="executive-summary">
+                <h2>Executive Summary</h2>
+                <p>Sales managers had no reliable view of which customer accounts the ADE sales team had actually called. Call data lived in the iPECS phone system; account status lived in Dynamics 365; reconciliation between the two was manual, or more often skipped. I built a zero-touch pipeline that closes that gap: every night, the phone system's emailed call-detail report is parsed, matched against customer accounts, and turned into live CRM statuses &mdash; with a full audit trail landing in the managers' inboxes before the working day starts.</p>
+            </section>
+
+            <!-- The Problem -->
+            <section id="background">
+                <h2>The Problem</h2>
+                <p>The two systems that together answered the question &ldquo;have we called this account?&rdquo; had no connection to each other. The iPECS phone system knew every call that was dialled, but nothing about accounts. Dynamics 365 held the account list and an ADE Status field, but only knew what someone remembered to type into it.</p>
+                <p>Reconciling them meant a person reading a raw call report against a CRM view &mdash; across two regions, in three phone-number formats, against accounts that can hold a number in any of five different fields. In practice it didn't happen, and the account statuses managers planned around were stale.</p>
+            </section>
+
+            <!-- The Solution -->
+            <section id="solution">
+                <h2>The Solution</h2>
+                <p>Two region-specific Power Automate flows &mdash; one for the UK, one for the Republic of Ireland &mdash; trigger on the nightly emailed call-detail CSV. Each run walks the same pipeline:</p>
+                <p><strong>Parse the raw report.</strong> The CSV arrives with a preamble to skip and tab-padded fields to clean before a single row can be trusted.</p>
+                <p><strong>Normalise every dialled number.</strong> UK, ROI and international formats (+44, 00353, national dialling) are collapsed into one canonical form so a number stored one way in the CRM still matches a call dialled another way.</p>
+                <p><strong>Pull the roster live.</strong> The sales-team roster is read from Dataverse on every run &mdash; no hardcoded users, so team changes never require a flow change.</p>
+                <p><strong>Match and update.</strong> Each outbound call is matched against customer accounts across five phone fields, with a contact-level fallback that resolves contacts to their parent account &mdash; including the address-block phone fields. The account's ADE Status is set to &ldquo;Called&rdquo; on unique matches only; anything ambiguous is reported, never written.</p>
+                <p><strong>Report everything.</strong> A manager summary email closes each run with four audit tables &mdash; Updated, Already Called, Ambiguous, Unmatched &mdash; plus a report-only Project Managers section.</p>
+
+                <div class="project-mockup">
+                    <div class="mockup-browser">
+                        <div class="mockup-titlebar">
+                            <span class="mockup-dot red"></span>
+                            <span class="mockup-dot yellow"></span>
+                            <span class="mockup-dot green"></span>
+                            <span class="mockup-titlebar-text">Nightly Run &mdash; Pipeline Steps</span>
+                        </div>
+                        <div class="mockup-content">
+                            <div class="mockup-doc-list">
+                                <div class="mockup-doc-row">
+                                    <span>1 &middot; Parse call-detail CSV &mdash; preamble skipped, tab padding stripped</span>
+                                    <span class="mockup-badge gray">Parsed</span>
+                                </div>
+                                <div class="mockup-doc-row">
+                                    <span>2 &middot; Normalise dialled numbers &mdash; +44 / 00353 / national</span>
+                                    <span class="mockup-badge gray">Canonical</span>
+                                </div>
+                                <div class="mockup-doc-row">
+                                    <span>3 &middot; Sales-team roster &mdash; read live from Dataverse</span>
+                                    <span class="mockup-badge green">No hardcoding</span>
+                                </div>
+                                <div class="mockup-doc-row">
+                                    <span>4 &middot; Match accounts &mdash; five phone fields + contact fallback</span>
+                                    <span class="mockup-badge green">Unique only</span>
+                                </div>
+                                <div class="mockup-doc-row">
+                                    <span>5 &middot; Manager summary &mdash; four audit tables + PM section</span>
+                                    <span class="mockup-badge green">Sent</span>
+                                </div>
+                            </div>
+                            <div class="mockup-status-bar">
+                                <span class="mockup-status-dot active"></span>
+                                <span>Every processed call is accounted for in exactly one summary table</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Architecture -->
+            <section id="architecture">
+                <h2>Architecture</h2>
+                <p>The pipeline runs entirely on the nightly email as its trigger &mdash; no polling, no agents on the phone system. A Power Automate flow per region parses and normalises the report, reads the sales-team roster live from Dataverse, and runs the match engine: five account phone fields first, then a contact-level fallback that resolves to the parent account. Unique matches are written back to the account's ADE Status over the OData Web API; everything else is only reported. The flows themselves are build artefacts &mdash; a Python generator emits importable flow packages, versioned v1 through v9, so deployments update in place instead of being rebuilt by hand in the designer.</p>
+
+                <div class="architecture-mockup">
+                    <svg viewBox="0 0 980 470" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Schematic of the iPECS call sync pipeline: the iPECS Cloud phone system emails a nightly call-detail CSV to a Power Automate flow per region (UK and ROI); the flow parses and normalises the report, reads the sales-team roster live from Dataverse, and matches calls against customer accounts across five phone fields with a contact fallback; unique matches update the account ADE Status in Dynamics 365, and a manager summary email reports four audit tables; a Python generator deploys the flows as importable packages versioned v1 to v9" style="width:100%;height:auto;display:block;">
+                        <defs>
+                            <marker id="schematic-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                                <path d="M0 0 L10 5 L0 10 z" style="fill:var(--color-text-muted)"/>
+                            </marker>
+                        </defs>
+
+                        <!-- Subgraph: iPECS Cloud -->
+                        <rect x="20" y="40" width="200" height="120" rx="8" style="fill:var(--color-surface);stroke:var(--color-border)"/>
+                        <text x="30" y="62" style="fill:var(--color-text-muted);font-size:12px;font-weight:600">iPECS Cloud</text>
+                        <rect x="35" y="78" width="170" height="62" rx="6" style="fill:rgba(0,168,255,0.1);stroke:var(--color-primary)"/>
+                        <text x="120" y="103" text-anchor="middle" style="fill:var(--color-primary);font-size:13px;font-weight:600">Call-detail report</text>
+                        <text x="120" y="122" text-anchor="middle" style="fill:var(--color-text-secondary);font-size:11px">emailed CSV &middot; nightly</text>
+
+                        <!-- Subgraph: Power Automate -->
+                        <rect x="300" y="30" width="340" height="272" rx="8" style="fill:var(--color-surface);stroke:var(--color-border)"/>
+                        <text x="310" y="52" style="fill:var(--color-text-muted);font-size:12px;font-weight:600">Power Automate &mdash; one flow per region (UK &middot; ROI)</text>
+                        <rect x="320" y="66" width="300" height="52" rx="6" style="fill:rgba(0,168,255,0.1);stroke:var(--color-primary)"/>
+                        <text x="470" y="88" text-anchor="middle" style="fill:var(--color-primary);font-size:13px;font-weight:600">Parse &amp; normalise</text>
+                        <text x="470" y="106" text-anchor="middle" style="fill:var(--color-text-secondary);font-size:11px">preamble &middot; tab padding &middot; +44 / 00353 / national</text>
+                        <rect x="320" y="136" width="300" height="52" rx="6" style="fill:rgba(0,168,255,0.1);stroke:var(--color-primary)"/>
+                        <text x="470" y="158" text-anchor="middle" style="fill:var(--color-primary);font-size:13px;font-weight:600">Roster filter</text>
+                        <text x="470" y="176" text-anchor="middle" style="fill:var(--color-text-secondary);font-size:11px">outbound calls by the sales team only</text>
+                        <rect x="320" y="206" width="300" height="72" rx="6" style="fill:rgba(0,168,255,0.1);stroke:var(--color-primary)"/>
+                        <text x="470" y="230" text-anchor="middle" style="fill:var(--color-primary);font-size:13px;font-weight:600">Match engine</text>
+                        <text x="470" y="248" text-anchor="middle" style="fill:var(--color-text-secondary);font-size:11px">five account phone fields</text>
+                        <text x="470" y="264" text-anchor="middle" style="fill:var(--color-text-secondary);font-size:11px">contact fallback &rarr; parent account</text>
+                        <line x1="470" y1="118" x2="470" y2="132" style="stroke:var(--color-text-muted);stroke-width:1.5" marker-end="url(#schematic-arrow)"/>
+                        <line x1="470" y1="188" x2="470" y2="202" style="stroke:var(--color-text-muted);stroke-width:1.5" marker-end="url(#schematic-arrow)"/>
+
+                        <!-- Subgraph: Dynamics 365 / Dataverse -->
+                        <rect x="720" y="30" width="240" height="272" rx="8" style="fill:var(--color-surface);stroke:var(--color-border)"/>
+                        <text x="730" y="52" style="fill:var(--color-text-muted);font-size:12px;font-weight:600">Dynamics 365 &middot; Dataverse</text>
+                        <rect x="735" y="66" width="210" height="52" rx="6" style="fill:rgba(0,168,255,0.1);stroke:var(--color-primary)"/>
+                        <text x="840" y="88" text-anchor="middle" style="fill:var(--color-primary);font-size:13px;font-weight:600">Sales-team roster</text>
+                        <text x="840" y="106" text-anchor="middle" style="fill:var(--color-text-secondary);font-size:11px">read live &middot; no hardcoded users</text>
+                        <rect x="735" y="196" width="210" height="64" rx="6" style="fill:rgba(0,168,255,0.1);stroke:var(--color-primary)"/>
+                        <text x="840" y="221" text-anchor="middle" style="fill:var(--color-primary);font-size:13px;font-weight:600">Customer accounts</text>
+                        <text x="840" y="240" text-anchor="middle" style="fill:var(--color-text-secondary);font-size:11px">ADE Status &rarr; Called</text>
+
+                        <!-- Summary email -->
+                        <rect x="320" y="356" width="300" height="64" rx="6" style="fill:rgba(0,168,255,0.1);stroke:var(--color-primary)"/>
+                        <text x="470" y="381" text-anchor="middle" style="fill:var(--color-primary);font-size:13px;font-weight:600">Manager summary email</text>
+                        <text x="470" y="400" text-anchor="middle" style="fill:var(--color-text-secondary);font-size:11px">Updated &middot; Already Called &middot; Ambiguous &middot; Unmatched</text>
+
+                        <!-- Python generator -->
+                        <rect x="20" y="356" width="200" height="64" rx="6" style="fill:rgba(0,168,255,0.1);stroke:var(--color-primary)"/>
+                        <text x="120" y="381" text-anchor="middle" style="fill:var(--color-primary);font-size:13px;font-weight:600">Python generator</text>
+                        <text x="120" y="400" text-anchor="middle" style="fill:var(--color-text-secondary);font-size:11px">importable packages &middot; v1&rarr;v9</text>
+
+                        <!-- Edges -->
+                        <line x1="205" y1="100" x2="316" y2="92" style="stroke:var(--color-text-muted);stroke-width:1.5" marker-end="url(#schematic-arrow)"/>
+                        <text x="260" y="80" text-anchor="middle" style="fill:var(--color-text-secondary);font-size:11px">email trigger</text>
+                        <line x1="735" y1="98" x2="624" y2="152" style="stroke:var(--color-text-muted);stroke-width:1.5" marker-end="url(#schematic-arrow)"/>
+                        <text x="682" y="112" text-anchor="middle" style="fill:var(--color-text-secondary);font-size:11px">live roster</text>
+                        <line x1="620" y1="234" x2="731" y2="230" style="stroke:var(--color-text-muted);stroke-width:1.5" marker-end="url(#schematic-arrow)"/>
+                        <text x="676" y="218" text-anchor="middle" style="fill:var(--color-text-secondary);font-size:11px">unique only</text>
+                        <line x1="470" y1="302" x2="470" y2="352" style="stroke:var(--color-text-muted);stroke-width:1.5" marker-end="url(#schematic-arrow)"/>
+                        <text x="482" y="332" text-anchor="start" style="fill:var(--color-text-secondary);font-size:11px">every call &rarr; exactly one table</text>
+                        <path d="M120 352 L120 320 L296 320" fill="none" style="stroke:var(--color-text-muted);stroke-width:1.5" marker-end="url(#schematic-arrow)"/>
+                        <text x="140" y="338" text-anchor="start" style="fill:var(--color-text-secondary);font-size:11px">deploys flows</text>
+                    </svg>
+                </div>
+
+                <p>The write path is deliberately conservative: only a unique match may touch a record, updates go through the standard OData Web API, and the summary email is the contract &mdash; if a call was processed, it appears in exactly one of the four audit tables, so a manager can always trace why an account did or didn't change.</p>
+            </section>
+
+            <!-- Engineering Highlights -->
+            <section id="highlights">
+                <h2>Engineering Highlights</h2>
+                <ul>
+                    <li><strong>Importable flow packages generated programmatically in Python</strong> &mdash; versioned v1&rarr;v9, with pinned GUIDs so each release deploys as an update-in-place rather than a new flow to re-wire.</li>
+                    <li><strong>Defensive expression engineering</strong> &mdash; guarded substring chains so withheld and anonymous numbers can't fail a run, and logic flattened to fit inside Power Automate's 8-level expression nesting limit.</li>
+                    <li><strong>Careful matching semantics</strong> &mdash; duplicate suppression, same-parent contact heuristics, and customer-scope OData filters keep the match set honest before anything is written.</li>
+                    <li><strong>Full observability</strong> &mdash; every processed call is accounted for in exactly one summary table, so a run can be audited from the email alone.</li>
+                </ul>
+            </section>
+
+            <!-- Screenshots -->
+            <section id="screenshots">
+                <h2>Screenshots</h2>
+                <div class="screenshot-grid">
+                    <div class="screenshot-card">
+                        <img src="../assets/images/projects/ipecs-call-sync/summary-email.png" alt="Manager summary email with a yellow iPECS call sync header, a run stat line, and an Updated to Called table listing accounts, numbers, callers, times, and one contact-level match" loading="lazy">
+                        <div class="screenshot-card-label">Manager Summary: Four Audit Tables per Run</div>
+                    </div>
+                    <div class="screenshot-card">
+                        <img src="../assets/images/projects/ipecs-call-sync/flow-diagram.png" alt="Simplified flow diagram of the nightly run: email trigger, parse CSV, normalise numbers, team roster lookup, account match with contact fallback, update Dynamics 365, summary email" loading="lazy">
+                        <div class="screenshot-card-label">Pipeline: Email Trigger to Summary Email</div>
+                    </div>
+                    <div class="screenshot-card">
+                        <img src="../assets/images/projects/ipecs-call-sync/d365-ade-status.png" alt="Cropped Dynamics 365 account form section with the ADE Status field set to Called, highlighted with a yellow ring and an Updated by flow badge" loading="lazy">
+                        <div class="screenshot-card-label">Dynamics 365: ADE Status Set by the Flow</div>
+                    </div>
+                </div>
+                <p>All screenshots are illustrative reconstructions &mdash; every company, person and phone number shown is fictitious.</p>
+            </section>
+
+            <!-- Technologies -->
+            <section id="technologies">
+                <h2>Technologies</h2>
+                <div class="detail-tech-tags">
+                    <span class="tag">Power Automate</span>
+                    <span class="tag">Dynamics 365 / Dataverse</span>
+                    <span class="tag">OData Web API</span>
+                    <span class="tag">Python</span>
+                    <span class="tag">iPECS Cloud</span>
+                </div>
+            </section>
+
+            <!-- Results & Impact -->
+            <section id="results">
+                <h2>Results &amp; Impact</h2>
+                <div class="metric-grid">
+                    <div class="metric-card">
+                        <span class="value">2</span>
+                        <span class="label">Regions covered</span>
+                    </div>
+                    <div class="metric-card">
+                        <span class="value">~800</span>
+                        <span class="label">Calls/day parsed</span>
+                    </div>
+                    <div class="metric-card">
+                        <span class="value">9</span>
+                        <span class="label">Iterations to production</span>
+                    </div>
+                    <div class="metric-card">
+                        <span class="value">0</span>
+                        <span class="label">Manual updates</span>
+                    </div>
+                </div>
+                <p>The question &ldquo;which accounts have we actually called?&rdquo; now has a live answer. Account statuses reflect real dialled calls from the previous day, in both regions, without anyone touching a record &mdash; and the summary email gives managers a daily, auditable view of exactly what changed and why.</p>
+                <p>Because the flows are generated rather than hand-built, the nine iterations it took to get the parsing, normalisation and matching rules right shipped as clean update-in-place deployments &mdash; the pipeline improved version over version without ever being rebuilt in the designer.</p>
+            </section>
+
+            <!-- CTA -->
+            <section id="cta">
+                <div class="cta-box">
+                    <h2>Get in Touch</h2>
+                    <a href="../contact.html" class="btn">Get in Touch &rarr;</a>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="project-footer">
+        <p>&copy; <span id="year"></span> Seun Gabriel Ogunwande. All rights reserved.</p>
+        <p><a href="../index.html">Back to Portfolio</a> | <a href="../privacy-policy.html">Privacy Policy</a></p>
+    </footer>
+
+    <script>
+  var themeBtn = document.querySelector('.theme-toggle');
+  if (themeBtn) {
+    themeBtn.addEventListener('click', function() {
+      document.body.classList.toggle('light-theme');
+      localStorage.setItem('theme', document.body.classList.contains('light-theme') ? 'light' : 'dark');
+    });
+  }
+        document.getElementById('year').textContent = new Date().getFullYear();
+        document.querySelectorAll('.sidebar-link').forEach(link => {
+            link.addEventListener('click', e => {
+                e.preventDefault();
+                const target = document.querySelector(link.getAttribute('href'));
+                if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
+        const sections = document.querySelectorAll('.project-content section[id]');
+        const sidebarLinks = document.querySelectorAll('.sidebar-link');
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                if (window.pageYOffset >= section.offsetTop - 100) current = section.id;
+            });
+            sidebarLinks.forEach(link => {
+                link.classList.toggle('active', link.getAttribute('href') === '#' + current);
+            });
+        });
+    </script>
+    <script src="../js/consent.js"></script>
+    <script src="../js/chatbot.js"></script>
+
+</body>
+</html>

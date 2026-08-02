@@ -1,3 +1,72 @@
+# Task 3: iPECS Call Sync — Telephony to Dynamics 365 Automation case study
+
+## Files to change
+- [ ] `assets/images/projects/ipecs-call-sync/` — 3 generated mock screenshots (PNG @2x via headless Chromium)
+- [ ] `projects/ipecs-call-sync.html` — new case study page (sibling shell verbatim)
+- [ ] `index.html` — new Featured Projects card, placed FIRST (newest-first precedent)
+- [ ] `sitemap.xml` — add the new URL
+- [ ] `robots.txt` — no change needed
+
+## Section plan (sidebar label — content)
+| id | label | content |
+|---|---|---|
+| executive-summary | Executive Summary | one-liner expanded into lede |
+| background | The Problem | iPECS/D365 reconciliation gap prose |
+| solution | The Solution | pipeline steps prose + run-steps mock-UI panel |
+| architecture | Architecture | inline-SVG schematic per lessons.md house rule (theme-aware, CSS vars) |
+| highlights | Engineering Highlights | `.project-content ul` bullet list (4 items from brief) |
+| screenshots | Screenshots | `.screenshot-grid` with the 3 generated images (VaultBridge pattern) |
+| technologies | Technologies | `.detail-tech-tags`: Power Automate, Dynamics 365 / Dataverse, OData Web API, Python, iPECS Cloud |
+| results | Results & Impact | metric tiles: 2 regions / ~800 calls/day / 9 iterations / 0 manual updates |
+| cta | Get in Touch | `.cta-box` |
+
+## Images (all fake data; consistent Segoe UI, 8px radius, same spacing; deviceScaleFactor 2)
+1. `summary-email.png` — #FFC20E header "iPECS call sync", stat line, "Updated to Called" table
+   (Account | Number | Caller | Time | Contact; 6 rows, one contact-name match)
+2. `flow-diagram.png` — Email trigger → Parse CSV → Normalise numbers → Team roster lookup →
+   Account match / Contact fallback → Update D365 → Summary email; subtle grid background
+3. `d365-ade-status.png` — cropped D365 account form, "ADE Status: Called" with highlight ring
+
+## Confidentiality rules
+No GUIDs, no real phone numbers (invented UK/ROI-format only), no real customer/colleague names,
+no tenant/env identifiers, no publisher-prefixed schema names. "ADE" is fine (already public on
+the site via the Sales Performance Dashboard card). Grep sweep before done.
+
+## Verification
+- [x] Serve locally; homepage + new page; screenshots dark + light at 1440px and 375px
+- [x] Sidebar links ↔ section ids 1:1; back link; card link; images load
+- [x] HTML tag-balance validation; sitemap well-formed
+- [x] Confidentiality grep sweep
+
+## Review (Task 3)
+- Generated 3 mock screenshots (shared design system: Segoe UI, 8px radius, consistent spacing;
+  rendered via headless Chromium at deviceScaleFactor 2 for retina) into
+  `assets/images/projects/ipecs-call-sync/`: summary-email.png (#FFC20E header, stat line,
+  Updated-to-Called table with one contact-level match row), flow-diagram.png (snake layout,
+  subtle grid, brand-neutral), d365-ade-status.png (form crop, ADE Status: Called with #FFC20E
+  highlight ring). All companies/people/numbers fictitious; UK numbers drawn from drama-style
+  ranges (020 7946 / 0161 496 / 07700 900xxx).
+- `projects/ipecs-call-sync.html`: sibling shell verbatim (style.css + project-detail.css +
+  shared inline block, plus VaultBridge's screenshot-grid block — the existing pattern for
+  image-bearing pages). Sections: executive-summary / background / solution (5-step prose +
+  pipeline mock-UI panel) / architecture (theme-aware inline-SVG schematic per lessons.md:
+  iPECS Cloud → Power Automate per-region flow stack → Dataverse roster + accounts; summary
+  email + Python generator nodes) / highlights (4 bullets) / screenshots (3 cards + fictitious-
+  data note) / technologies (5 tags) / results (2 / ~800 / 9 / 0 tiles) / cta.
+- `index.html`: new card FIRST in Featured Projects (stat-row 2 / ~800 / 0, 3-row doc-list,
+  "every call accounted for" status bar, 5 tags). `sitemap.xml`: new URL first among projects.
+- Verified: 9 sidebar links ↔ 9 section ids (automated check in Playwright run); images load
+  (lazy-load confirmed by scroll test; the fullPage "naturalWidth 0" failures were lazy-loading
+  artefacts, not missing files); dark + light at 1440px and 375px screenshotted — schematic
+  theme-aware in both; homepage card matches siblings at both widths. Console errors were only
+  the pre-existing external Unsplash/chatbot proxy blocks documented in Tasks 1–2.
+- HTML tag-balance passed on both changed files; sitemap parses as well-formed XML.
+- Confidentiality sweep: no GUIDs, no employer/client/colleague names, no schema-prefixed field
+  names, no emails; every visible digit is architectural (platform names, the brief's metrics,
+  +44/00353 dialling codes, the 8-level nesting limit, v1→v9).
+
+---
+
 # Task 2: One Renewal Engine, Two Clients case study
 
 ## Files to change
