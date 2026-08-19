@@ -122,7 +122,7 @@
             <section id="background">
                 <h2>The Problem</h2>
                 <p>Industry was an optional field in Dynamics 365, filled in inconsistently over a decade of sales activity. Most active customers had nothing in it, so any report slicing revenue, churn or opportunity by sector was quietly wrong, and marketing could not build a sector list without manually eyeballing account names.</p>
-                <p>The obvious fix &mdash; bulk-guessing from account names &mdash; is exactly the fix that poisons a CRM. The real requirement was coverage and trustworthiness: every value written had to be defensible, and anything uncertain had to land on a human's review list rather than in the database.</p>
+                <p>The obvious fix, bulk-guessing from account names, is exactly the fix that poisons a CRM. The real requirement was coverage and trustworthiness: every value written had to be defensible, and anything uncertain had to land on a human's review list rather than in the database.</p>
             </section>
 
             <!-- Approach -->
@@ -141,23 +141,23 @@
                         <div class="mockup-content">
                             <div class="mockup-doc-list">
                                 <div class="mockup-doc-row">
-                                    <span>1 &middot; Marketing platform sync &mdash; industry + group</span>
+                                    <span>1 &middot; Marketing platform sync, industry + group</span>
                                     <span class="mockup-badge green">Nightly</span>
                                 </div>
                                 <div class="mockup-doc-row">
-                                    <span>2 &middot; CRM credit-feed SIC codes &mdash; SIC &rarr; industry</span>
+                                    <span>2 &middot; CRM credit-feed SIC codes, SIC &rarr; industry</span>
                                     <span class="mockup-badge gray">One-off</span>
                                 </div>
                                 <div class="mockup-doc-row">
-                                    <span>3 &middot; Companies House API &mdash; UK, exact match only</span>
+                                    <span>3 &middot; Companies House API, UK, exact match only</span>
                                     <span class="mockup-badge green">Weekly</span>
                                 </div>
                                 <div class="mockup-doc-row">
-                                    <span>4 &middot; CRO Ireland open data &mdash; NACE Rev 1.1 + Rev 2</span>
+                                    <span>4 &middot; CRO Ireland open data, NACE Rev 1.1 + Rev 2</span>
                                     <span class="mockup-badge green">Monthly</span>
                                 </div>
                                 <div class="mockup-doc-row">
-                                    <span>Residual &mdash; on no official register</span>
+                                    <span>Residual, on no official register</span>
                                     <span class="mockup-badge gray">Owner review</span>
                                 </div>
                             </div>
@@ -175,7 +175,7 @@
 
                 <p><strong>2. SIC codes already sitting in the CRM.</strong> A credit-referencing feed had been writing SIC codes onto accounts for years without anyone deriving anything from them. A Python pass mapped SIC divisions onto the industry option set, giving free coverage from data already in the building.</p>
 
-                <p><strong>3. Companies House, weekly.</strong> A timer-triggered function takes a capped batch of blank customer accounts each week, normalises the name, searches the register, and writes industry, group, SIC and SIC description &mdash; but only on an exact normalised match. High-but-imperfect scores are logged as review candidates and never written.</p>
+                <p><strong>3. Companies House, weekly.</strong> A timer-triggered function takes a capped batch of blank customer accounts each week, normalises the name, searches the register, and writes industry, group, SIC and SIC description, but only on an exact normalised match. High-but-imperfect scores are logged as review candidates and never written.</p>
 
                 <p><strong>4. CRO Ireland, monthly.</strong> Ireland has no equivalent live API, so the pipeline consumes the CRO's bulk open-data company file. Recent registrations carry a NACE Rev 2 code; older ones carry a principal-objects code on the Rev 1.1 scheme, numbered completely differently, needing its own mapping table. Running old codes through the modern lookup silently mislabels a decade of Irish accounts.</p>
             </section>
@@ -183,7 +183,7 @@
             <!-- Architecture -->
             <section id="architecture">
                 <h2>Architecture</h2>
-                <p>A Logic App fires the nightly sync over HTTP and receives a JSON summary back; the weekly Companies House pass runs on a timer trigger inside the same .NET 8 isolated Azure Function app. Secrets live in Azure Key Vault and are read via managed identity; the delta watermark sits in blob storage so each nightly run only pulls what changed since the last one. Every run &mdash; success or failure &mdash; ends in a summary email, so a silent failure cannot quietly stall enrichment.</p>
+                <p>A Logic App fires the nightly sync over HTTP and receives a JSON summary back; the weekly Companies House pass runs on a timer trigger inside the same .NET 8 isolated Azure Function app. Secrets live in Azure Key Vault and are read via managed identity; the delta watermark sits in blob storage so each nightly run only pulls what changed since the last one. Every run, success or failure, ends in a summary email, so a silent failure cannot quietly stall enrichment.</p>
 
                 <div class="architecture-mockup">
                     <svg viewBox="0 0 980 425" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Schematic of the enrichment pipeline: a Logic App triggers the Azure Function app over HTTP; the function reads secrets from Key Vault via managed identity and a delta watermark from blob storage, searches the marketing platform nightly and Companies House weekly, patches accounts in Dynamics 365 update-only, and returns a JSON summary that the Logic App emails after every run" style="width:100%;height:auto;display:block;">
@@ -259,7 +259,7 @@
                     </svg>
                 </div>
 
-                <p>Industry and industry group are always patched together in a single request, mapped through one lookup, so the two fields can never drift apart. Writes go through the Dataverse Web API as update-only PATCHes &mdash; the pipeline can amend an account but can never create one &mdash; and anything below the write threshold ends up in the run log as a review candidate instead of in the database.</p>
+                <p>Industry and industry group are always patched together in a single request, mapped through one lookup, so the two fields can never drift apart. Writes go through the Dataverse Web API as update-only PATCHes, the pipeline can amend an account but can never create one, and anything below the write threshold ends up in the run log as a review candidate instead of in the database.</p>
             </section>
 
             <!-- Matching -->
@@ -293,23 +293,23 @@
                                     <span class="mockup-badge green">write</span>
                                 </div>
                                 <div class="mockup-doc-row">
-                                    <span>word-boundary fuzzy &mdash; one candidate only</span>
+                                    <span>word-boundary fuzzy, one candidate only</span>
                                     <span class="mockup-badge green">write</span>
                                 </div>
                                 <div class="mockup-doc-row">
-                                    <span>0 candidates &mdash; logged, reviewed</span>
+                                    <span>0 candidates, logged, reviewed</span>
                                     <span class="mockup-badge yellow">no match</span>
                                 </div>
                                 <div class="mockup-doc-row">
-                                    <span>2+ candidates &mdash; logged, reviewed</span>
+                                    <span>2+ candidates, logged, reviewed</span>
                                     <span class="mockup-badge yellow">ambiguous</span>
                                 </div>
                                 <div class="mockup-doc-row">
-                                    <span>value already correct &mdash; no audit noise</span>
+                                    <span>value already correct, no audit noise</span>
                                     <span class="mockup-badge gray">skip</span>
                                 </div>
                                 <div class="mockup-doc-row">
-                                    <span>PATCH with If-Match: * &mdash; can never create an account</span>
+                                    <span>PATCH with If-Match: *, can never create an account</span>
                                     <span class="mockup-badge green">update-only</span>
                                 </div>
                             </div>
@@ -321,7 +321,7 @@
                     </div>
                 </div>
 
-                <p>The ambiguous list turned out to be worth as much as the enrichment itself &mdash; it doubles as a duplicate-accounts report, surfacing years of accumulated CRM sprawl as a side effect.</p>
+                <p>The ambiguous list turned out to be worth as much as the enrichment itself; it doubles as a duplicate-accounts report, surfacing years of accumulated CRM sprawl as a side effect.</p>
             </section>
 
             <!-- Things That Bit -->
@@ -374,7 +374,7 @@
                         <span class="label">Write threshold: exact</span>
                     </div>
                 </div>
-                <p>Industry and industry group are now populated across the large majority of active customers and maintained automatically &mdash; nightly from the marketing platform, weekly from Companies House, monthly for new Irish registrations. Sector reporting and campaign segmentation run off real data. What is left is not a gap in the pipeline; it is the businesses that appear on no official register, and they sit on a named review list rather than being invented.</p>
+                <p>Industry and industry group are now populated across the large majority of active customers and maintained automatically: nightly from the marketing platform, weekly from Companies House, monthly for new Irish registrations. Sector reporting and campaign segmentation run off real data. What is left is not a gap in the pipeline; it is the businesses that appear on no official register, and they sit on a named review list rather than being invented.</p>
                 <p>The matching rules and operational gotchas have since become the house pattern for other third-party-API-to-Dataverse integrations.</p>
             </section>
 

@@ -33,7 +33,7 @@
             </button>
         </div>
         <h1>Field Engineer Check-In App</h1>
-        <p class="project-tagline">A GPS canvas app engineers actually use &mdash; one tap to check in, live visibility for managers</p>
+        <p class="project-tagline">A GPS canvas app engineers actually use, one tap to check in, live visibility for managers</p>
     </section>
 
     <!-- Main Layout -->
@@ -59,22 +59,22 @@
             <section id="executive-summary">
                 <h2>Executive Summary</h2>
                 <p>A canvas app for engineers working on site: one tap to check in when you arrive, one to check out when you leave, and position captured automatically on the tap. Managers get a live view of who is where. Time on site is calculated rather than remembered and written down at the end of the week.</p>
-                <p>The most useful thing about this project is not in the app. It is that user testing killed the clever version. The design I set out to build used automatic geofencing &mdash; check in without touching anything. What shipped is a button an engineer presses, because that is the version they trusted and therefore the version they use.</p>
+                <p>The most useful thing about this project is not in the app. It is that user testing killed the clever version. The design I set out to build used automatic geofencing, check in without touching anything. What shipped is a button an engineer presses, because that is the version they trusted and therefore the version they use.</p>
             </section>
 
             <section id="background">
                 <h2>The Problem</h2>
-                <p>Site attendance was reconstructed after the fact. Engineers recorded arrival and departure from memory, often days later, and managers had no view of the day as it happened &mdash; only a set of numbers arriving too late to act on.</p>
+                <p>Site attendance was reconstructed after the fact. Engineers recorded arrival and departure from memory, often days later, and managers had no view of the day as it happened, only a set of numbers arriving too late to act on.</p>
                 <p>Everything downstream inherits that lag. You cannot dispatch on position you do not have. You cannot answer "is anyone near this job" without ringing round. And time on site, reconstructed from memory at the end of a week, is a number nobody fully believes and nobody can check.</p>
             </section>
 
             <section id="solution">
                 <h2>The Solution</h2>
-                <p>The app is deliberately small. An engineer working on a customer site, often one-handed, will not navigate a menu &mdash; so the entire primary interaction is a single button whose label tells you what will happen when you press it.</p>
+                <p>The app is deliberately small. An engineer working on a customer site, often one-handed, will not navigate a menu, so the entire primary interaction is a single button whose label tells you what will happen when you press it.</p>
                 <ul>
                     <li><strong>One-tap check in and out.</strong> The button state reflects where you are in the day. There is nothing to configure and nothing to select before you can use it.</li>
                     <li><strong>Position captured on the tap.</strong> The device GPS reading is taken at the moment of the check-in and stored with the record, so the position is evidence rather than an assumption.</li>
-                    <li><strong>Live manager dashboard.</strong> Who is on site, where, and since when &mdash; as it happens, not as a report the following week.</li>
+                    <li><strong>Live manager dashboard.</strong> Who is on site, where, and since when, as it happens, not as a report the following week.</li>
                     <li><strong>Automatic time on site.</strong> Derived from the check-in and check-out pair, so nobody has to remember or re-key it.</li>
                     <li><strong>Feeds the dispatcher.</strong> Those same check-in positions are what the AI Job Dispatcher ranks engineers on, which is how one small app ends up underneath a much larger automation.</li>
                 </ul>
@@ -93,7 +93,7 @@
                           </marker>
                         </defs>
                         <rect x="15" y="30" width="230" height="220" rx="8" style="fill:var(--color-surface);stroke:var(--color-border);stroke-width:1"/>
-                        <text x="27" y="50" style="fill:var(--color-text-muted);font-size:12px;font-weight:600">Engineer &mdash; mobile</text>
+                        <text x="27" y="50" style="fill:var(--color-text-muted);font-size:12px;font-weight:600">Engineer (mobile)</text>
                         <rect x="30" y="65" width="200" height="44" rx="5" style="fill:rgba(0,168,255,0.1);stroke:var(--color-primary);stroke-width:1"/>
                         <text x="130" y="91" text-anchor="middle" style="fill:var(--color-primary);font-size:12px;font-weight:600">Canvas app</text>
                         <rect x="30" y="125" width="200" height="44" rx="5" style="fill:rgba(0,168,255,0.1);stroke:var(--color-primary);stroke-width:1"/>
@@ -121,17 +121,17 @@
                         <line x1="560" y1="140" x2="641" y2="140" style="stroke:var(--color-text-muted);stroke-width:1.5;fill:none" marker-end="url(#arrow)"/>
                         <text x="600" y="130" text-anchor="middle" style="fill:var(--color-text-secondary);font-size:11px">live</text>
                         <rect x="15" y="300" width="845" height="50" rx="6" style="fill:var(--color-surface);stroke:var(--color-border);stroke-width:1;stroke-dasharray:4 3"/>
-                        <text x="437" y="329" text-anchor="middle" style="fill:var(--color-text-secondary);font-size:12px">Position is captured on the tap &mdash; manual check-in chosen over automatic geofencing after user testing</text>
+                        <text x="437" y="329" text-anchor="middle" style="fill:var(--color-text-secondary);font-size:12px">Position is captured on the tap, manual check-in chosen over automatic geofencing after user testing</text>
                     </svg>
                 </div>
-                <p>Keeping the check-in record as the single source of truth &mdash; rather than one store for attendance and another for dispatch &mdash; is what let the dispatcher reuse it later without any integration work at all.</p>
+                <p>Keeping the check-in record as the single source of truth, rather than one store for attendance and another for dispatch, is what let the dispatcher reuse it later without any integration work at all.</p>
             </section>
 
             <section id="decision">
                 <h2>The Design Decision</h2>
                 <p>The original design used geofencing: cross a boundary around the site, get checked in automatically. It is the better idea on paper. It removes a step, it cannot be forgotten, and it is the version that demos well.</p>
-                <p>User testing was unambiguous. Engineers did not trust it. Not because it was inaccurate &mdash; because they could not <em>see</em> that it had worked. An automatic check-in that happens silently gives you nothing to confirm, and the moment somebody suspects the system missed an arrival, they start keeping their own parallel record. At that point you have added work rather than removed it.</p>
-                <p>A manual tap has a worse theoretical experience and a far better real one: the engineer performs an action, sees it confirmed, and knows the record exists. It also handles the messy cases geofencing gets wrong &mdash; large sites, adjacent buildings, arriving before the job is due to start.</p>
+                <p>User testing was unambiguous. Engineers did not trust it. Not because it was inaccurate, because they could not <em>see</em> that it had worked. An automatic check-in that happens silently gives you nothing to confirm, and the moment somebody suspects the system missed an arrival, they start keeping their own parallel record. At that point you have added work rather than removed it.</p>
+                <p>A manual tap has a worse theoretical experience and a far better real one: the engineer performs an action, sees it confirmed, and knows the record exists. It also handles the messy cases geofencing gets wrong: large sites, adjacent buildings, arriving before the job is due to start.</p>
                 <p>So the app ships with the button. <strong>Adoption beats elegance</strong>: an elegant feature nobody trusts has a real-world accuracy of zero, because it gets worked around. I would rather ship the version that gets used.</p>
             </section>
 
@@ -167,7 +167,7 @@
                     </div>
                 </div>
                 <p>Site attendance is now recorded as it happens, by the person it happened to, with a position attached. Managers see the day while it is still possible to do something about it, and time on site is derived rather than recalled.</p>
-                <p>The wider payoff was unplanned. Because check-ins are captured live and stored as first-class records, they became the position signal the AI Job Dispatcher assigns on &mdash; so the small app that engineers actually adopted is what made the larger automation possible.</p>
+                <p>The wider payoff was unplanned. Because check-ins are captured live and stored as first-class records, they became the position signal the AI Job Dispatcher assigns on, so the small app that engineers actually adopted is what made the larger automation possible.</p>
             </section>
             <!-- CTA -->
             <section id="cta">

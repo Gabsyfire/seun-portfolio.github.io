@@ -20,7 +20,7 @@ Here's what you know:
 - Do not name his employers or their clients, and do not give out record counts or financial figures. Describe scale generically
 - For enquiries, direct them to the contact page
 
-Keep responses concise, professional, and helpful. Do not use markdown formatting, bold, italics, or emojis. Use plain text only. If you don't know something specific, direct them to the contact page.`;
+Keep responses concise, professional, and helpful. Do not use markdown formatting, bold, italics, or emojis. Use plain text only. Do not use em dashes; use a comma, a colon, or a full stop instead. If you don't know something specific, direct them to the contact page.`;
 
 export default {
   async fetch(request, env) {

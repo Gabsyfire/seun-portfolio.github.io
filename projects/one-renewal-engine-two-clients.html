@@ -115,7 +115,7 @@
             <!-- Executive Summary -->
             <section id="executive-summary">
                 <h2>Executive Summary</h2>
-                <p>A contract renewal process ran as a guided wizard in the Dynamics 365 web client, and separately as a hand-ported copy inside an offline mobile CRM app. The two had been drifting apart for months. I retired the copy and made a single engine run unchanged on both &mdash; so every fix now reaches the field engineers for free.</p>
+                <p>A contract renewal process ran as a guided wizard in the Dynamics 365 web client, and separately as a hand-ported copy inside an offline mobile CRM app. The two had been drifting apart for months. I retired the copy and made a single engine run unchanged on both, so every fix now reaches the field engineers for free.</p>
             </section>
 
             <!-- The Problem -->
@@ -130,12 +130,12 @@
             <section id="diagnosis">
                 <h2>Diagnosis</h2>
                 <p>I wrote a throwaway diagnostic that read back records created from a device and compared them, field by field, against records created from the web for an equivalent review.</p>
-                <p>Three recently shipped web features were provably absent from every device-created record. The mobile app was not running a stale build of the shared engine &mdash; it was running an entirely separate implementation that had never had those features at all.</p>
+                <p>Three recently shipped web features were provably absent from every device-created record. The mobile app was not running a stale build of the shared engine, it was running an entirely separate implementation that had never had those features at all.</p>
                 <div class="feature-grid">
                     <div class="feature-card">
                         <div class="feature-card-icon">&#x26A0;</div>
                         <h3>The bug was not the missing feature. The bug was the fork.</h3>
-                        <p>The instinct was to patch the port. That was the trap. I patched two of the three gaps successfully, and they worked. The third &mdash; re-asserting a negotiated price against the catalogue workflow &mdash; was a problem the web engine had already spent thousands of lines solving. Porting that solution by hand would have meant porting the next one too, and the one after.</p>
+                        <p>The instinct was to patch the port. That was the trap. I patched two of the three gaps successfully, and they worked. The third, re-asserting a negotiated price against the catalogue workflow, was a problem the web engine had already spent thousands of lines solving. Porting that solution by hand would have meant porting the next one too, and the one after.</p>
                     </div>
                 </div>
             </section>
@@ -144,9 +144,9 @@
             <section id="decision">
                 <h2>The Decision</h2>
                 <p>Retire the port. Make the mobile app load and run the real engine.</p>
-                <p>The obstacle was that the shared engine is written against the web client's client-side API, which does not exist inside the mobile app's HTML host. There was already a compatibility shim standing in for parts of that API, but it stubbed out the one call the engine uses to open the wizard and receive the user's answers &mdash; the seam the whole flow hinges on.</p>
+                <p>The obstacle was that the shared engine is written against the web client's client-side API, which does not exist inside the mobile app's HTML host. There was already a compatibility shim standing in for parts of that API, but it stubbed out the one call the engine uses to open the wizard and receive the user's answers, the seam the whole flow hinges on.</p>
                 <p><strong>Make the shim honest.</strong> The stubbed navigation call became a real implementation: it hosts the wizard page in an iframe, waits for the user to submit, and resolves with the result in exactly the shape the engine expects. From the engine's point of view nothing changed.</p>
-                <p><strong>Make the launcher thin.</strong> The mobile entry point was rewritten from a full reimplementation down to roughly 130 lines that do only what a launcher should: load the bridge, load the shim, load the unmodified engine, resolve which record the user launched from, and call the engine's public entry point. Everything the old port did &mdash; record creation, line writing, pricing, financial calculation &mdash; was deleted.</p>
+                <p><strong>Make the launcher thin.</strong> The mobile entry point was rewritten from a full reimplementation down to roughly 130 lines that do only what a launcher should: load the bridge, load the shim, load the unmodified engine, resolve which record the user launched from, and call the engine's public entry point. Everything the old port did (record creation, line writing, pricing, financial calculation) was deleted.</p>
 
                 <div class="project-mockup">
                     <div class="mockup-browser">
@@ -163,11 +163,11 @@
                                     <span class="mockup-badge gray">Loaded</span>
                                 </div>
                                 <div class="mockup-doc-row">
-                                    <span>2 &middot; Compatibility shim &mdash; defines the web client API surface, including a real wizard host</span>
+                                    <span>2 &middot; Compatibility shim, defines the web client API surface, including a real wizard host</span>
                                     <span class="mockup-badge gray">Loaded</span>
                                 </div>
                                 <div class="mockup-doc-row">
-                                    <span>3 &middot; The renewal engine &mdash; byte-for-byte identical to the web version</span>
+                                    <span>3 &middot; The renewal engine, byte-for-byte identical to the web version</span>
                                     <span class="mockup-badge green">Unmodified</span>
                                 </div>
                                 <div class="mockup-doc-row">
@@ -181,7 +181,7 @@
                             </div>
                             <div class="mockup-status-bar">
                                 <span class="mockup-status-dot active"></span>
-                                <span>Launcher: ~130 lines &mdash; the engine runs its own flow, unaware it is not on the web</span>
+                                <span>Launcher: ~130 lines (the engine runs its own flow, unaware it is not on the web)</span>
                             </div>
                         </div>
                     </div>
@@ -191,7 +191,7 @@
             <!-- Architecture -->
             <section id="architecture">
                 <h2>Architecture</h2>
-                <p>Both clients now consume the same deployed engine artefact. In the browser it runs against the native client-side API. On a device, a thin launcher loads the platform bridge, the compatibility shim, and then the engine itself &mdash; the shim presents the client API surface the engine was written against, including a real wizard host, so the engine cannot tell the two environments apart. Writes converge on the same records either way; the mobile side reaches them through offline sync.</p>
+                <p>Both clients now consume the same deployed engine artefact. In the browser it runs against the native client-side API. On a device, a thin launcher loads the platform bridge, the compatibility shim, and then the engine itself; the shim presents the client API surface the engine was written against, including a real wizard host, so the engine cannot tell the two environments apart. Writes converge on the same records either way; the mobile side reaches them through offline sync.</p>
 
                 <div class="architecture-mockup">
                     <svg viewBox="0 0 980 455" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Schematic of the shared renewal engine: the Dynamics 365 web client runs the engine against its native client-side API; the offline mobile CRM runs a thin launcher that loads a platform bridge, then a compatibility shim presenting the same client API surface with a real wizard host, then the identical engine artefact. Both paths write the same service records in Dataverse, the mobile path via offline sync" style="width:100%;height:auto;display:block;">
@@ -212,7 +212,7 @@
                         <rect x="20" y="220" width="270" height="215" rx="8" style="fill:var(--color-surface);stroke:var(--color-border)"/>
                         <text x="30" y="242" style="fill:var(--color-text-muted);font-size:12px;font-weight:600">Offline mobile CRM</text>
                         <rect x="35" y="255" width="240" height="40" rx="6" style="fill:rgba(0,168,255,0.1);stroke:var(--color-primary)"/>
-                        <text x="155" y="280" text-anchor="middle" style="fill:var(--color-primary);font-size:13px;font-weight:600">1 &middot; Launcher &mdash; ~130 lines</text>
+                        <text x="155" y="280" text-anchor="middle" style="fill:var(--color-primary);font-size:13px;font-weight:600">1 &middot; Launcher (~130 lines)</text>
                         <rect x="35" y="310" width="240" height="40" rx="6" style="fill:rgba(0,168,255,0.1);stroke:var(--color-primary)"/>
                         <text x="155" y="335" text-anchor="middle" style="fill:var(--color-primary);font-size:13px;font-weight:600">2 &middot; Platform bridge</text>
                         <rect x="35" y="365" width="240" height="58" rx="6" style="fill:rgba(0,168,255,0.1);stroke:var(--color-primary)"/>
@@ -254,7 +254,7 @@
                 <h2>What Made the Shim Hard</h2>
                 <p>The interesting problems were all in the seam, not in the business logic.</p>
                 <ul>
-                    <li><strong>The offline query layer never returned primary keys,</strong> unlike the online API the engine was written against. Every downstream lookup keyed on those IDs silently built an empty map, and the writes that depended on it quietly ran against undefined identifiers &mdash; rescued only by a fallback path that partially masked the fault. The shim now always requests the key explicitly and backfills it into every result.</li>
+                    <li><strong>The offline query layer never returned primary keys,</strong> unlike the online API the engine was written against. Every downstream lookup keyed on those IDs silently built an empty map, and the writes that depended on it quietly ran against undefined identifiers, rescued only by a fallback path that partially masked the fault. The shim now always requests the key explicitly and backfills it into every result.</li>
                     <li><strong>Filter comparisons were being evaluated against display values</strong> rather than the underlying identifiers, so a lookup filter compared a human-readable name against a GUID and matched nothing. Fixed by normalising and routing lookup comparisons in the shim's filter evaluation.</li>
                     <li><strong>Reads immediately after a write have to go online-first.</strong> Serving them from the offline cache returns pre-write state, so the engine's own re-find step saw stale data.</li>
                     <li><strong>String escaping differed between the two query dialects,</strong> which broke any record whose name contained an apostrophe.</li>

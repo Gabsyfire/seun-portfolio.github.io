@@ -58,14 +58,14 @@
 
             <section id="executive-summary">
                 <h2>Executive Summary</h2>
-                <p>Dispatch is a job that looks like judgement and is mostly lookup. Who has an open job, who is free this afternoon, who is closest to it &mdash; three questions a person answers slowly from three different screens, and an agent answers instantly from the same data.</p>
+                <p>Dispatch is a job that looks like judgement and is mostly lookup. Who has an open job, who is free this afternoon, who is closest to it: three questions a person answers slowly from three different screens, and an agent answers instantly from the same data.</p>
                 <p>This is a Power Automate and AI Builder agent that runs that loop end to end: it discovers unassigned jobs, checks which engineers are genuinely available, ranks them by distance using the GPS position captured by the field check-in app, and assigns the nearest one. Anything it cannot confidently match goes to a dispatcher queue rather than being guessed at.</p>
             </section>
 
             <section id="background">
                 <h2>The Problem</h2>
-                <p>Assignment was being made against the rota &mdash; a document describing where engineers were <em>supposed</em> to be. By mid-morning that document is fiction. Jobs overrun, jobs get cancelled, engineers end up on the other side of the region from where the plan said they would be.</p>
-                <p>The result is the familiar field-service tax: an engineer driving past an open job to reach the one they were assigned, because the assignment was made before anyone knew where they were. The information needed to avoid that already existed &mdash; the check-in app had been capturing real positions for months. Nothing was reading it.</p>
+                <p>Assignment was being made against the rota, a document describing where engineers were <em>supposed</em> to be. By mid-morning that document is fiction. Jobs overrun, jobs get cancelled, engineers end up on the other side of the region from where the plan said they would be.</p>
+                <p>The result is the familiar field-service tax: an engineer driving past an open job to reach the one they were assigned, because the assignment was made before anyone knew where they were. The information needed to avoid that already existed, the check-in app had been capturing real positions for months. Nothing was reading it.</p>
             </section>
 
             <section id="solution">
@@ -74,7 +74,7 @@
                 <ul>
                     <li><strong>Discover.</strong> Query the job queue for work that is open and unassigned. No human has to notice a job is sitting there.</li>
                     <li><strong>Check availability.</strong> Test each engineer against shift and existing commitments. Being nearest is irrelevant if you are already on a job.</li>
-                    <li><strong>Rank by distance.</strong> Compare the job location against the engineer's most recent check-in position &mdash; live GPS from the field app, not a home depot address.</li>
+                    <li><strong>Rank by distance.</strong> Compare the job location against the engineer's most recent check-in position, live GPS from the field app, not a home depot address.</li>
                     <li><strong>Assign.</strong> Write the assignment back to Dataverse and notify the engineer. Where no candidate clears the availability and distance checks, the job routes to the dispatcher queue with the reason attached.</li>
                 </ul>
             </section>
@@ -128,7 +128,7 @@
                         <text x="610" y="165" text-anchor="middle" style="fill:var(--color-text-secondary);font-size:11px">write</text>
                     </svg>
                 </div>
-                <p>The design choice worth defending is the fallback. It would have been easy to always assign somebody &mdash; pick the least-bad candidate and move on. That produces a system nobody trusts, because the bad assignments are indistinguishable from the good ones. Routing an unmatched job to a human, with the reason it could not be matched, keeps the automatic assignments meaningful.</p>
+                <p>The design choice worth defending is the fallback. It would have been easy to always assign somebody, pick the least-bad candidate and move on. That produces a system nobody trusts, because the bad assignments are indistinguishable from the good ones. Routing an unmatched job to a human, with the reason it could not be matched, keeps the automatic assignments meaningful.</p>
             </section>
 
             <section id="highlights">
@@ -136,7 +136,7 @@
                 <ul>
                     <li>Assignment is made on <strong>position at the time of dispatch</strong>, sourced from the check-in app rather than from a planning document that goes stale before lunch.</li>
                     <li>Availability is checked <strong>before</strong> distance, not after. Ranking a full engineer as nearest and then discarding them wastes the only interesting comparison in the pipeline.</li>
-                    <li>The pipeline is idempotent per job &mdash; a re-run over an already-assigned job is a no-op, so the flow is safe to retry after a transient failure.</li>
+                    <li>The pipeline is idempotent per job, a re-run over an already-assigned job is a no-op, so the flow is safe to retry after a transient failure.</li>
                     <li>Every decision carries its reason. When someone asks why a particular engineer got a particular job, the record answers it without anyone reconstructing the run.</li>
                     <li>No-match is a first-class outcome with its own queue, rather than a silently forced assignment.</li>
                 </ul>
@@ -173,7 +173,7 @@
                         <span class="label">Explicit fallback queue</span>
                     </div>
                 </div>
-                <p>Jobs now get assigned to whoever is genuinely nearest and free, without a person sitting between the queue and the engineer. The dispatcher role shifts from doing the routine assignments to handling the exceptions the agent deliberately declines to guess at &mdash; which is the right division of labour between the two.</p>
+                <p>Jobs now get assigned to whoever is genuinely nearest and free, without a person sitting between the queue and the engineer. The dispatcher role shifts from doing the routine assignments to handling the exceptions the agent deliberately declines to guess at, which is the right division of labour between the two.</p>
                 <p>It also demonstrates something I keep finding on the Power Platform: the highest-value automation is usually not new data collection, it is connecting data you are already collecting to a decision that is still being made by hand.</p>
             </section>
             <!-- CTA -->
