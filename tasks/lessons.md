@@ -45,3 +45,25 @@ for HR/confidentiality reasons after it went live.
   architectural, and make fake numbers in mock images diverge from real magnitudes.
 - Sweep case-insensitively for the banned tokens across the WHOLE repo before done — including
   pre-existing pages, generated images' source HTML, and this tasks folder.
+
+## Big-number slots need short values; check the root element for mobile overflow
+
+**Pattern (2026-08-19, Power Platform + AI repositioning):** two things only showed up in a
+rendered screenshot, not in the markup.
+
+- `.mockup-stat-value` and `.metric-card .value` are styled as large display numbers. A
+  descriptive phrase in one of them ("Tens of thousands") wraps to two lines and reads as a
+  layout bug. Keep those slots to a short token — a number, or one word like "Any" or
+  "Live" — and put the qualitative phrasing in the surrounding prose, where the
+  confidentiality rules want it anyway.
+- The homepage carried a 22px horizontal overflow at 375px. `body` already had
+  `overflow-x: hidden`, which clips the closed off-canvas nav drawer visually but leaves the
+  **root element** reporting the wider scroll width. The fix is `html { overflow-x: clip }`
+  inside the mobile media query — `clip` rather than `hidden` because `hidden` would make the
+  root a scroll container and break sticky positioning (the case-study sidebar depends on it).
+
+**Verification that caught both:** measuring
+`document.documentElement.scrollWidth - clientWidth` per page and per breakpoint, and
+screenshotting metric grids at 375px rather than trusting the desktop view. Measure the
+pre-change baseline too — the overflow here turned out to be pre-existing, which is worth
+knowing before attributing it to your own diff.

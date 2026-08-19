@@ -184,77 +184,110 @@ document.addEventListener('DOMContentLoaded', () => {
   // SKILL MODAL
   // ==========================================
   const skillData = {
+    // --- AI ---
+    'copilot-studio': {
+      title: 'Copilot Studio',
+      items: ['Production agent design — topics, triggers, and generative orchestration', 'Grounding agents on internal documentation and Dataverse', 'Agent actions that write back through Power Automate, never direct from the model', 'Guardrails, fallback handling, and human escalation paths', 'Multi-agent suites sharing a common retrieve-reason-act pattern']
+    },
+    'ai-builder': {
+      title: 'AI Builder',
+      items: ['Prompt and model actions inside cloud flows', 'Document and form processing', 'Classification and extraction against business data', 'Model evaluation before it reaches production']
+    },
+    'agentic-patterns': {
+      title: 'Agentic Patterns',
+      items: ['Retrieve → reason → act, with a guardrail on every write', 'Narrowing an agent to an audited action surface', 'Human-in-the-loop escalation for consequential decisions', 'Designing for the failure case, not the happy path', 'Keeping the agent stateless and the audit trail durable']
+    },
+    'grounding': {
+      title: 'Grounding & Retrieval',
+      items: ['Grounding agents on curated internal documentation', 'Live Dataverse retrieval as an answer source', 'Surfacing Power BI data conversationally', 'Scoping retrieval so an agent cannot answer outside its remit']
+    },
+
+    // --- Power Platform ---
     'power-apps': {
       title: 'Power Apps',
-      items: ['Canvas and model-driven app development', 'Custom business apps', 'Responsive mobile apps', 'Data integration with Dataverse and external sources']
+      items: ['Canvas and model-driven app development', 'GPS and device-capability integration on mobile', 'Responsive layouts built for one-handed field use', 'Delegation-aware data access against Dataverse']
     },
     'power-automate': {
       title: 'Power Automate',
-      items: ['Cloud flows and automated workflows', 'API integrations', 'Scheduled data sync', 'Error handling and approval processes', 'Email processing automation']
+      items: ['Cloud flows as the action layer behind AI agents', 'Scheduled and event-driven data synchronisation', 'Custom connectors and HTTP calls to external APIs', 'Error handling, retry policy, and approval routing']
     },
-    'dynamics-365': {
-      title: 'Dynamics 365',
-      items: ['CRM customization', 'Plugin development (C#)', 'Entity configuration and business rules', 'Custom workflows, views, dashboards, and forms']
+    'dataverse': {
+      title: 'Dataverse',
+      items: ['Data modelling — tables, relationships, and alternate keys', 'Web API and OData query design', 'Upsert patterns on composite alternate keys', 'Security roles, business units, and row ownership']
     },
-    'azure': {
-      title: 'Azure',
-      items: ['VM setup and management', 'Azure Maps integration', 'Azure AD and Intune device management', 'Exchange Online configuration', 'Cloud infrastructure']
+    'power-bi': {
+      title: 'Power BI',
+      items: ['Semantic models built directly on Dataverse', 'KPI design and profit trend analysis', 'Row-Level Security for role-scoped reporting', 'Dynamic period selection and slicer-driven exploration']
     },
     'power-fx': {
-      title: 'Power FX',
-      items: ['Formula-based logic for canvas apps', 'Calculated fields and data manipulation', 'Conditional formatting', 'Delegation-aware queries']
+      title: 'Power Fx',
+      items: ['Formula-based logic for canvas apps', 'Calculated fields and data manipulation', 'Conditional formatting and state handling', 'Delegation-aware queries']
     },
-    'fetchxml': {
-      title: 'FetchXML',
-      items: ['Advanced Dataverse queries', 'Aggregate queries and linked entity joins', 'Filtered views and pagination', 'Performance-optimized data retrieval']
+
+    // --- Dynamics 365 CE ---
+    'model-driven': {
+      title: 'Model-Driven Apps',
+      items: ['Forms, views, dashboards, and site map configuration', 'Business rules and business process flows', 'Client-side scripting via JavaScript web resources', 'App design for both web and offline mobile clients']
     },
-    'sharepoint': {
-      title: 'SharePoint',
-      items: ['Site administration', 'Document management and list automation', 'Integration with Power Platform', 'Custom permissions and workflows']
-    },
-    'javascript': {
-      title: 'JavaScript',
-      items: ['Form validation in Dynamics 365', 'Web resource development', 'DOM manipulation and API calls', 'Async operations and custom UI logic']
-    },
-    'powershell': {
-      title: 'PowerShell',
-      items: ['Scripting for system administration', 'Bulk operations', 'Azure resource management', 'Automated deployments and data migration scripts']
-    },
-    'csharp': {
-      title: 'C#',
-      items: ['Dynamics 365 plugin development', 'Custom workflow activities', 'Backend service development', 'Data migration tools']
-    },
-    'api-integrations': {
-      title: 'API Integrations',
-      items: ['RESTful API design and consumption', 'Third-party system integrations', 'Webhook and event-driven architectures', 'Authentication and data mapping']
+    'plugins': {
+      title: 'Plugins & Custom APIs',
+      items: ['C# plugin development across the event pipeline', 'Custom APIs and custom workflow activities', 'Pre/post image handling and transaction awareness', 'Performance-conscious registration and depth control']
     },
     'pcf-controls': {
       title: 'PCF Controls',
-      items: ['Custom PowerApps Component Framework controls', 'Reusable UI components for model-driven apps', 'TypeScript-based control development', 'Enhanced user experience in Dynamics 365']
+      items: ['Custom Power Apps Component Framework controls', 'Reusable UI components for model-driven apps', 'TypeScript-based control development', 'Packaging and solution-aware deployment']
     },
-    'itsm': {
-      title: 'IT Service Management (ITSM)',
-      items: ['Incident and problem management', 'Service level agreement monitoring', 'Change management processes', 'ITIL framework implementation']
+    'fetchxml': {
+      title: 'FetchXML',
+      items: ['Advanced Dataverse queries', 'Aggregate queries and linked-entity joins', 'Filtered views and pagination', 'Performance-optimised data retrieval']
     },
-    'it-governance': {
-      title: 'IT Governance',
-      items: ['Compliance and audit readiness', 'Data governance frameworks', 'Vendor management', 'IT budgeting and resource planning']
+    'solution-alm': {
+      title: 'Solution ALM',
+      items: ['Managed and unmanaged solution strategy', 'Environment promotion — dev, test, production', 'Pipeline-based deployment via Azure DevOps', 'Connection references and environment variables']
     },
-    'cybersecurity': {
-      title: 'Cybersecurity Culture',
-      items: ['Trust-based security frameworks', 'Security awareness programs', 'Policy development and governance', 'Risk assessment and mitigation']
+
+    // --- Azure ---
+    'azure-functions': {
+      title: 'Azure Functions',
+      items: ['C# / .NET 8 isolated worker functions', 'HTTP, timer, and queue-triggered integration services', 'Paginated retrieval against rate-limited third-party APIs', 'Idempotent, replay-safe batch processing']
     },
-    'ai-strategy': {
-      title: 'AI Strategy',
-      items: ['AI adoption roadmaps', 'Business process AI integration', 'Copilot and AI tool implementation', 'ROI assessment for AI initiatives']
+    'key-vault': {
+      title: 'Key Vault',
+      items: ['Secret storage for integration credentials', 'Managed identity access — no secrets in app settings', 'Certificate and key lifecycle handling', 'Keeping credentials out of flows, forms, and source control']
     },
-    'digital-transformation': {
-      title: 'Digital Transformation',
-      items: ['Legacy system modernization', 'Cloud migration planning', 'Process re-engineering', 'Stakeholder change management']
+    'entra-id': {
+      title: 'Entra ID & OAuth',
+      items: ['App registrations and client credential flows', 'Token brokering between systems that do not trust each other', 'Service principal access to Dataverse', 'Group-based access control and role assignment']
     },
-    'bpo': {
-      title: 'Business Process Optimization',
-      items: ['Workflow automation design', 'KPI definition and tracking', 'Cross-functional process mapping', 'Continuous improvement methodologies']
+    'api-integrations': {
+      title: 'REST & Webhooks',
+      items: ['RESTful API design and consumption', 'Webhook receivers and event-driven callbacks', 'Third-party system integration and data mapping', 'Rate limiting, retry, and back-off strategy']
+    },
+    'azure-devops': {
+      title: 'Azure DevOps',
+      items: ['CI/CD pipelines for solution and code deployment', 'Automated build and release across environments', 'Repository and branch strategy', 'Infrastructure-as-code deployment workflows']
+    },
+
+    // --- Languages ---
+    'csharp': {
+      title: 'C#',
+      items: ['Azure Functions and integration services on .NET 8', 'Dynamics 365 plugin and custom workflow development', 'Backend API development', 'Data migration and bulk-processing tooling']
+    },
+    'javascript': {
+      title: 'JavaScript',
+      items: ['Form logic and validation in Dynamics 365', 'Web resource development', 'Async operations and Web API calls', 'Code that runs unchanged on web and offline mobile clients']
+    },
+    'typescript': {
+      title: 'TypeScript',
+      items: ['PCF control development', 'Typed front-end application code', 'Typed API clients against REST services', 'Build tooling and module bundling']
+    },
+    'sql': {
+      title: 'SQL',
+      items: ['Query design and optimisation', 'Schema design for relational application data', 'Reporting queries and data reconciliation', 'Azure SQL provisioning and access control']
+    },
+    'dax': {
+      title: 'DAX',
+      items: ['Measure design for KPI and trend reporting', 'Time intelligence and dynamic period comparison', 'Row-Level Security filter expressions', 'Calculation groups and reusable measure patterns']
     }
   };
 

@@ -2,8 +2,28 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://gabsyfy.co.uk/</loc>
-    <lastmod>2026-02-28</lastmod>
+    <lastmod>2026-08-19</lastmod>
     <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://gabsyfy.co.uk/projects/copilot-studio-agent-suite.html</loc>
+    <lastmod>2026-08-19</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://gabsyfy.co.uk/projects/ai-job-dispatcher.html</loc>
+    <lastmod>2026-08-19</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://gabsyfy.co.uk/projects/field-engineer-checkin-app.html</loc>
+    <lastmod>2026-08-19</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://gabsyfy.co.uk/projects/finance-proposal-gateway.html</loc>
+    <lastmod>2026-08-19</lastmod>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://gabsyfy.co.uk/projects/dialsync-telephony-automation.html</loc>
@@ -47,7 +67,7 @@
   </url>
   <url>
     <loc>https://gabsyfy.co.uk/projects/billing-api-data-sync.html</loc>
-    <lastmod>2026-02-28</lastmod>
+    <lastmod>2026-08-19</lastmod>
     <priority>0.8</priority>
   </url>
   <url>

@@ -458,7 +458,7 @@ body.light-theme .icon-moon { display: none; }
 .hero-title {
   font-size: clamp(1.125rem, 3vw, 1.5rem);
   color: var(--color-text-secondary);
-  margin-bottom: var(--spacing-xl);
+  margin-bottom: var(--spacing-md);
   max-width: 720px;
   margin-left: auto;
   margin-right: auto;
@@ -468,6 +468,36 @@ body.light-theme .icon-moon { display: none; }
   color: var(--color-accent);
   margin: 0 0.4em;
   opacity: 0.85;
+}
+
+.hero-tagline {
+  font-size: clamp(1rem, 2.2vw, 1.25rem);
+  color: var(--color-text-primary);
+  line-height: 1.6;
+  max-width: 680px;
+  margin: 0 auto var(--spacing-md);
+}
+
+.hero-location {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  margin-bottom: var(--spacing-xl);
+}
+
+.hero-location svg {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--spacing-sm);
 }
 
 /* ==========================================
@@ -496,6 +526,24 @@ body.light-theme .icon-moon { display: none; }
 }
 
 .btn-primary:active {
+  transform: translateY(0);
+}
+
+.btn-secondary {
+  padding: calc(var(--spacing-sm) - 1px) calc(var(--spacing-lg) - 1px);
+  background: transparent;
+  color: var(--color-text-primary);
+  border: 1px solid var(--color-border);
+}
+
+.btn-secondary:hover {
+  transform: translateY(-2px);
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+  background-color: var(--color-surface);
+}
+
+.btn-secondary:active {
   transform: translateY(0);
 }
 
@@ -737,6 +785,17 @@ body.light-theme .icon-moon { display: none; }
   color: var(--color-primary);
 }
 
+.cert-status {
+  display: inline-block;
+  margin-bottom: var(--spacing-xs);
+  padding: 2px var(--spacing-xs);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  color: var(--color-text-muted);
+}
+
 .cert-card-meta {
   font-size: var(--font-size-sm);
   color: var(--color-text-secondary);
@@ -816,6 +875,67 @@ body.light-theme .icon-moon { display: none; }
 .project-card-link:hover {
   color: var(--color-accent);
   transform: translateX(5px);
+}
+
+.project-flag {
+  display: inline-block;
+  margin-bottom: var(--spacing-xs);
+  padding: 2px var(--spacing-xs);
+  background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+  color: #ffffff;
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.projects-more-title {
+  font-size: var(--font-size-lg);
+  color: var(--color-accent);
+  text-align: center;
+  margin-top: var(--spacing-3xl);
+  margin-bottom: var(--spacing-xs);
+}
+
+.projects-more-intro {
+  max-width: 620px;
+  margin: 0 auto var(--spacing-lg);
+  text-align: center;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+.projects-grid-compact {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--spacing-md);
+}
+
+.project-card--compact {
+  padding: var(--spacing-md);
+}
+
+.project-card--compact h3 {
+  font-size: var(--font-size-lg);
+  margin-bottom: var(--spacing-xs);
+}
+
+.project-card--compact p {
+  font-size: var(--font-size-sm);
+  margin-bottom: var(--spacing-xs);
+}
+
+.project-card--compact .tech-tags {
+  margin-top: var(--spacing-xs);
+}
+
+.project-card--compact .tag {
+  font-size: var(--font-size-xs);
+}
+
+.project-card--compact .project-card-link {
+  margin-top: var(--spacing-sm);
 }
 
 /* Project Mockups */
@@ -1569,6 +1689,13 @@ body.light-theme .icon-moon { display: none; }
 @media (max-width: 767px) {
   .nav-toggle {
     display: flex;
+  }
+
+  /* The closed off-canvas drawer sits past the right edge; body already clips it,
+     but the root element still reports the wider scroll width. `clip` contains it
+     without creating a scroll container, so sticky positioning keeps working. */
+  html {
+    overflow-x: clip;
   }
 
   .nav-menu {
