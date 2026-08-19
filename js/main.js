@@ -187,7 +187,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- AI ---
     'copilot-studio': {
       title: 'Copilot Studio',
-      items: ['Production agent design — topics, triggers, and generative orchestration', 'Grounding agents on internal documentation and Dataverse', 'Agent actions that write back through Power Automate, never direct from the model', 'Guardrails, fallback handling, and human escalation paths', 'Multi-agent suites sharing a common retrieve-reason-act pattern']
+      items: ['Production agent design: topics, triggers, and generative orchestration', 'Grounding agents on internal documentation and Dataverse', 'Agent actions that write back through Power Automate, never direct from the model', 'Guardrails, fallback handling, and human escalation paths', 'Multi-agent suites sharing a common retrieve-reason-act pattern']
     },
     'ai-builder': {
       title: 'AI Builder',
@@ -213,7 +213,7 @@ document.addEventListener('DOMContentLoaded', () => {
     },
     'dataverse': {
       title: 'Dataverse',
-      items: ['Data modelling — tables, relationships, and alternate keys', 'Web API and OData query design', 'Upsert patterns on composite alternate keys', 'Security roles, business units, and row ownership']
+      items: ['Data modelling: tables, relationships, and alternate keys', 'Web API and OData query design', 'Upsert patterns on composite alternate keys', 'Security roles, business units, and row ownership']
     },
     'power-bi': {
       title: 'Power BI',
@@ -243,7 +243,7 @@ document.addEventListener('DOMContentLoaded', () => {
     },
     'solution-alm': {
       title: 'Solution ALM',
-      items: ['Managed and unmanaged solution strategy', 'Environment promotion — dev, test, production', 'Pipeline-based deployment via Azure DevOps', 'Connection references and environment variables']
+      items: ['Managed and unmanaged solution strategy', 'Environment promotion: dev, test, production', 'Pipeline-based deployment via Azure DevOps', 'Connection references and environment variables']
     },
 
     // --- Azure ---
@@ -253,7 +253,7 @@ document.addEventListener('DOMContentLoaded', () => {
     },
     'key-vault': {
       title: 'Key Vault',
-      items: ['Secret storage for integration credentials', 'Managed identity access — no secrets in app settings', 'Certificate and key lifecycle handling', 'Keeping credentials out of flows, forms, and source control']
+      items: ['Secret storage for integration credentials', 'Managed identity access: no secrets in app settings', 'Certificate and key lifecycle handling', 'Keeping credentials out of flows, forms, and source control']
     },
     'entra-id': {
       title: 'Entra ID & OAuth',

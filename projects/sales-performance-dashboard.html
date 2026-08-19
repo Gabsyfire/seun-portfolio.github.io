@@ -106,7 +106,7 @@
             <section id="executive-summary">
                 <h2>Executive Summary</h2>
                 <p>Sales leadership had no live view of profit, rep performance, or pipeline health. Reporting was Excel-based, stale, and inconsistent. I designed and shipped a Power BI reporting suite, built directly on a Dataverse semantic model, with 10 KPI cards, profit trend visuals, rep-level breakdowns, and a slicer-driven exploration layer.</p>
-                <p>The model is secured with Row-Level Security backed by mail-enabled Entra security groups, so reps see their numbers, managers see their teams, and leadership sees the full estate &mdash; all from a single report. The result replaced the weekly Excel ritual with live data the sales floor uses daily for quote-to-renewal decisions.</p>
+                <p>The model is secured with Row-Level Security backed by mail-enabled Entra security groups, so reps see their numbers, managers see their teams, and leadership sees the full estate, all from a single report. The result replaced the weekly Excel ritual with live data the sales floor uses daily for quote-to-renewal decisions.</p>
             </section>
 
             <!-- Background & Context -->
@@ -164,7 +164,7 @@
                     <div class="feature-card">
                         <div class="feature-card-icon">&#x1F510;</div>
                         <h3>Row-Level Security</h3>
-                        <p>Rep and Manager roles enforced at the model layer via mail-enabled Entra security groups &mdash; visibility follows organisational structure.</p>
+                        <p>Rep and Manager roles enforced at the model layer via mail-enabled Entra security groups, visibility follows organisational structure.</p>
                     </div>
                     <div class="feature-card">
                         <div class="feature-card-icon">&#x1F39B;</div>
@@ -219,8 +219,8 @@
             <section id="lessons">
                 <h2>Lessons Learned</h2>
                 <p>Define the measures once, in the model, and never again. Every measure that lived inside a report rather than the semantic model became a maintenance liability the moment a second report needed it. Pushing logic down to the model paid back immediately.</p>
-                <p>Tie Row-Level Security to identity infrastructure that already exists. Building RLS roles directly against Entra security groups means joiner-mover-leaver flows already cover access changes &mdash; no separate process for the report. This is the same principle that underpins access reviews in an ISMS.</p>
-                <p>Build for the audience that will use it daily, not the one that will sign it off. The sales floor's needs &mdash; speed, clarity, headline numbers &mdash; drove the design. Leadership reporting fell out of the same model almost for free, but designing for leadership first would have produced a report nobody opened.</p>
+                <p>Tie Row-Level Security to identity infrastructure that already exists. Building RLS roles directly against Entra security groups means joiner-mover-leaver flows already cover access changes, no separate process for the report. This is the same principle that underpins access reviews in an ISMS.</p>
+                <p>Build for the audience that will use it daily, not the one that will sign it off. The sales floor's needs (speed, clarity, headline numbers) drove the design. Leadership reporting fell out of the same model almost for free, but designing for leadership first would have produced a report nobody opened.</p>
             </section>
 
             <!-- CTA -->

@@ -10,7 +10,7 @@
 
     <!-- Open Graph Tags -->
     <meta property="og:title" content="Enterprise Billing Integration | Seun Ogunwande">
-    <meta property="og:description" content="A .NET 8 Azure Function syncing tens of thousands of billing records into Dataverse &mdash; paginated, rate-limited, idempotent.">
+    <meta property="og:description" content="A .NET 8 Azure Function syncing tens of thousands of billing records into Dataverse: paginated, rate-limited, idempotent.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://gabsyfy.co.uk/projects/billing-api-data-sync.html">
     <meta property="og:image" content="https://gabsyfy.co.uk/assets/images/profile.jpg">
@@ -33,7 +33,7 @@
             </button>
         </div>
         <h1>Enterprise Billing Integration</h1>
-        <p class="project-tagline">A .NET 8 Azure Function syncing tens of thousands of billing records into Dataverse &mdash; paginated, rate-limited, and safe to re-run</p>
+        <p class="project-tagline">A .NET 8 Azure Function syncing tens of thousands of billing records into Dataverse: paginated, rate-limited, and safe to re-run</p>
     </section>
 
     <!-- Main Layout -->
@@ -60,13 +60,13 @@
             <section id="executive-summary">
                 <h2>Executive Summary</h2>
                 <p>A C# / .NET 8 Azure Function that pulls tens of thousands of records from a third-party billing API and lands them in Dataverse. The API is paginated and rate-limited; the target has to end up correct whether the sync runs cleanly, dies halfway through, or gets run twice by mistake.</p>
-                <p>The whole design turns on one decision: writes are upserts keyed on a <strong>composite alternate key</strong> derived from the source system's own identifiers. That makes every write idempotent, which in turn makes the entire batch safe to replay from any point &mdash; and removes the need for the fragile "where did we get to" bookkeeping that this class of integration usually accumulates.</p>
+                <p>The whole design turns on one decision: writes are upserts keyed on a <strong>composite alternate key</strong> derived from the source system's own identifiers. That makes every write idempotent, which in turn makes the entire batch safe to replay from any point, and removes the need for the fragile "where did we get to" bookkeeping that this class of integration usually accumulates.</p>
             </section>
 
             <section id="background">
                 <h2>The Problem</h2>
                 <p>The billing data lived in a third-party platform and was needed against records in Dataverse. Bulk synchronisation across a boundary like that has three problems that all show up at scale and none of which show up in a five-record test.</p>
-                <p>The source paginates, so you are never holding the full set. The source rate-limits, so a naive loop will be throttled partway through a run and get slower the harder you push it. And the run <em>will</em> fail partway through at some point &mdash; a transient network fault, a deployment, a timeout &mdash; which means the interesting question is not how the sync behaves when it succeeds, but what state it leaves behind when it does not.</p>
+                <p>The source paginates, so you are never holding the full set. The source rate-limits, so a naive loop will be throttled partway through a run and get slower the harder you push it. And the run <em>will</em> fail partway through at some point, a transient network fault, a deployment, a timeout, which means the interesting question is not how the sync behaves when it succeeds, but what state it leaves behind when it does not.</p>
                 <p>Answer that badly and you get duplicates, which are far more expensive than missing rows: a missing row gets picked up on the next run, while a duplicate has to be found and reconciled by a human.</p>
             </section>
 
@@ -83,7 +83,7 @@
 
             <section id="architecture">
                 <h2>Architecture</h2>
-                <p>One deployable, one direction, one write pattern. The function is triggered on a schedule, pages through the billing API, and upserts into Dataverse against the alternate key &mdash; which is what decides insert versus update, rather than any state the function keeps.</p>
+                <p>One deployable, one direction, one write pattern. The function is triggered on a schedule, pages through the billing API, and upserts into Dataverse against the alternate key, which is what decides insert versus update, rather than any state the function keeps.</p>
                 <div class="architecture-mockup">
                     <svg viewBox="0 0 900 390" xmlns="http://www.w3.org/2000/svg" role="img"
                          aria-label="Schematic of the billing integration: a scheduled .NET 8 Azure Function pages through a rate-limited third-party billing API, backs off and retries when throttled, maps each record to the target shape and upserts it into Dataverse against a composite alternate key, inserting the record if it is absent and updating it if it is already present"
@@ -102,7 +102,7 @@
                         <rect x="30" y="220" width="170" height="44" rx="5" style="fill:rgba(0,168,255,0.1);stroke:var(--color-primary);stroke-width:1"/>
                         <text x="115" y="246" text-anchor="middle" style="fill:var(--color-primary);font-size:12px;font-weight:600">Rate limited</text>
                         <rect x="285" y="40" width="290" height="250" rx="8" style="fill:var(--color-surface);stroke:var(--color-border);stroke-width:1"/>
-                        <text x="297" y="60" style="fill:var(--color-text-muted);font-size:12px;font-weight:600">Azure Function &mdash; .NET 8</text>
+                        <text x="297" y="60" style="fill:var(--color-text-muted);font-size:12px;font-weight:600">Azure Function (.NET 8)</text>
                         <rect x="300" y="75" width="260" height="44" rx="5" style="fill:rgba(0,168,255,0.1);stroke:var(--color-primary);stroke-width:1"/>
                         <text x="430" y="101" text-anchor="middle" style="fill:var(--color-primary);font-size:12px;font-weight:600">1 &middot; Page through the feed</text>
                         <rect x="300" y="130" width="260" height="44" rx="5" style="fill:rgba(0,168,255,0.1);stroke:var(--color-primary);stroke-width:1"/>
@@ -131,14 +131,14 @@
                         <line x1="430" y1="320" x2="430" y2="294" style="stroke:var(--color-text-muted);stroke-width:1.5;fill:none" marker-end="url(#arrow)"/>
                     </svg>
                 </div>
-                <p>Pushing identity resolution into the alternate key is the whole trick. The alternative &mdash; querying for an existing record before every write &mdash; doubles the request count against the target, introduces a race between the check and the write, and still gets it wrong under retry. Letting the platform resolve identity from a key it already indexes is both faster and more correct.</p>
+                <p>Pushing identity resolution into the alternate key is the whole trick. The alternative, querying for an existing record before every write, doubles the request count against the target, introduces a race between the check and the write, and still gets it wrong under retry. Letting the platform resolve identity from a key it already indexes is both faster and more correct.</p>
             </section>
 
             <section id="highlights">
                 <h2>Engineering Highlights</h2>
                 <ul>
                     <li><strong>Idempotent by construction.</strong> Every write is an upsert on a composite alternate key, so re-running the sync converges on the same state instead of duplicating it.</li>
-                    <li><strong>Replay-safe from any point.</strong> Because no write depends on what came before it, a run that dies at page forty can simply be run again &mdash; no reconciliation pass, no manual cleanup.</li>
+                    <li><strong>Replay-safe from any point.</strong> Because no write depends on what came before it, a run that dies at page forty can simply be run again, no reconciliation pass, no manual cleanup.</li>
                     <li><strong>Throttling is a normal condition.</strong> Rate-limit responses trigger back-off and retry rather than a failed run, so the sync degrades in throughput rather than in correctness.</li>
                     <li><strong>Bounded memory.</strong> Page-at-a-time processing means the memory profile is flat regardless of how far the source set grows.</li>
                     <li><strong>Validated at the boundary.</strong> Malformed source records are rejected before the write, so a bad record cannot make it into the target and then have to be explained later.</li>
@@ -160,8 +160,8 @@
 
             <section id="lessons">
                 <h2>Lessons Learned</h2>
-                <p>The instinct on a large sync is to make the orchestration smart &mdash; checkpoint the position, track what has been processed, resume from the last known good page. All of that is state, and all of that state can be wrong, particularly after the kind of ungraceful failure it exists to protect against.</p>
-                <p>Making the <em>write</em> idempotent instead makes most of that machinery unnecessary. If running the same record twice is harmless, then "where did we get to" stops being a correctness question and becomes a performance one &mdash; and performance questions are far easier to be wrong about safely.</p>
+                <p>The instinct on a large sync is to make the orchestration smart: checkpoint the position, track what has been processed, resume from the last known good page. All of that is state, and all of that state can be wrong, particularly after the kind of ungraceful failure it exists to protect against.</p>
+                <p>Making the <em>write</em> idempotent instead makes most of that machinery unnecessary. If running the same record twice is harmless, then "where did we get to" stops being a correctness question and becomes a performance one, and performance questions are far easier to be wrong about safely.</p>
                 <p>The second lesson is that a rate limit is a specification, not a failure. Integrations that treat throttling as an error end up either fragile or aggressive; treating it as expected back-pressure and building the retry path first produces something that runs unattended.</p>
             </section>
 
@@ -186,7 +186,7 @@
                     </div>
                 </div>
                 <p>Billing data lands in Dataverse on a schedule with no manual intervention, and a failed run is recovered by running it again rather than by anyone reconciling records by hand.</p>
-                <p>The pattern has held up on every integration I have built since. Pagination, back-off and an idempotent write are not three separate features &mdash; they are the three things that decide whether a bulk sync is something you can leave running or something somebody has to watch.</p>
+                <p>The pattern has held up on every integration I have built since. Pagination, back-off and an idempotent write are not three separate features; they are the three things that decide whether a bulk sync is something you can leave running or something somebody has to watch.</p>
             </section>
             <!-- CTA -->
             <section id="cta">
