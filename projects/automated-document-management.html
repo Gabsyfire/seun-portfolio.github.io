@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <meta name="description" content="Automated Document Management - DocuSign and SharePoint integration with Power Automate">
-    <title>Automated Document Management | Seun Gabriel Ogunwande</title>
+    <meta name="description" content="Automated Document Management - E-signature and SharePoint integration with Power Automate">
+    <title>Automated Document Management | Seun Ogunwande</title>
     <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/project-detail.css">
@@ -51,7 +51,7 @@
             <!-- Executive Summary -->
             <section id="executive-summary">
                 <h2>Executive Summary</h2>
-                <p>Contract management is the backbone of every commercial relationship, yet many organisations still rely on manual processes that introduce unnecessary risk, delay, and cost. For this engagement, I designed and deployed an end-to-end document workflow system that integrates DocuSign with SharePoint via Power Automate, eliminating the fragmented email chains and spreadsheet trackers that had long defined the client's contract lifecycle. The solution automates every stage of the journey &mdash; from document generation through multi-level approval routing, legally binding e-signature capture, and final archival &mdash; while maintaining a complete, immutable audit trail that satisfies both internal governance and external regulatory requirements.</p>
+                <p>Contract management is the backbone of every commercial relationship, yet many organisations still rely on manual processes that introduce unnecessary risk, delay, and cost. For this engagement, I designed and deployed an end-to-end document workflow system that integrates the e-signature platform with SharePoint via Power Automate, eliminating the fragmented email chains and spreadsheet trackers that had long defined the client's contract lifecycle. The solution automates every stage of the journey &mdash; from document generation through multi-level approval routing, legally binding e-signature capture, and final archival &mdash; while maintaining a complete, immutable audit trail that satisfies both internal governance and external regulatory requirements.</p>
                 <p>Before implementation, the average contract turnaround time was approximately five business days, with approvals frequently stalling in individual inboxes and no centralised visibility into document status. The new system reduced that turnaround to under four hours for standard agreements. Stakeholders at every level now have real-time insight into where a contract sits in the process, who needs to act next, and whether any escalation rules have been triggered. The compliance team can produce a full audit history for any document in seconds rather than spending hours reconstructing the paper trail.</p>
                 <p>This project demonstrates the power of combining Microsoft's low-code automation platform with best-in-class e-signature technology to solve a problem that affects virtually every organisation. The result is a scalable, maintainable solution that the client's team can extend and adapt as their business grows, without requiring custom development or costly third-party platforms.</p>
             </section>
@@ -69,7 +69,7 @@
                 <h2>Objectives</h2>
                 <ul>
                     <li>Automate the full contract lifecycle from draft to archive</li>
-                    <li>Integrate DocuSign for legally binding e-signatures</li>
+                    <li>Integrate an e-signature platform for legally binding e-signatures</li>
                     <li>Implement multi-level approval routing with escalation rules</li>
                     <li>Maintain a complete, immutable audit trail for compliance</li>
                     <li>Reduce contract turnaround time by 80% or more</li>
@@ -86,13 +86,13 @@
                 <p>The first step was to document the existing approval chains in detail, interviewing stakeholders from legal, procurement, finance, and operations. I mapped every handoff, identified the most common bottlenecks, and classified the organisation's document types by complexity and risk level. This exercise revealed that roughly 70% of contracts followed a predictable, two-tier approval path, while the remaining 30% required conditional routing based on value thresholds, department, or contract type.</p>
 
                 <h3>2. Platform Selection</h3>
-                <p>With the process landscape understood, I evaluated the technology stack. Power Automate was selected as the orchestration engine due to its native integration with the Microsoft 365 ecosystem, its mature approval connector, and its ability to call external APIs without custom middleware. DocuSign was chosen for e-signatures based on its legal standing, global recognition, and robust API. SharePoint provided the natural home for document management, given the client's existing Microsoft 365 investment.</p>
+                <p>With the process landscape understood, I evaluated the technology stack. Power Automate was selected as the orchestration engine due to its native integration with the Microsoft 365 ecosystem, its mature approval connector, and its ability to call external APIs without custom middleware. the e-signature platform was chosen for e-signatures based on its legal standing, global recognition, and robust API. SharePoint provided the natural home for document management, given the client's existing Microsoft 365 investment.</p>
 
                 <h3>3. Workflow Design</h3>
                 <p>I designed multi-stage approval flows with conditional routing logic. Standard contracts follow a streamlined two-step approval, while high-value or high-risk agreements trigger additional review stages, including legal sign-off and executive authorisation. Parallel approvals were implemented where independent reviewers could act simultaneously, cutting wait times significantly. Each flow was built with clear timeout thresholds and escalation paths to prevent documents from stalling.</p>
 
                 <h3>4. Integration</h3>
-                <p>The DocuSign API was connected to Power Automate to programmatically create signature requests, track envelope status, and retrieve signed documents. SharePoint document libraries were configured with custom metadata columns &mdash; contract type, counterparty, value band, expiry date, and status &mdash; enabling powerful filtering and reporting. Email and Microsoft Teams notifications were wired into each stage to keep stakeholders informed without requiring them to check a separate system.</p>
+                <p>The e-signature API was connected to Power Automate to programmatically create signature requests, track envelope status, and retrieve signed documents. SharePoint document libraries were configured with custom metadata columns &mdash; contract type, counterparty, value band, expiry date, and status &mdash; enabling powerful filtering and reporting. Email and Microsoft Teams notifications were wired into each stage to keep stakeholders informed without requiring them to check a separate system.</p>
 
                 <h3>5. Testing &amp; Compliance</h3>
                 <p>Before go-live, the solution underwent rigorous testing. I validated that the audit trail captured every action &mdash; who approved, when, from which device, and any comments left during the review. Edge cases were tested extensively: what happens when an approver rejects, when a signer declines, when a document expires unsigned, or when a user is out of office. Each scenario was mapped to a defined outcome in the workflow.</p>
@@ -105,7 +105,7 @@
             <section id="architecture">
                 <h2>Solution Architecture</h2>
                 <p>The solution architecture is built around Power Automate as the central workflow engine, orchestrating interactions between four key systems. When a contract is initiated &mdash; either manually through a Power Apps form or automatically from a Dataverse trigger &mdash; Power Automate takes control of the entire lifecycle. It consults an approval matrix stored in Dataverse to determine the correct routing path based on contract type, value, and department, then dispatches approval requests through Microsoft's built-in approval connector.</p>
-                <p>Once all approvals are secured, the workflow calls the DocuSign API to create a signature envelope, populating it with the approved document and the designated signatories. DocuSign's webhook callbacks notify Power Automate of status changes &mdash; viewed, signed, declined, or expired &mdash; allowing the workflow to respond in real time. Upon completion, the signed document is automatically filed to a SharePoint document library with full metadata tagging, and all parties receive confirmation via email and Teams.</p>
+                <p>Once all approvals are secured, the workflow calls the e-signature API to create a signature envelope, populating it with the approved document and the designated signatories. the e-signature platform's webhook callbacks notify Power Automate of status changes &mdash; viewed, signed, declined, or expired &mdash; allowing the workflow to respond in real time. Upon completion, the signed document is automatically filed to a SharePoint document library with full metadata tagging, and all parties receive confirmation via email and Teams.</p>
                 <p>Every action taken throughout this process is logged to an audit table in Dataverse, creating a tamper-proof record that the compliance team can query at any time. The architecture is designed with resilience in mind: retry policies handle transient API failures, and error notifications alert administrators if any step requires manual intervention.</p>
 
                 <div class="architecture-mockup">
@@ -144,7 +144,7 @@
                 <ul>
                     <li>Automated document generation from pre-approved templates with dynamic field population</li>
                     <li>Multi-level approval routing with conditional logic based on contract type, value, and department</li>
-                    <li>DocuSign e-signature integration for legally binding, globally recognised digital signatures</li>
+                    <li>E-signature integration for legally binding, globally recognised digital signatures</li>
                     <li>Automatic archival to SharePoint with metadata tagging for easy retrieval and reporting</li>
                     <li>Version control and document locking to prevent conflicting edits during the approval cycle</li>
                     <li>Compliance-ready audit trail recording every action, timestamp, and participant</li>
@@ -159,7 +159,7 @@
                 <div class="detail-tech-tags">
                     <span class="tag">Power Automate</span>
                     <span class="tag">SharePoint</span>
-                    <span class="tag">DocuSign API</span>
+                    <span class="tag">e-signature API</span>
                     <span class="tag">Power Apps</span>
                     <span class="tag">Microsoft Teams</span>
                     <span class="tag">Dataverse</span>
@@ -219,7 +219,7 @@
                 <h2>Lessons Learned</h2>
 
                 <h3>What Worked Well</h3>
-                <p>The DocuSign API proved to be exceptionally reliable and well-documented, which made the integration work smoother than anticipated. Envelope status callbacks provided real-time visibility without the need for polling, and the API's sandbox environment allowed thorough testing before connecting to production. Power Automate's built-in approval connector was another standout &mdash; it handled multi-tier routing, delegate assignments, and timeout logic out of the box, significantly reducing the amount of custom logic required. SharePoint's metadata columns transformed document retrieval from a manual search exercise into a structured, filterable experience that users genuinely appreciated.</p>
+                <p>The e-signature API proved to be exceptionally reliable and well-documented, which made the integration work smoother than anticipated. Envelope status callbacks provided real-time visibility without the need for polling, and the API's sandbox environment allowed thorough testing before connecting to production. Power Automate's built-in approval connector was another standout &mdash; it handled multi-tier routing, delegate assignments, and timeout logic out of the box, significantly reducing the amount of custom logic required. SharePoint's metadata columns transformed document retrieval from a manual search exercise into a structured, filterable experience that users genuinely appreciated.</p>
 
                 <h3>What We Would Improve</h3>
                 <p>In hindsight, building a self-service portal for document requests from day one would have reduced the onboarding friction considerably. Early users had to request contract initiation through a simplified form, but a more polished Power Apps front-end with guided workflows would have improved the user experience and driven faster adoption. I would also implement an analytics dashboard earlier in the project to give management real-time insight into bottlenecks &mdash; which approvers are slowest, which contract types take longest, and where escalation rules are firing most often. These insights would enable continuous process optimisation rather than relying on periodic reviews.</p>
@@ -230,7 +230,7 @@
                 <h2>Client Value</h2>
                 <p>The return on investment for this project was immediate and measurable. By automating the contract lifecycle, the organisation saved an estimated 120 hours or more of administrative time each month &mdash; time that was previously spent chasing approvals, reconciling document versions, and manually filing signed agreements. That translates directly into recovered productivity for teams across legal, procurement, finance, and operations.</p>
                 <p>Beyond the time savings, the elimination of contract delays had a direct revenue impact. Agreements that once stalled for days in approval queues now reach signature within hours, accelerating deal closure and improving cash flow predictability. Vendor and partner relationships improved as counterparties experienced a faster, more professional contracting process with clear status updates and timely execution.</p>
-                <p>Compliance risk was reduced to near-zero. The immutable audit trail means the organisation can respond to regulatory inquiries or internal audit requests in minutes rather than days, with complete confidence in the accuracy and completeness of the record. And because the solution is built on the Microsoft 365 platform the client already licenses, there were no significant new platform costs &mdash; just the DocuSign subscription, which pays for itself many times over through operational efficiency gains.</p>
+                <p>Compliance risk was reduced to near-zero. The immutable audit trail means the organisation can respond to regulatory inquiries or internal audit requests in minutes rather than days, with complete confidence in the accuracy and completeness of the record. And because the solution is built on the Microsoft 365 platform the client already licenses, there were no significant new platform costs &mdash; just the e-signature platform subscription, which pays for itself many times over through operational efficiency gains.</p>
                 <p>Perhaps most importantly, the solution is designed to scale. As the organisation grows, new contract types, approval paths, and document templates can be added without re-architecting the system. The foundation is in place to support not just today's volume, but the demands of a business that continues to expand.</p>
             </section>
 
@@ -248,7 +248,7 @@
 
     <!-- Footer -->
     <footer class="project-footer">
-        <p>&copy; <span id="year"></span> Seun Gabriel Ogunwande. All rights reserved.</p>
+        <p>&copy; <span id="year"></span> Seun Ogunwande. All rights reserved.</p>
         <p><a href="../index.html">Back to Portfolio</a> | <a href="../privacy-policy.html">Privacy Policy</a></p>
     </footer>
 

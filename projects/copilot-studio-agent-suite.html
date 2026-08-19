@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="description" content="Case study on five production Copilot Studio agents in daily business use across helpdesk, sales, procurement, reporting and security, grounded on Dataverse and internal documentation and acting through Power Automate.">
+    <meta name="keywords" content="Copilot Studio, Copilot Studio consultant, AI agents, agentic patterns, Dataverse, Power Automate, Power BI, Power Platform AI, Dynamics 365, Belfast">
+    <meta name="author" content="Seun Ogunwande">
+    <link rel="canonical" href="https://gabsyfy.co.uk/projects/copilot-studio-agent-suite.html">
+
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="Copilot Studio Agent Suite | Seun Ogunwande">
+    <meta property="og:description" content="Five Copilot Studio agents in production, daily. Grounded on real business data, acting through an audited set of operations.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://gabsyfy.co.uk/projects/copilot-studio-agent-suite.html">
+    <meta property="og:image" content="https://gabsyfy.co.uk/assets/images/profile.jpg">
+
+    <title>Copilot Studio Agent Suite | Seun Ogunwande</title>
+    <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/project-detail.css">
+</head>
+<body>
+    <script>if(localStorage.getItem('theme')!=='dark')document.body.classList.add('light-theme')</script>
+
+    <!-- Hero -->
+    <section class="project-hero">
+        <div class="project-hero-nav">
+            <a href="../index.html#projects" class="back-link">&larr; Back to Portfolio</a>
+            <button class="theme-toggle" aria-label="Toggle light/dark mode">
+                <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+                <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+            </button>
+        </div>
+        <h1>Copilot Studio Agent Suite</h1>
+        <p class="project-tagline">Five production agents in daily business use &mdash; retrieve, reason, act, with a guardrail on every write</p>
+    </section>
+
+    <!-- Main Layout -->
+    <div class="project-layout">
+
+        <!-- Sidebar Navigation -->
+        <aside class="project-sidebar">
+            <nav>
+                <a href="#executive-summary" class="sidebar-link">Executive Summary</a>
+                <a href="#background" class="sidebar-link">The Problem</a>
+                <a href="#agents" class="sidebar-link">The Five Agents</a>
+                <a href="#pattern" class="sidebar-link">The Agent Pattern</a>
+                <a href="#architecture" class="sidebar-link">Architecture</a>
+                <a href="#guardrails" class="sidebar-link">Guardrails &amp; Escalation</a>
+                <a href="#technologies" class="sidebar-link">Technologies</a>
+                <a href="#results" class="sidebar-link">Results &amp; Impact</a>
+                <a href="#cta" class="sidebar-link">Get in Touch</a>
+            </nav>
+        </aside>
+
+        <!-- Content -->
+        <div class="project-content">
+
+            <section id="executive-summary">
+                <h2>Executive Summary</h2>
+                <p>Five Copilot Studio agents I designed, built and shipped are in production use every working day, covering helpdesk, sales, procurement, reporting and security. They are not pilots or demos. People open them instead of raising a ticket, hunting through a record, or interrupting a colleague.</p>
+                <p>They share one architecture. Every agent grounds its answers in real business data rather than in whatever the model happens to know, reasons over the request in the user's own words, and where it needs to change something, acts through a narrow set of operations that are defined in advance, permissioned, and logged. The model never writes to the database directly &mdash; not once, anywhere in the suite.</p>
+            </section>
+
+            <section id="background">
+                <h2>The Problem</h2>
+                <p>The knowledge people needed was already in the business. It was just in places that required you to learn a system before you could get an answer: documentation nobody had time to read, Dataverse records behind forms and views that take training to navigate, and Power BI reports behind a filter pane. Every one of those is a toll booth between a simple question and its answer.</p>
+                <p>The obvious response &mdash; put a chat box on it &mdash; is also the easy way to build something worse than what you had. The failure mode of a bad business agent is not that it is unhelpful. It is that it is <em>confidently wrong</em>, because it answered from the model's general knowledge instead of your data; or that it quietly changed a record it should never have been able to touch.</p>
+                <p>So the design problem was never "can an agent answer this". It was: how do you make an agent that is only ever able to answer from what is actually true here, and only ever able to do the small number of things it is supposed to be able to do?</p>
+            </section>
+
+            <section id="agents">
+                <h2>The Five Agents</h2>
+                <p>Each agent owns one domain, with its own grounding sources and its own action surface. Keeping them separate is deliberate: a single do-everything agent has the union of every permission and every failure mode.</p>
+                <ul>
+                    <li><strong>Helpdesk.</strong> Grounded on internal documentation plus Dataverse. It answers "how do I" and "what is the process for" from the material the business has actually written down, and when the answer depends on a specific record, it looks the record up rather than generalising.</li>
+                    <li><strong>Sales / CRM.</strong> The one that takes actions. It reads from Dataverse to answer questions about accounts and opportunities, and it writes back through Power Automate &mdash; updating records on request rather than making the user find the form.</li>
+                    <li><strong>Procurement.</strong> Handles supplier and purchasing questions, so the routine "who do we buy this from, and what did we agree" traffic stops landing in someone's inbox.</li>
+                    <li><strong>Reporting.</strong> Surfaces Power BI data conversationally. A question in plain English comes back as the number, instead of the user learning which report and which slicer combination produces it.</li>
+                    <li><strong>Security.</strong> Triages security questions and reports, answers the routine ones, and escalates anything that looks like a genuine incident to a human. It is explicitly not allowed to close the loop by itself.</li>
+                </ul>
+            </section>
+
+            <section id="pattern">
+                <h2>The Agent Pattern</h2>
+                <p>Every agent in the suite runs the same three-stage pattern. Naming it made the suite maintainable &mdash; adding the fifth agent was mostly a matter of deciding what went into each stage.</p>
+                <ul>
+                    <li><strong>Retrieve.</strong> Pull from grounded sources &mdash; curated internal documentation, Dataverse records, Power BI datasets. Retrieval is scoped per agent, so an agent physically cannot answer from outside its own remit. If nothing relevant comes back, the correct behaviour is to say so, not to improvise.</li>
+                    <li><strong>Reason.</strong> Interpret what the user actually asked, in their words, against what came back. This is the only stage where the model has real latitude, and it is deliberately the stage with no side effects.</li>
+                    <li><strong>Act.</strong> Where a change is needed, invoke one of a small number of predefined operations. Each one is a Power Automate flow with a fixed contract: known inputs, validated, permissioned, and logged. The agent chooses <em>which</em> action to call and with what arguments &mdash; it does not get to invent an action.</li>
+                </ul>
+                <p>The important property is that the blast radius of a reasoning mistake is bounded by the action surface, not by the model's creativity. A confused agent calls the wrong flow and fails a validation check. It cannot construct an arbitrary write.</p>
+            </section>
+
+            <section id="architecture">
+                <h2>Architecture</h2>
+                <p>Users reach the agents through the channels they already have open. Each agent retrieves from its own grounded sources and, when it needs to change something, hands off to Power Automate &mdash; which is the only component in the diagram with write access to Dataverse. The security agent has one additional path that none of the others have: out to a human.</p>
+                <div class="architecture-mockup">
+                    <svg viewBox="0 0 830 530" xmlns="http://www.w3.org/2000/svg" role="img"
+                         aria-label="Schematic of the agent suite: users reach five Copilot Studio agents through Teams and web chat; the agents retrieve from internal documentation, Dataverse records and Power BI datasets, and act through Power Automate which performs all Dataverse writes; the security agent escalates genuine incidents to a human"
+                         style="width:100%;height:auto;display:block">
+                        <defs>
+                          <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                            <path d="M 0 0 L 10 5 L 0 10 z" style="fill:var(--color-text-muted)"/>
+                          </marker>
+                        </defs>
+                        <rect x="15" y="205" width="140" height="60" rx="5" style="fill:rgba(0,168,255,0.1);stroke:var(--color-primary);stroke-width:1"/>
+                        <text x="85" y="239" text-anchor="middle" style="fill:var(--color-primary);font-size:12px;font-weight:600">Users</text>
+                        <text x="85" y="252" text-anchor="middle" style="fill:var(--color-text-secondary);font-size:11px">Teams &amp; web chat</text>
+                        <line x1="155" y1="235" x2="195" y2="235" style="stroke:var(--color-text-muted);stroke-width:1.5;fill:none" marker-end="url(#arrow)"/>
+                        <rect x="200" y="25" width="285" height="420" rx="8" style="fill:var(--color-surface);stroke:var(--color-border);stroke-width:1"/>
+                        <text x="212" y="45" style="fill:var(--color-text-muted);font-size:12px;font-weight:600">Copilot Studio</text>
+                        <rect x="215" y="60" width="255" height="48" rx="5" style="fill:rgba(0,168,255,0.1);stroke:var(--color-primary);stroke-width:1"/>
+                        <text x="342" y="88" text-anchor="middle" style="fill:var(--color-primary);font-size:12px;font-weight:600">Helpdesk agent</text>
+                        <rect x="215" y="135" width="255" height="48" rx="5" style="fill:rgba(0,168,255,0.1);stroke:var(--color-primary);stroke-width:1"/>
+                        <text x="342" y="163" text-anchor="middle" style="fill:var(--color-primary);font-size:12px;font-weight:600">Sales / CRM agent</text>
+                        <rect x="215" y="210" width="255" height="48" rx="5" style="fill:rgba(0,168,255,0.1);stroke:var(--color-primary);stroke-width:1"/>
+                        <text x="342" y="238" text-anchor="middle" style="fill:var(--color-primary);font-size:12px;font-weight:600">Procurement agent</text>
+                        <rect x="215" y="285" width="255" height="48" rx="5" style="fill:rgba(0,168,255,0.1);stroke:var(--color-primary);stroke-width:1"/>
+                        <text x="342" y="313" text-anchor="middle" style="fill:var(--color-primary);font-size:12px;font-weight:600">Reporting agent</text>
+                        <rect x="215" y="360" width="255" height="48" rx="5" style="fill:rgba(0,168,255,0.1);stroke:var(--color-primary);stroke-width:1"/>
+                        <text x="342" y="388" text-anchor="middle" style="fill:var(--color-primary);font-size:12px;font-weight:600">Security agent</text>
+                        <rect x="545" y="25" width="270" height="210" rx="8" style="fill:var(--color-surface);stroke:var(--color-border);stroke-width:1"/>
+                        <text x="557" y="45" style="fill:var(--color-text-muted);font-size:12px;font-weight:600">Grounding sources</text>
+                        <rect x="560" y="55" width="240" height="42" rx="5" style="fill:rgba(0,168,255,0.1);stroke:var(--color-primary);stroke-width:1"/>
+                        <text x="680" y="80" text-anchor="middle" style="fill:var(--color-primary);font-size:12px;font-weight:600">Internal documentation</text>
+                        <rect x="560" y="105" width="240" height="42" rx="5" style="fill:rgba(0,168,255,0.1);stroke:var(--color-primary);stroke-width:1"/>
+                        <text x="680" y="130" text-anchor="middle" style="fill:var(--color-primary);font-size:12px;font-weight:600">Dataverse records</text>
+                        <rect x="560" y="155" width="240" height="42" rx="5" style="fill:rgba(0,168,255,0.1);stroke:var(--color-primary);stroke-width:1"/>
+                        <text x="680" y="180" text-anchor="middle" style="fill:var(--color-primary);font-size:12px;font-weight:600">Power BI datasets</text>
+                        <rect x="545" y="265" width="270" height="180" rx="8" style="fill:var(--color-surface);stroke:var(--color-border);stroke-width:1"/>
+                        <text x="557" y="285" style="fill:var(--color-text-muted);font-size:12px;font-weight:600">Action layer</text>
+                        <rect x="560" y="297" width="240" height="44" rx="5" style="fill:rgba(0,168,255,0.1);stroke:var(--color-primary);stroke-width:1"/>
+                        <text x="680" y="323" text-anchor="middle" style="fill:var(--color-primary);font-size:12px;font-weight:600">Power Automate</text>
+                        <rect x="560" y="357" width="240" height="44" rx="5" style="fill:rgba(0,168,255,0.1);stroke:var(--color-primary);stroke-width:1"/>
+                        <text x="680" y="383" text-anchor="middle" style="fill:var(--color-primary);font-size:12px;font-weight:600">Dataverse &mdash; write</text>
+                        <line x1="680" y1="341" x2="680" y2="353" style="stroke:var(--color-text-muted);stroke-width:1.5;fill:none" marker-end="url(#arrow)"/>
+                        <line x1="485" y1="130" x2="541" y2="130" style="stroke:var(--color-text-muted);stroke-width:1.5;fill:none" marker-end="url(#arrow)"/>
+                        <text x="513" y="120" text-anchor="middle" style="fill:var(--color-text-secondary);font-size:11px">retrieve</text>
+                        <line x1="485" y1="355" x2="541" y2="355" style="stroke:var(--color-text-muted);stroke-width:1.5;fill:none" marker-end="url(#arrow)"/>
+                        <text x="513" y="345" text-anchor="middle" style="fill:var(--color-text-secondary);font-size:11px">act</text>
+                        <rect x="200" y="470" width="285" height="48" rx="5" style="fill:rgba(0,168,255,0.1);stroke:var(--color-primary);stroke-width:1"/>
+                        <text x="342" y="498" text-anchor="middle" style="fill:var(--color-primary);font-size:12px;font-weight:600">Human escalation</text>
+                        <line x1="343" y1="408" x2="343" y2="466" style="stroke:var(--color-text-muted);stroke-width:1.5;fill:none" marker-end="url(#arrow)"/>
+                        <text x="353" y="445" text-anchor="start" style="fill:var(--color-text-secondary);font-size:11px">escalate</text>
+                    </svg>
+                </div>
+                <p>Splitting retrieval from action is what makes the suite auditable. Everything on the retrieve path is read-only by construction, so the entire question of "what is this agent allowed to change" reduces to one list: the flows on the act path. That list is short, it is reviewable, and it does not grow unless someone deliberately grows it.</p>
+            </section>
+
+            <section id="guardrails">
+                <h2>Guardrails &amp; Escalation</h2>
+                <ul>
+                    <li><strong>No direct model writes.</strong> Every mutation goes through a Power Automate flow with a fixed contract. There is no path from a generated response straight into a record.</li>
+                    <li><strong>Narrow action surface.</strong> Each agent gets only the operations its domain needs. The reporting agent cannot write at all; the helpdesk agent cannot touch opportunities.</li>
+                    <li><strong>Scoped retrieval.</strong> Grounding sources are assigned per agent, so "out of scope" is enforced by what the agent can see rather than by asking it politely not to answer.</li>
+                    <li><strong>Human escalation.</strong> The security agent routes anything resembling a genuine incident to a person. Speed is not the goal on that path &mdash; correct handling is.</li>
+                    <li><strong>Say "I don't know".</strong> Agents are built to fail closed when retrieval comes back empty. A confident wrong answer costs far more trust than an honest miss, and trust is what decides whether people keep using it in week three.</li>
+                </ul>
+            </section>
+
+            <section id="technologies">
+                <h2>Technologies</h2>
+                <div class="detail-tech-tags">
+                    <span class="tag">Copilot Studio</span>
+                    <span class="tag">Dataverse</span>
+                    <span class="tag">Power Automate</span>
+                    <span class="tag">Power BI</span>
+                    <span class="tag">Power Platform</span>
+                    <span class="tag">Dynamics 365 CE</span>
+                </div>
+            </section>
+
+            <section id="results">
+                <h2>Results &amp; Impact</h2>
+                <div class="metric-grid">
+                    <div class="metric-card">
+                        <span class="value">5</span>
+                        <span class="label">Agents in production</span>
+                    </div>
+                    <div class="metric-card">
+                        <span class="value">5</span>
+                        <span class="label">Business areas covered</span>
+                    </div>
+                    <div class="metric-card">
+                        <span class="value">Daily</span>
+                        <span class="label">Active business use</span>
+                    </div>
+                    <div class="metric-card">
+                        <span class="value">0</span>
+                        <span class="label">Direct model writes</span>
+                    </div>
+                </div>
+                <p>The measure I care about is not accuracy on a test set &mdash; it is that these are open on people's screens on an ordinary Tuesday. Agents that survive contact with real users are the ones that are honest about their limits and boring about their permissions.</p>
+                <p>The pattern turned out to be the reusable part. Once retrieve &rarr; reason &rarr; act was established with the first agent, the remaining four were largely a question of choosing grounding sources and defining an action surface &mdash; which is exactly the shape you want, because it means the security properties are inherited rather than re-argued every time.</p>
+            </section>
+            <!-- CTA -->
+            <section id="cta">
+                <div class="cta-box">
+                    <h2>Get in Touch</h2>
+                    <p>Building agents on the Power Platform, or trying to get one past a pilot? I am happy to talk it through.</p>
+                    <a href="../contact.html" class="btn">Get in Touch &rarr;</a>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="project-footer">
+        <p>&copy; <span id="year"></span> Seun Ogunwande. All rights reserved.</p>
+        <p><a href="../index.html">Back to Portfolio</a> | <a href="../privacy-policy.html">Privacy Policy</a></p>
+    </footer>
+
+    <script>
+  var themeBtn = document.querySelector('.theme-toggle');
+  if (themeBtn) {
+    themeBtn.addEventListener('click', function() {
+      document.body.classList.toggle('light-theme');
+      localStorage.setItem('theme', document.body.classList.contains('light-theme') ? 'light' : 'dark');
+    });
+  }
+        document.getElementById('year').textContent = new Date().getFullYear();
+        document.querySelectorAll('.sidebar-link').forEach(link => {
+            link.addEventListener('click', e => {
+                e.preventDefault();
+                const target = document.querySelector(link.getAttribute('href'));
+                if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
+        const sections = document.querySelectorAll('.project-content section[id]');
+        const sidebarLinks = document.querySelectorAll('.sidebar-link');
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                if (window.pageYOffset >= section.offsetTop - 100) current = section.id;
+            });
+            sidebarLinks.forEach(link => {
+                link.classList.toggle('active', link.getAttribute('href') === '#' + current);
+            });
+        });
+    </script>
+    <script src="../js/consent.js"></script>
+    <script src="../js/chatbot.js"></script>
+
+</body>
+</html>

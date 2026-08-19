@@ -28,7 +28,7 @@ This directory is for storing images used throughout the portfolio website.
 - **Purpose**: Visual representation of each project
 - **Projects**:
   1. CRM Data Integration System - Consider showing a dashboard or integration diagram
-  2. Automated Document Management - Show DocuSign + SharePoint interface
+  2. Automated Document Management - Show E-signature + SharePoint interface
   3. Engineer Appointment Validation System - Display validation interface
   4. Billing API Data Sync Workflow - Show workflow diagram or monitoring dashboard
 
