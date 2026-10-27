@@ -785,17 +785,6 @@ body.light-theme .icon-moon { display: none; }
   color: var(--color-primary);
 }
 
-.cert-status {
-  display: inline-block;
-  margin-bottom: var(--spacing-xs);
-  padding: 2px var(--spacing-xs);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-sm);
-  font-size: var(--font-size-xs);
-  font-weight: 600;
-  color: var(--color-text-muted);
-}
-
 .cert-card-meta {
   font-size: var(--font-size-sm);
   color: var(--color-text-secondary);
